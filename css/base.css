@@ -4,10 +4,3 @@ body {
     background-color:#333333;
     font-family:monospace;
 }
-
-#container {
-    /* css that effects the container holding main. */
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
