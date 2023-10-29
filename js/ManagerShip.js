@@ -36,7 +36,6 @@ class ManagerShip {
         //has to be at end as could remove the target resource
         if(ship.overlaps(ship.targetResource)){
             if(ship.targetResource.metal>0){
-                console.log(ship.targetResource.metal)
                 ship.targetResource.metal--
                 data.metals++;
             } else {

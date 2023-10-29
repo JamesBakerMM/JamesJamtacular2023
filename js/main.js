@@ -14,7 +14,7 @@ function setup(){
     prevTime = new Date().getTime();
     data.setup();
     new Canvas(1600, 900);
-    //menu.setup();
+    menu.setup(data); //pass data so menu can do its bindings
 }
 
 function draw(){

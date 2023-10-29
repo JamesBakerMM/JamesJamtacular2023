@@ -31,7 +31,7 @@ class ObjectFactory {
         let obj = this.createObject(x, y);
         obj.image = this.getImageByID("crystal");
         obj.scale = 0.35;
-        obj.metal=3;
+        obj.metal=5;
         return obj;
     }
 

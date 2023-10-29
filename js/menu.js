@@ -12,22 +12,19 @@ class Menu {
         //prep the properties
         this.btns = {
             control: {
-                main: null,
-                optOne: null,
-                optTwo: null,
+                main: null
             },
-            main: [],
-            optOne: [],
-            optTwo: [],
+            main: []
         };
     }
+
     preload() {}
-    setup() {
+
+    setup(data) {
         this.makeControlButtons();
-        this.makeMainButtons();
-        this.makeOptOneButtons();
-        this.makeOptTwoButtons();
+        this.makeMainButtons(data);
     }
+
     makeControlButtons(){
         let offset_x=this.x+10;
         let offset_y=this.y+0;
@@ -49,13 +46,21 @@ class Menu {
             ()=>{this.current=2}
         );
     }
+
     makeMainButtons(){
         //main buttons
         let offset_y=this.y+40;
         this.btns.main.push(
             this.makeButton(
                 this.x,offset_y,
-                "fart "
+                "drone",
+                ()=>{
+                    data.ships.push(
+                        data.factory.createDrone(
+                            900+random(-180,180), 450+random(-180,180)
+                        )
+                    )
+                }
             )
         )
         offset_y+=40;
@@ -73,56 +78,7 @@ class Menu {
             )
         )
     }
-    makeOptOneButtons(){
-        //main buttons
-        let offset_y=this.y+40;
-        this.btns.optOne.push(
-            this.makeButton(
-                this.x,offset_y,
-                "fart "
-            )
-        )
-        offset_y+=40;
-        this.btns.optOne.push(
-            this.makeButton(
-                this.x,offset_y,
-                "fart2 "
-            )
-        )
 
-    }
-    makeOptTwoButtons(){
-        //main buttons
-        let offset_y=this.y+40;
-        this.btns.optTwo.push(
-            this.makeButton(
-                this.x,offset_y,
-                "fart "
-            )
-        )
-        offset_y+=40;
-        this.btns.optTwo.push(
-            this.makeButton(
-                this.x,offset_y,
-                "fart2 "
-            )
-        )
-        offset_y+=40;
-        this.btns.optTwo.push(
-            this.makeButton(
-                this.x,offset_y,
-                "fart3 "
-            )
-        )
-        offset_y+=40;
-        this.btns.optTwo.push(
-            this.makeButton(
-                this.x,offset_y,
-                "fart4 "
-            )
-        )
-        
-    }
     makeButton(
         x=0,
         y=0,
@@ -134,18 +90,22 @@ class Menu {
         tempButton.mouseClicked(func);
         return tempButton;
     }
+
     hide(btns){
         for(let btn of btns){
             btn.hide();
         }
     }
+
     show(btns){
         for(let btn of btns){
             btn.show();
         }
     }
+
     draw() {
         push();
+        
         noStroke();
         fill(50+77*this.current);
         rect(this.x,this.y,this.w,this.h);
