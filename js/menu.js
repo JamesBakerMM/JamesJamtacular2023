@@ -13,16 +13,22 @@ class Menu {
         this.btns = {
             control: {
                 main: null,
-                side: null,
-                otherSide: null,
+                optOne: null,
+                optTwo: null,
             },
             main: [],
-            side: [],
-            otherSide: [],
+            optOne: [],
+            optTwo: [],
         };
     }
     preload() {}
     setup() {
+        this.makeControlButtons();
+        this.makeMainButtons();
+        this.makeOptOneButtons();
+        this.makeOptTwoButtons();
+    }
+    makeControlButtons(){
         let offset_x=this.x+10;
         let offset_y=this.y+0;
         this.btns.control.main = this.makeButton(
@@ -31,18 +37,17 @@ class Menu {
             ()=>{this.current=0}
         );
         offset_x+=50;
-        this.btns.control.side = this.makeButton(
+        this.btns.control.optOne = this.makeButton(
             offset_x,offset_y,
             "Opt 1",
             ()=>{this.current=1}
         );
         offset_x+=50;
-        this.btns.control.side = this.makeButton(
+        this.btns.control.optOne = this.makeButton(
             offset_x,offset_y,
             "Opt 2",
             ()=>{this.current=2}
         );
-        this.makeMainButtons();
     }
     makeMainButtons(){
         //main buttons
@@ -68,6 +73,56 @@ class Menu {
             )
         )
     }
+    makeOptOneButtons(){
+        //main buttons
+        let offset_y=this.y+40;
+        this.btns.optOne.push(
+            this.makeButton(
+                this.x,offset_y,
+                "fart "
+            )
+        )
+        offset_y+=40;
+        this.btns.optOne.push(
+            this.makeButton(
+                this.x,offset_y,
+                "fart2 "
+            )
+        )
+
+    }
+    makeOptTwoButtons(){
+        //main buttons
+        let offset_y=this.y+40;
+        this.btns.optTwo.push(
+            this.makeButton(
+                this.x,offset_y,
+                "fart "
+            )
+        )
+        offset_y+=40;
+        this.btns.optTwo.push(
+            this.makeButton(
+                this.x,offset_y,
+                "fart2 "
+            )
+        )
+        offset_y+=40;
+        this.btns.optTwo.push(
+            this.makeButton(
+                this.x,offset_y,
+                "fart3 "
+            )
+        )
+        offset_y+=40;
+        this.btns.optTwo.push(
+            this.makeButton(
+                this.x,offset_y,
+                "fart4 "
+            )
+        )
+        
+    }
     makeButton(
         x=0,
         y=0,
@@ -91,21 +146,21 @@ class Menu {
     }
     draw() {
         push();
-
+        noStroke();
         fill(50+77*this.current);
         rect(this.x,this.y,this.w,this.h);
         if (this.current === MAIN_MENU) {
             this.show(this.btns.main);
-            //hide all btns
-            //show main buttons
+            this.hide(this.btns.optOne);
+            this.hide(this.btns.optTwo);
         } else if (this.current === SIDE_MENU) {
             this.hide(this.btns.main);
-            //hide all btns
-            //show main buttons
+            this.show(this.btns.optOne);
+            this.hide(this.btns.optTwo);
         } else if (this.current === OTHER_SIDE_MENU) {
             this.hide(this.btns.main);
-            //hide all btns
-            //show main buttons
+            this.hide(this.btns.optOne);
+            this.show(this.btns.optTwo);
         }
 
         pop();
