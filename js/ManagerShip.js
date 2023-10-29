@@ -16,7 +16,7 @@ class ManagerShip {
 
     doDroneAI(timepassed, data, ship) {
         //Insert Code or function here to handle drones each frame
-        if (ship.targetResource == null) {
+        if (ship.targetResource == null || ship.targetResource==undefined ||ship.targetResource.removed) {
             ship.targetResource = data.getClosestResource(ship.x, ship.y);
             console.log("new target resource is",ship.targetResource)
         }
