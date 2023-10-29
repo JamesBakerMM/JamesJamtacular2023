@@ -19,6 +19,8 @@ class ManagerShip {
         if (ship.targetResource == null) {
             ship.targetResource = data.getClosestResource(ship.x, ship.y);
         }
+        //check if is overlapping targetResource
+            //if it is decrement resource by 1
         ship.moveTimer += timepassed;
         if (ship.moveTimer > 2000) {
             ship.moveTimer -= 2000;
@@ -29,6 +31,18 @@ class ManagerShip {
         } else {
             ship.x = ship.targetResource.x;
             ship.y = ship.targetResource.y;
+        }
+
+        //has to be at end as could remove the target resource
+        if(ship.overlaps(ship.targetResource)){
+            if(ship.targetResource.metal>0){
+                console.log(ship.targetResource.metal)
+                ship.targetResource.metal--
+                data.metals++;
+            } else {
+                ship.targetResource.remove();
+                ship.targetResource=null;
+            }
         }
     }
 }

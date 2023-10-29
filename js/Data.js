@@ -1,9 +1,9 @@
 class Data {
     constructor() { 
         this.factory = new ObjectFactory();
-
-        this.ships = new Array();
-        this.resources = new Array();
+        this.metals=0; // move to player later
+        this.ships;  //will be group in setup
+        this.resources; //will be group in setup
 
         this.managerShip = new ManagerShip();
     }
@@ -16,7 +16,8 @@ class Data {
     * This is called at the start of the game to build the level
     */
     setup() {
-
+        this.ships = new Group();
+        this.resources = new Group();
         for (let i = 0; i < 20; i++) {
             let x = Math.random() * 1600;
             let y = Math.random() * 900;
