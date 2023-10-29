@@ -40,10 +40,10 @@ class Data {
         let distance = 0;
         for (let i = 0; i < this.resources.length; i++) {
             let res = this.resources[i];
-            let dist = Utility.getDistance(x, y, res.x, res.y);
-            if (dist < distance || index < 0) {
+            let distToResource = dist(x, y, res.x, res.y);
+            if (distToResource < distance || index < 0) {
                 index = i;
-                distance = dist;
+                distance = distToResource;
             }
         }
         return this.resources[index];
