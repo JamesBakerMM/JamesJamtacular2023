@@ -15,13 +15,11 @@ class ManagerShip {
     }
 
     doDroneAI(timepassed, data, ship) {
-        //Insert Code or function here to handle drones each frame
-        if (ship.targetResource == null || ship.targetResource==undefined ||ship.targetResource.removed) {
+        //have to check for at least null and .removed, otherwise can end up in states where drone never fetches a new resource if another drone finished off the same target resource
+        if (ship.targetResource == null || ship.targetResource==undefined || ship.targetResource.removed) {
             ship.targetResource = data.getClosestResource(ship.x, ship.y);
-            console.log("new target resource is",ship.targetResource)
         }
-        //check if is overlapping targetResource
-            //if it is decrement resource by 1
+        //timed action code
         ship.moveTimer += timepassed;
         if (ship.moveTimer > 2000) {
             ship.moveTimer -= 2000;
@@ -30,7 +28,6 @@ class ManagerShip {
             ship.x = ship.originalPosition.x;
             ship.y = ship.originalPosition.y;
         } else {
-            console.log("going to",ship.targetResource.idNum)
             ship.x = ship.targetResource.x;
             ship.y = ship.targetResource.y;
         }

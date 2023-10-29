@@ -34,17 +34,7 @@ class Menu {
             ()=>{this.current=0}
         );
         offset_x+=50;
-        this.btns.control.optOne = this.makeButton(
-            offset_x,offset_y,
-            "Opt 1",
-            ()=>{this.current=1}
-        );
-        offset_x+=50;
-        this.btns.control.optOne = this.makeButton(
-            offset_x,offset_y,
-            "Opt 2",
-            ()=>{this.current=2}
-        );
+
     }
 
     makeMainButtons(){
@@ -64,19 +54,7 @@ class Menu {
             )
         )
         offset_y+=40;
-        this.btns.main.push(
-            this.makeButton(
-                this.x,offset_y,
-                "fart2 "
-            )
-        )
-        offset_y+=40;
-        this.btns.main.push(
-            this.makeButton(
-                this.x,offset_y,
-                "fart3 "
-            )
-        )
+
     }
 
     makeButton(
@@ -103,26 +81,17 @@ class Menu {
         }
     }
 
-    draw() {
+    draw(data) {
         push();
-        
         noStroke();
         fill(50+77*this.current);
         rect(this.x,this.y,this.w,this.h);
         if (this.current === MAIN_MENU) {
             this.show(this.btns.main);
-            this.hide(this.btns.optOne);
-            this.hide(this.btns.optTwo);
-        } else if (this.current === SIDE_MENU) {
-            this.hide(this.btns.main);
-            this.show(this.btns.optOne);
-            this.hide(this.btns.optTwo);
-        } else if (this.current === OTHER_SIDE_MENU) {
-            this.hide(this.btns.main);
-            this.hide(this.btns.optOne);
-            this.show(this.btns.optTwo);
         }
-
+        fill("black");
+        textSize(32);
+        text(`🪨${data.metals}`,this.x+20,this.y+300);
         pop();
     }
 }

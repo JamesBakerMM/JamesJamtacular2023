@@ -18,7 +18,8 @@ function setup(){
     menu.setup(data); //pass data so menu can do its bindings
 }
 
-function draw(){
+function draw(){    
+    background(25)
     let newTime = new Date().getTime();
 	let msPassed = newTime - prevTime;
 	prevTime = newTime;
@@ -26,8 +27,8 @@ function draw(){
 	if (msPassed < 1) {
 		msPassed = 1;
 	}
-
+    menu.draw(data);
     data.update(msPassed);
-    background(25)
+
     //menu.draw();
 }
