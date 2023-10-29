@@ -1,27 +1,32 @@
 "use strict";
 
-let objectsToDraw = new Array();
-
+const data = new Data();
 const menu = new Menu();
-const factory = new ObjectFactory();
+
+var prevTime = 0;
+
 function preload(){
+    data.preload();
     menu.preload();
-    factory.preload();
 }
 
 function setup(){
+    prevTime = new Date().getTime();
+    data.setup();
     new Canvas(1600, 900);
     //menu.setup();
-
-    for (let i = 0; i < 20; i++) {
-        let x = Math.random() * 1600;
-        let y = Math.random() * 900;
-        objectsToDraw.push(factory.createResource(x, y, 100));
-    }
-    
 }
 
 function draw(){
-    background(125)
+    let newTime = new Date().getTime();
+	let msPassed = newTime - prevTime;
+	prevTime = newTime;
+
+	if (msPassed < 1) {
+		msPassed = 1;
+	}
+
+    data.update(msPassed);
+    background(25)
     //menu.draw();
 }
