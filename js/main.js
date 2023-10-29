@@ -3,6 +3,7 @@
 const data = new Data();
 const menu = new Menu();
 
+
 var prevTime = 0;
 
 function preload(){

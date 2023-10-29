@@ -18,6 +18,7 @@ class ManagerShip {
         //Insert Code or function here to handle drones each frame
         if (ship.targetResource == null) {
             ship.targetResource = data.getClosestResource(ship.x, ship.y);
+            console.log("new target resource is",ship.targetResource)
         }
         //check if is overlapping targetResource
             //if it is decrement resource by 1
@@ -29,6 +30,7 @@ class ManagerShip {
             ship.x = ship.originalPosition.x;
             ship.y = ship.originalPosition.y;
         } else {
+            console.log("going to",ship.targetResource.idNum)
             ship.x = ship.targetResource.x;
             ship.y = ship.targetResource.y;
         }
@@ -40,7 +42,7 @@ class ManagerShip {
                 data.metals++;
             } else {
                 ship.targetResource.remove();
-                ship.targetResource=null;
+                ship.targetResource = data.getClosestResource(ship.x, ship.y); //new target
             }
         }
     }

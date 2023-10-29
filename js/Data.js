@@ -37,17 +37,16 @@ class Data {
     }
 
     getClosestResource(x, y) {
-        let index = -1;
-        let distance = 0;
-        for (let i = 0; i < this.resources.length; i++) {
-            let res = this.resources[i];
-            let distToResource = dist(x, y, res.x, res.y);
-            if (distToResource < distance || index < 0) {
-                index = i;
-                distance = distToResource;
+        let currentResource=this.resources[0];
+        let distance=dist(x,y,currentResource.x,currentResource.y);
+        for(let resource of this.resources){
+            let distToResource=dist(x,y,resource.x,resource.y);
+            if(distToResource<distance){
+                distance=distToResource
+                currentResource=resource;
             }
         }
-        return this.resources[index];
+        return currentResource
     }
 }
 
