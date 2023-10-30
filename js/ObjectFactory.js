@@ -5,7 +5,7 @@ class ObjectFactory {
 
     preload() {
         this.images.push({id: "crystal", path: "assets/img/crystal.png"})
-        this.images.push({id: "refinery", path: "assets/img/battleship.png"})
+        this.images.push({id: "refinery", path: "assets/img/refinery.png"})
         this.images.push({id: "drone", path: "assets/img/drone.png"})
         this.images.push({id: "laser", path: "assets/img/laser.png"})
         this.images.push({id: "torpedo", path: "assets/img/torpedo.png"})
@@ -43,7 +43,7 @@ class ObjectFactory {
         let obj = this.createObject(x, y);
         obj.image = this.getImageByID("refinery");
         obj.vel.x = 0.2;
-        obj.scale = 2;
+        obj.scale=1.2
         return obj;
     }
 
@@ -59,6 +59,7 @@ class ObjectFactory {
         obj.originalPosition = {x: x, y: y};
         obj.targetResource = null;
         obj.moveTimer = 0;
+        obj.metal=0;
         return obj;
     }
 

@@ -37,6 +37,8 @@ class ManagerShip {
         if (ship.moveTimer < 1000) {
             ship.rotateTo(data.refinery);
             ship.moveTowards(data.refinery,0.1);
+            data.metals+=ship.metal;
+            ship.metal=0;
         } else {
             //ship.x = ship.targetResource.x;
             //ship.y = ship.targetResource.y;
@@ -49,7 +51,7 @@ class ManagerShip {
         if (ship.overlaps(ship.targetResource)) {
             if (ship.targetResource.metal > 0) {
                 ship.targetResource.metal--;
-                data.metals++;
+                ship.metal++;
             } else {
                 ship.targetResource.remove();
                 ship.targetResource = data.getClosestResource(ship.x, ship.y); //new target
