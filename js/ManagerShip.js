@@ -11,11 +11,11 @@ class ManagerShip {
             if (ship.type === "laser") {
                 this.doLaserAI(timepassed, data, ship);
             }
-            if (ship.type === "Torpedo") {
+            if (ship.type === "torpedo") {
                 this.doTorpedoAI(timepassed, data, ship);
             }
-            if (ship.type === "ballistic") {
-                this.doBallisticAI(timepassed, data, ship);
+            if (ship.type === "gun") {
+                this.doGunAI(timepassed, data, ship);
             }
         }
     }
@@ -40,6 +40,7 @@ class ManagerShip {
         } else {
             ship.x = ship.targetResource.x;
             ship.y = ship.targetResource.y;
+            //ship.moveTowards(targetResource);
         }
 
         //has to be at end as could remove the target resource
@@ -57,6 +58,6 @@ class ManagerShip {
     }
     doTorpedoAI(timepassed, data, ship) {
     }
-    doBallisticAI(timepassed, data, ship) {
+    doGunAI(timepassed, data, ship) {
     }
 }

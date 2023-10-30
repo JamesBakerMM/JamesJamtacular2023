@@ -9,7 +9,7 @@ class ObjectFactory {
         this.images.push({id: "drone", path: "assets/img/drone.png"})
         this.images.push({id: "laser", path: "assets/img/laser.png"})
         this.images.push({id: "torpedo", path: "assets/img/bombers.png"})
-        this.images.push({id: "ballistic", path: "assets/img/destroyer.png"})
+        this.images.push({id: "gun", path: "assets/img/destroyer.png"})
 
         for(let img of this.images) {
             img.image = loadImage(img.path);
@@ -79,9 +79,9 @@ class ObjectFactory {
         return obj
     }
 
-    createBallistic(x,y){
-        let obj = this.createShip(x, y, "ballistic");
-        obj.image = this.getImageByID("ballistic");
+    createGun(x,y){
+        let obj = this.createShip(x, y, "gun");
+        obj.image = this.getImageByID("gun");
         obj.scale = 2;
         obj.selected = false;
         obj.originalPosition = {x: x, y: y};
