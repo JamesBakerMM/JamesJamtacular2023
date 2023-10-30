@@ -42,6 +42,7 @@ class ObjectFactory {
     createRefinery(x, y) {
         let obj = this.createObject(x, y);
         obj.image = this.getImageByID("refinery");
+        obj.vel.x = 0.2;
         obj.scale = 2;
         return obj;
     }
@@ -73,6 +74,7 @@ class ObjectFactory {
     createTorpedo(x,y){
         let obj = this.createShip(x, y, "torpedo");
         obj.image = this.getImageByID("torpedo");
+        obj.diameter=obj.image.h-10;
         obj.scale = 2;
         obj.selected = false;
         obj.originalPosition = {x: x, y: y};
