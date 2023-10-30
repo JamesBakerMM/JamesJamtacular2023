@@ -6,7 +6,7 @@ class ObjectFactory {
     preload() {
         this.images.push({id: "crystal", path: "assets/img/crystal.png"})
         this.images.push({id: "refinery", path: "assets/img/battleship.png"})
-        this.images.push({id: "drone", path: "assets/img/drone_smol.png"})
+        this.images.push({id: "drone", path: "assets/img/drone.png"})
         this.images.push({id: "laser", path: "assets/img/cruiser.png"})
         this.images.push({id: "torpedo", path: "assets/img/bombers.png"})
         this.images.push({id: "ballistic", path: "assets/img/destroyer.png"})
@@ -27,7 +27,7 @@ class ObjectFactory {
 
     createObject(x, y) {
         let obj = new Sprite(x, y);
-        obj.debug = true;
+        // obj.debug = true;
         return obj;
     }
 
