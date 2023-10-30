@@ -36,6 +36,8 @@ class ObjectFactory {
         obj.image = this.getImageByID("crystal");
         obj.scale = 0.35;
         obj.metal=5;
+        obj.textSize=34;
+        obj.text = obj.metal;
         return obj;
     }
 

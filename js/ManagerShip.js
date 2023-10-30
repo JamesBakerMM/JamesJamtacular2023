@@ -52,6 +52,7 @@ class ManagerShip {
             if (ship.targetResource.metal > 0) {
                 ship.targetResource.metal--;
                 ship.metal++;
+                ship.targetResource.text=ship.targetResource.metal;
             } else {
                 ship.targetResource.remove();
                 ship.targetResource = data.getClosestResource(ship.x, ship.y); //new target
