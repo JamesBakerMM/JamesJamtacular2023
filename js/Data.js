@@ -3,6 +3,7 @@ class Data {
         this.factory = new ObjectFactory();
         this.metals=0; // move to player later
         this.ships;  //will be group in setup
+        this.refinery = null;
         this.resources; //will be group in setup
 
         this.managerShip = new ManagerShip();
@@ -24,7 +25,10 @@ class Data {
             this.resources.push(this.factory.createResource(x, y, 100));
         }
 
-        this.ships.push(this.factory.createRefinery(800, 450));
+        this.refinery = this.factory.createRefinery(800, 450)
+        this.refinery.mass = 300;
+        this.refinery.overlaps(this.ships);
+        this.ships.push(this.refinery);
         this.ships.push(this.factory.createDrone(900, 450));
         this.ships.push(this.factory.createDrone(700, 450));
     }

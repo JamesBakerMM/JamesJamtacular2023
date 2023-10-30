@@ -35,12 +35,14 @@ class ManagerShip {
             ship.moveTimer -= 2000;
         }
         if (ship.moveTimer < 1000) {
-            ship.x = ship.originalPosition.x;
-            ship.y = ship.originalPosition.y;
+            ship.rotateTo(data.refinery);
+            ship.moveTowards(data.refinery,0.1);
         } else {
-            ship.x = ship.targetResource.x;
-            ship.y = ship.targetResource.y;
-            //ship.moveTowards(targetResource);
+            //ship.x = ship.targetResource.x;
+            //ship.y = ship.targetResource.y;
+            //TODO: MAKE SHIP ROTATE FULLY BEFORE MOVING
+            ship.rotateTo(ship.targetResource);
+            ship.moveTowards(ship.targetResource,0.1);
         }
 
         //has to be at end as could remove the target resource
