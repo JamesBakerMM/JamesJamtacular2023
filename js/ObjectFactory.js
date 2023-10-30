@@ -8,7 +8,7 @@ class ObjectFactory {
         this.images.push({id: "refinery", path: "assets/img/battleship.png"})
         this.images.push({id: "drone", path: "assets/img/drone.png"})
         this.images.push({id: "laser", path: "assets/img/laser.png"})
-        this.images.push({id: "torpedo", path: "assets/img/bombers.png"})
+        this.images.push({id: "torpedo", path: "assets/img/torpedo.png"})
         this.images.push({id: "gun", path: "assets/img/destroyer.png"})
 
         for(let img of this.images) {
