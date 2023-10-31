@@ -42,7 +42,7 @@ class ObjectFactory {
     }
 
     createRefinery(x, y) {
-        let obj = this.createObject(x, y);
+        let obj = this.createShip(x, y, "refinery");
         obj.image = this.getImageByID("refinery");
         obj.vel.x = 0.2;
         // obj.scale=2
