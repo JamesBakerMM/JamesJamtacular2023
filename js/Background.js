@@ -15,8 +15,9 @@ class Background {
         this.visuals.dust = loadImage("./assets/img/bg_dust.png");
     }
     setup() {
-        this.props.push( new Prop(0,0,this.visuals.stars,FAR_BACKGROUND) );
-        this.props.push( new Prop(0,0,this.visuals.dust,FAR_BACKGROUND) ); 
+        this.addProp( new Prop(0,0,this.visuals.stars,FAR_BACKGROUND) );
+        this.addProp( new Prop(0,0,this.visuals.dust,BACKGROUND) ); 
+        this.sortByLayer();
     }
     update() {
         for (let prop of this.props) {
@@ -34,7 +35,7 @@ class Background {
             throw Error("oi that's not a prop! >:|")
         }
         //search to find the end of the relevant layer in this.props, insert it there, so we don't have to resort the entire array every addition
-        this.props=prop; //temp
+        this.props.push(prop); //temp
     }
 }
 
