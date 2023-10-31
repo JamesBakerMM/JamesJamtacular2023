@@ -3,6 +3,10 @@ class Data {
         this.factory = new ObjectFactory();
         this.metals=0; // move to player later
         this.ships;  //will be group in setup
+        this.drones;
+        this.laser;
+        this.gun;
+        this.torpedo;
         this.refinery = null;
         this.resources; //will be group in setup
 
@@ -18,6 +22,11 @@ class Data {
     */
     setup() {
         this.ships = new Group();
+        this.drones = new this.ships.Group();
+        this.laser = new this.ships.Group();
+        this.gun = new this.ships.Group();
+        this.torpedo = new this.ships.Group();
+
         this.resources = new Group();
         for (let i = 0; i < 20; i++) {
             let x = Math.random() * 1600;
@@ -29,8 +38,8 @@ class Data {
         this.refinery.mass = 300;
         this.refinery.overlaps(this.ships);
         this.ships.push(this.refinery);
-        this.ships.push(this.factory.createDrone(900, 450));
-        this.ships.push(this.factory.createDrone(700, 450));
+        this.drones.push(this.factory.createDrone(900, 450));
+        this.drones.push(this.factory.createDrone(700, 450));
     }
 
     /*

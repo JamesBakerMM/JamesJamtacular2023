@@ -44,7 +44,7 @@ class Menu {
         let offset_y = this.y + 40;
         this.btns.main.push(
             this.makeButton(this.x, offset_y, "drone", () => {
-                data.ships.push(
+                data.drones.push(
                     data.factory.createDrone(
                         900 + random(-180, 180),
                         450 + random(-180, 180)
@@ -56,7 +56,7 @@ class Menu {
 
         this.btns.main.push(
             this.makeButton(this.x, offset_y, "laser", () => {
-                data.ships.push(
+                data.laser.push(
                     data.factory.createLaser(
                         900 + random(-180, 180),
                         450 + random(-180, 180)
@@ -67,7 +67,7 @@ class Menu {
         offset_y += 40;
         this.btns.main.push(
             this.makeButton(this.x, offset_y, "torpedo", () => {
-                data.ships.push(
+                data.torpedo.push(
                     data.factory.createTorpedo(
                         900 + random(-180, 180),
                         450 + random(-180, 180)
@@ -77,9 +77,9 @@ class Menu {
         );
         offset_y += 40;
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, "ballistic", () => {
-                data.ships.push(
-                    data.factory.createBallistic(
+            this.makeButton(this.x, offset_y, "gun", () => {
+                data.gun.push(
+                    data.factory.createGun(
                         900 + random(-180, 180),
                         450 + random(-180, 180)
                     )
