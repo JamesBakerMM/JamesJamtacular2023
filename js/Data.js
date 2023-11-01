@@ -28,7 +28,7 @@ class Data {
         this.torpedo = new this.ships.Group();
 
         this.resources = new Group();
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 10; i++) {
             let x = Math.random() * 1600;
             let y = Math.random() * 900;
             this.resources.push(this.factory.createResource(x, y, 100));
@@ -47,6 +47,13 @@ class Data {
     */
     update(timepassed) {
         this.managerShip.update(timepassed, this);
+
+        //MOVE LATER TO SOMEWHERE BETTER
+        if (kb.pressing("d")) {
+            for(let ship of this.ships){
+                ship.selected=false;
+            }
+        }
     }
 
     getClosestResource(x, y) {
