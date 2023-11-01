@@ -85,14 +85,14 @@ class ManagerShip {
                 }
             } else {
                 ship.targetResource = data.getClosestResource(ship.x, ship.y);
-                if (
-                        ship.targetResource == null ||
-                        ship.targetResource == undefined ||
-                        ship.targetResource.removed
-                ) {
-                    ship.targetResource = data.getClosestResource(ship.x, ship.y);
-                    this.returnToRefinery(data,ship);
-                }
+            }
+            if (
+                    ship.targetResource == null ||
+                    ship.targetResource == undefined ||
+                    ship.targetResource.removed
+            ) {
+                ship.targetResource = data.getClosestResource(ship.x, ship.y);
+                this.returnToRefinery(data,ship);
             }
 
             /*have to check for at least null and .removed, 
