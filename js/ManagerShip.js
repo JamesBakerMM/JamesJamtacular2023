@@ -49,9 +49,15 @@ class ManagerShip {
         {
             ship.moveTowards(data.refinery, 0.1);
             ship.rotation = ship.direction;
+            stroke(0,0,255);
+            line(ship.x,ship.y,data.refinery.x,data.refinery.y);
         } else if (ship.metal > 0) {
             data.metals += ship.metal;
             ship.metal = 0;
+        } else {
+            ship.vel = {x:0,y:0};
+            ship.rotation = data.refinery.rotation;
+            //ship.attractTo(data.refinery, 5);
         }
         ship.targetResource = data.getClosestResource(ship.x, ship.y);
     }
@@ -79,7 +85,12 @@ class ManagerShip {
                 }
             } else {
                 ship.targetResource = data.getClosestResource(ship.x, ship.y);
-                if (ship.targetResource === undefined) {
+                if (
+                        ship.targetResource == null ||
+                        ship.targetResource == undefined ||
+                        ship.targetResource.removed
+                ) {
+                    ship.targetResource = data.getClosestResource(ship.x, ship.y);
                     this.returnToRefinery(data,ship);
                 }
             }
