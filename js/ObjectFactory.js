@@ -1,3 +1,7 @@
+const MIN_RANGE=300;
+const MED_RANGE=500;
+const LONG_RANGE=700;
+
 class ObjectFactory {
     constructor() {
         this.images = new Array();
@@ -45,6 +49,7 @@ class ObjectFactory {
         let obj = this.createShip(x, y, "refinery");
         obj.image = this.getImageByID("refinery");
         obj.vel.x = 0.2;
+        obj.range=LONG_RANGE;
         // obj.scale=2
         return obj;
     }
@@ -71,6 +76,7 @@ class ObjectFactory {
         obj.image = this.getImageByID("laser");
         // obj.scale = 1.5;
         obj.selected = false;
+        obj.range=MIN_RANGE;
         
         return obj
     }
@@ -80,6 +86,7 @@ class ObjectFactory {
         obj.image = this.getImageByID("torpedo");
         obj.diameter=obj.image.h-10;
         // obj.scale = 2;
+        obj.range=LONG_RANGE;
         obj.selected = false;
         return obj
     }
@@ -89,6 +96,7 @@ class ObjectFactory {
         obj.image = this.getImageByID("gun");
         // obj.scale = 2;
         obj.selected = false;
+        obj.range=MED_RANGE;
         return obj
     }
 }

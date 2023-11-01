@@ -27,6 +27,10 @@ class ManagerShip {
             if (ship.type === "gun") {
                 this.doGunAI(timepassed, data, ship);
             }
+
+            if(ship.selected){
+                this.drawRange(ship);
+            }
         }
     }
     doRefineryAI(timepassed, data, ship) {
@@ -176,5 +180,12 @@ class ManagerShip {
         //     dist(ship.x,ship.y,ship.targetPos.x,ship.targetPos.y) <=> (ship.img.width * ship_counter)) {
         //         ship.vel = {x:0,y:0};
         // }
+    }
+    drawRange(ship){
+        push(); //scope control drawstate
+            noFill();
+            stroke(255,255,255,100);
+            ellipse(ship.x,ship.y,ship.range);
+        pop();
     }
 }
