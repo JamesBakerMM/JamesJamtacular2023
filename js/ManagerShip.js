@@ -3,6 +3,8 @@ const LASER_BINDING = 2;
 const GUN_BINDING = 3;
 const TORPEDO_BINDING = 4;
 
+let ship_counter = 0;
+
 class ManagerShip {
     constructor() {}
 
@@ -10,9 +12,7 @@ class ManagerShip {
 
     update(timepassed, data) {
         for (let ship of data.ships) {
-            console.log(ship.type)
             if (ship.type === "refinery") {
-                console.log("REFINERY")
                 this.doRefineryAI(timepassed, data, ship);
             }
             if (ship.type === "drone") {
@@ -85,10 +85,14 @@ class ManagerShip {
         this.mouseControls(ship);
     }
     selection(ship, binding) {
+        
         if (kb.pressing(binding)) {
             for (let shipToBeDeselected of data.ships) {
                 if (shipToBeDeselected.type !== ship.type) {
                     shipToBeDeselected.selected = false;
+                    ship_counter--;
+                } else {
+                    ship_counter++;
                 }
             }
             ship.selected = true;
@@ -101,9 +105,21 @@ class ManagerShip {
         }
     }
     mouseControls(ship) {
-        ship.rotation = ship.direction;
-        if (ship.selected) {
-            ship.moveTowards(mouse, 0.01);
+        if (mouse.pressed("left") && ship.selected) {
+            ship.targetPos = {x:mouseX, y:mouseY};
         }
+        ship.rotation = ship.direction;
+        //if (ship.selected) {
+            if (dist(ship.x,ship.y,ship.targetPos.x,ship.targetPos.y) > (ship.img.width)) {
+                ship.moveTowards(ship.targetPos, 0.01);
+            } else {
+                ship.vel = {x:0,y:0};
+            }
+        //} 
+                
+        //  else if (ship.selected && 
+        //     dist(ship.x,ship.y,ship.targetPos.x,ship.targetPos.y) <=> (ship.img.width * ship_counter)) {
+        //         ship.vel = {x:0,y:0};
+        // }
     }
 }

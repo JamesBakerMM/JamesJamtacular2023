@@ -51,6 +51,8 @@ class ObjectFactory {
 
     createShip(x, y, type) {
         let obj = this.createObject(x, y);
+        obj.originalPosition = {x: x, y: y};
+        obj.targetPos = obj.originalPosition;
         obj.type = type;
         return obj;
     }
@@ -58,7 +60,6 @@ class ObjectFactory {
     createDrone(x, y) {
         let obj = this.createShip(x, y, "drone");
         obj.image = this.getImageByID("drone");
-        obj.originalPosition = {x: x, y: y};
         obj.targetResource = null;
         obj.moveTimer = 0;
         obj.metal=0;
@@ -70,7 +71,7 @@ class ObjectFactory {
         obj.image = this.getImageByID("laser");
         // obj.scale = 1.5;
         obj.selected = false;
-        obj.originalPosition = {x: x, y: y};
+        
         return obj
     }
 
@@ -80,7 +81,6 @@ class ObjectFactory {
         obj.diameter=obj.image.h-10;
         // obj.scale = 2;
         obj.selected = false;
-        obj.originalPosition = {x: x, y: y};
         return obj
     }
 
@@ -89,7 +89,6 @@ class ObjectFactory {
         obj.image = this.getImageByID("gun");
         // obj.scale = 2;
         obj.selected = false;
-        obj.originalPosition = {x: x, y: y};
         return obj
     }
 }
