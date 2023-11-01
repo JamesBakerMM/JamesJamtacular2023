@@ -7,6 +7,8 @@ const bg = new Background();
 
 var prevTime = 0;
 
+var xOffset = 0;
+var yOffset = 0;
 
 function preload(){
     bg.preload();
@@ -23,6 +25,9 @@ function setup(){
 }
 
 function draw(){    
+
+    data.setOffset(xOffset, yOffset);
+
     background(25)
     bg.update();
     let newTime = new Date().getTime();
@@ -34,6 +39,21 @@ function draw(){
 	}
     menu.draw(data);
     data.update(msPassed);
+
+    if (kb.pressing('arrowUp')) {
+        yOffset -= msPassed / 5;
+    }
+    if (kb.pressing('arrowDown')) {
+        yOffset += msPassed / 5;
+    }
+    if (kb.pressing('arrowLeft')) {
+        xOffset -= msPassed / 5;
+    }
+    if (kb.pressing('arrowRight')) {
+        xOffset += msPassed / 5;
+    }
+    
+    data.setOffset(-xOffset, -yOffset);
 
     //menu.draw();
 }

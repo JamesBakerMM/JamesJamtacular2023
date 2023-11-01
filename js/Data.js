@@ -63,6 +63,19 @@ class Data {
         return this.resources[index];
 
     }
+
+    setOffset(x, y) {
+        for (let i = 0; i < this.resources.length; i++) {
+            let res = this.resources[i];
+            res.x += x;
+            res.y += y;
+        }
+        for (let i = 0; i < this.ships.length; i++) {
+            let ship = this.ships[i];
+            ship.x += x;
+            ship.y += y;
+        }
+    }
 }
 
 
