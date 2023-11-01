@@ -28,7 +28,7 @@ class Data {
         this.torpedo = new this.ships.Group();
 
         this.resources = new Group();
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 4; i++) {
             let x = Math.random() * 1600;
             let y = Math.random() * 900;
             this.resources.push(this.factory.createResource(x, y, 100));

@@ -40,7 +40,12 @@ class ManagerShip {
         
         
         if (dist(ship.x,ship.y,data.refinery.x,data.refinery.y) 
-                > Math.min(data.refinery.width, dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y)))
+                > Math.min(
+                    data.refinery.width, 
+                    (ship.targetResource ? dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y) 
+                        : data.refinery.width)
+                    )
+            )
         {
             ship.moveTowards(data.refinery, 0.1);
             ship.rotation = ship.direction;
@@ -48,11 +53,11 @@ class ManagerShip {
             data.metals += ship.metal;
             ship.metal = 0;
         }
+        ship.targetResource = data.getClosestResource(ship.x, ship.y);
     }
 
 
     doDroneAI(timepassed, data, ship) {
-        console.log(ship.metal);
         if (ship.metal <= 0) {
             if (ship.targetResource) {
                 stroke(255,255,0);
@@ -70,13 +75,13 @@ class ManagerShip {
                             this.returnToRefinery(data,ship);
                             ship.targetResource = data.getClosestResource(ship.x, ship.y);
                         }
-                    } //else {
-                        
-                    //      //new target
-                    // }
+                    } 
                 }
             } else {
                 ship.targetResource = data.getClosestResource(ship.x, ship.y);
+                if (ship.targetResource === undefined) {
+                    this.returnToRefinery(data,ship);
+                }
             }
 
             /*have to check for at least null and .removed, 
