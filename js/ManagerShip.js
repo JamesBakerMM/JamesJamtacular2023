@@ -33,44 +33,83 @@ class ManagerShip {
         this.selection(ship, REFINERY_BINDING);
         this.mouseControls(ship);
     }
+
+    returnToRefinery(data,ship) {
+        //TODO: ADD STATE MACHINE OF ROTATION TOWARDS REFINERY
+        //ship.rotateTo(data.refinery);
+        
+        
+        if (dist(ship.x,ship.y,data.refinery.x,data.refinery.y) 
+                > Math.min(data.refinery.width, dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y)))
+        {
+            ship.moveTowards(data.refinery, 0.1);
+            ship.rotation = ship.direction;
+        } else if (ship.metal > 0) {
+            data.metals += ship.metal;
+            ship.metal = 0;
+        }
+    }
+
+
     doDroneAI(timepassed, data, ship) {
-        //have to check for at least null and .removed, otherwise can end up in states where drone never fetches a new resource if another drone finished off the same target resource
-        if (
-            ship.targetResource == null ||
-            ship.targetResource == undefined ||
-            ship.targetResource.removed
-        ) {
-            ship.targetResource = data.getClosestResource(ship.x, ship.y);
+        console.log(ship.metal);
+        if (ship.metal <= 0) {
+            if (ship.targetResource) {
+                stroke(255,255,0);
+                line(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y);
+                ship.rotation = ship.direction;
+                ship.moveTowards(ship.targetResource, 0.1);
+                if (ship.overlaps(ship.targetResource)) {
+                    if (ship.targetResource.metal > 0) {
+                        ship.targetResource.metal--;
+                        ship.metal++;
+                        ship.targetResource.text = ship.targetResource.metal;
+                        ship.text = ship.metal;
+                        if (ship.targetResource.metal <= 0) {
+                            ship.targetResource.remove();
+                            this.returnToRefinery(data,ship);
+                            ship.targetResource = data.getClosestResource(ship.x, ship.y);
+                        }
+                    } //else {
+                        
+                    //      //new target
+                    // }
+                }
+            } else {
+                ship.targetResource = data.getClosestResource(ship.x, ship.y);
+            }
+
+            /*have to check for at least null and .removed, 
+            otherwise can end up in states where drone never 
+            fetches a new resource if another drone finished off the same target resource*/
+            // if (
+            //         ship.targetResource == null ||
+            //         ship.targetResource == undefined ||
+            //         ship.targetResource.removed
+            //     ) {
+            //     ship.targetResource = data.getClosestResource(ship.x, ship.y);
+            // }
+        } else {
+            this.returnToRefinery(data,ship);
         }
         //timed action code
         ship.moveTimer += timepassed;
-        if (ship.moveTimer > 2000) {
-            ship.moveTimer -= 2000;
-        }
-        if (ship.moveTimer < 1000) {
-            ship.rotateTo(data.refinery);
-            ship.moveTowards(data.refinery, 0.1);
-            data.metals += ship.metal;
-            ship.metal = 0;
-        } else {
-            //ship.x = ship.targetResource.x;
-            //ship.y = ship.targetResource.y;
-            //TODO: MAKE SHIP ROTATE FULLY BEFORE MOVING
-            ship.rotateTo(ship.targetResource);
-            ship.moveTowards(ship.targetResource, 0.1);
-        }
+        // if (ship.moveTimer > 2000) {
+        //     ship.moveTimer -= 2000;
+        // }
+        // if (ship.moveTimer < 1000) { //
+        //     this.returnToRefinery(data,ship);
+        // } else {
+        //     //ship.x = ship.targetResource.x;
+        //     //ship.y = ship.targetResource.y;
+        //     //TODO: MAKE SHIP ROTATE FULLY BEFORE MOVING
+        //     ship.rotation = ship.direction;
+        //     //ship.rotateTo(ship.targetResource);
+        //     ship.moveTowards(ship.targetResource, 0.1);
+        // }
 
         //has to be at end as could remove the target resource
-        if (ship.overlaps(ship.targetResource)) {
-            if (ship.targetResource.metal > 0) {
-                ship.targetResource.metal--;
-                ship.metal++;
-                ship.targetResource.text = ship.targetResource.metal;
-            } else {
-                ship.targetResource.remove();
-                ship.targetResource = data.getClosestResource(ship.x, ship.y); //new target
-            }
-        }
+        
     }
     doLaserAI(timepassed, data, ship) {
         this.selection(ship, LASER_BINDING);

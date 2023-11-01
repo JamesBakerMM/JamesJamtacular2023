@@ -39,7 +39,7 @@ class Data {
         this.refinery.overlaps(this.ships);
         this.ships.push(this.refinery);
         this.drones.push(this.factory.createDrone(900, 450));
-        this.drones.push(this.factory.createDrone(700, 450));
+        //this.drones.push(this.factory.createDrone(700, 450));
     }
 
     /*
@@ -51,11 +51,11 @@ class Data {
 
     getClosestResource(x, y) {
         let index = -1;
-        let distance = 0;
+        let distance = Number.MAX_VALUE;
         for (let i = 0; i < this.resources.length; i++) {
             let res = this.resources[i];
             let distToResource = dist(x, y, res.x, res.y);
-            if (distToResource < distance || index < 0) {
+            if (distToResource < distance) {
                 index = i;
                 distance = distToResource;
             }
