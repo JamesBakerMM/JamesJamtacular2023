@@ -31,7 +31,7 @@ class Data {
         for (let i = 0; i < 10; i++) {
             let x = Math.random() * 1600;
             let y = Math.random() * 900;
-            this.resources.push(this.factory.createResource(x, y, 100));
+            this.resources.push(this.factory.createResource(x, y, 4));
         }
 
         this.refinery = this.factory.createRefinery(800, 450)

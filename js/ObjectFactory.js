@@ -30,6 +30,12 @@ class ObjectFactory {
         }
     }
 
+    /**
+     * searches through given array for the asset we want
+     * @param {int} id 
+     * @param {array} images 
+     * @returns img or animation or null
+     */
     getByID(id,images) {
         for(let img of images) {
             if (img.id === id) {
@@ -45,13 +51,13 @@ class ObjectFactory {
         return obj;
     }
 
-    createResource(x, y, amount) {
+    createResource(x, y, amount=4) {
         let obj = this.createObject(x, y);
         console.log(this.getByID("rock",this.anims));
         obj.addAni("rock",this.getByID("rock",this.anims));
         obj.ani.stop();
         obj.scale = 2
-        obj.metal=4;
+        obj.metal=amount;
         obj.textSize=34;
         obj.text = obj.metal;
         return obj;
