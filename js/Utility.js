@@ -8,58 +8,55 @@ class Utility {
             return v2 - v1;
         }
     }
-}
-
-function safePresses(button = "left") {
-    //calculate if mouse within the menu
-    const mouseIsRightOfLeftEdge = mouseX > menu.x;
-    const mouseIsLeftOfRightEdge = mouseX < menu.x + menu.w;
-    const mouseIsBelowTopEdge = mouseY > menu.y;
-    const mouseIsAboveBottomEdge = mouseY < menu.y + menu.h;
-
-    const mouseIsInside =
-        mouseIsRightOfLeftEdge &&
-        mouseIsLeftOfRightEdge &&
-        mouseIsBelowTopEdge &&
-        mouseIsAboveBottomEdge;
-    if (mouseIsInside) {
-        return false;
+    static safePressing(button = "left") {
+        //calculate if mouse within the menu
+        const mouseIsRightOfLeftEdge = mouseX > menu.x;
+        const mouseIsLeftOfRightEdge = mouseX < menu.x + menu.w;
+        const mouseIsBelowTopEdge = mouseY > menu.y;
+        const mouseIsAboveBottomEdge = mouseY < menu.y + menu.h;
+    
+        const mouseIsInside =
+            mouseIsRightOfLeftEdge &&
+            mouseIsLeftOfRightEdge &&
+            mouseIsBelowTopEdge &&
+            mouseIsAboveBottomEdge;
+        if (mouseIsInside) {
+            return false;
+        }
+        return mouse.pressing(button);
     }
-    return mouse.presses(button);
-}
-
-function safePressing(button = "left") {
-    //calculate if mouse within the menu
-    const mouseIsRightOfLeftEdge = mouseX > menu.x;
-    const mouseIsLeftOfRightEdge = mouseX < menu.x + menu.w;
-    const mouseIsBelowTopEdge = mouseY > menu.y;
-    const mouseIsAboveBottomEdge = mouseY < menu.y + menu.h;
-
-    const mouseIsInside =
-        mouseIsRightOfLeftEdge &&
-        mouseIsLeftOfRightEdge &&
-        mouseIsBelowTopEdge &&
-        mouseIsAboveBottomEdge;
-    if (mouseIsInside) {
-        return false;
+    static safePresses(button = "left") {
+        //calculate if mouse within the menu
+        const mouseIsRightOfLeftEdge = mouseX > menu.x;
+        const mouseIsLeftOfRightEdge = mouseX < menu.x + menu.w;
+        const mouseIsBelowTopEdge = mouseY > menu.y;
+        const mouseIsAboveBottomEdge = mouseY < menu.y + menu.h;
+    
+        const mouseIsInside =
+            mouseIsRightOfLeftEdge &&
+            mouseIsLeftOfRightEdge &&
+            mouseIsBelowTopEdge &&
+            mouseIsAboveBottomEdge;
+        if (mouseIsInside) {
+            return false;
+        }
+        return mouse.presses(button);
     }
-    return mouse.pressing(button);
-}
-
-function safePressed(button = "left") {
-    //calculate if mouse within the menu
-    const mouseIsRightOfLeftEdge = mouseX > menu.x;
-    const mouseIsLeftOfRightEdge = mouseX < menu.x + menu.w;
-    const mouseIsBelowTopEdge = mouseY > menu.y;
-    const mouseIsAboveBottomEdge = mouseY < menu.y + menu.h;
-
-    const mouseIsInside =
-        mouseIsRightOfLeftEdge &&
-        mouseIsLeftOfRightEdge &&
-        mouseIsBelowTopEdge &&
-        mouseIsAboveBottomEdge;
-    if (mouseIsInside) {
-        return false;
+    static safePressed(button = "left") {
+        //calculate if mouse within the menu
+        const mouseIsRightOfLeftEdge = mouseX > menu.x;
+        const mouseIsLeftOfRightEdge = mouseX < menu.x + menu.w;
+        const mouseIsBelowTopEdge = mouseY > menu.y;
+        const mouseIsAboveBottomEdge = mouseY < menu.y + menu.h;
+    
+        const mouseIsInside =
+            mouseIsRightOfLeftEdge &&
+            mouseIsLeftOfRightEdge &&
+            mouseIsBelowTopEdge &&
+            mouseIsAboveBottomEdge;
+        if (mouseIsInside) {
+            return false;
+        }
+        return mouse.pressed(button);
     }
-    return mouse.pressed(button);
 }
