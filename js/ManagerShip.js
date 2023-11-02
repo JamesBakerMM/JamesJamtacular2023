@@ -164,7 +164,7 @@ class ManagerShip {
         }
     }
     mouseControls(ship) {
-        if (mouse.pressed("left") && ship.selected) {
+        if (safePressed("left") && ship.selected) {
             ship.targetPos = {x:mouseX, y:mouseY};
         }
         ship.rotation = ship.direction;

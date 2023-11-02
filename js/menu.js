@@ -38,7 +38,10 @@ class Menu {
     //     );
     //     offset_x += 50;
     // }
+    mouseInMenu(mouse){
+        
 
+    }
     makeMainButtons() {
         //main buttons
         let offset_y = this.y + 40;
