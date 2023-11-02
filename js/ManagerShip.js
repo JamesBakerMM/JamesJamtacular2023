@@ -76,6 +76,7 @@ class ManagerShip {
                 ship.moveTowards(ship.targetResource, 0.1);
                 if (ship.overlaps(ship.targetResource)) {
                     if (ship.targetResource.metal > 0) {
+                        ship.targetResource.ani.nextFrame();
                         ship.targetResource.metal--;
                         ship.metal++;
                         ship.targetResource.text = ship.targetResource.metal;
