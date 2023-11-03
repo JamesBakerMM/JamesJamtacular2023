@@ -7,6 +7,7 @@ class Data {
         this.laser;
         this.gun;
         this.torpedo;
+        this.bullets;
         this.refinery = null;
         this.resources; //will be group in setup
         this.background = new Background();
@@ -29,6 +30,8 @@ class Data {
         this.gun = new this.ships.Group();
         this.torpedo = new this.ships.Group();
 
+        this.bullets = new Group();
+
         this.resources = new Group();
         for (let i = 0; i < 10; i++) {
             let x = Math.random() * 1600;
@@ -42,6 +45,8 @@ class Data {
         this.ships.push(this.refinery);
         this.drones.push(this.factory.createDrone(900, 450));
         this.drones.push(this.factory.createDrone(700, 450));
+
+        this.ships.push(this.factory.createEnemyTurret(1500, 800));
 
         this.background.setup();
     }
@@ -58,6 +63,19 @@ class Data {
         if (kb.pressing("d")) {
             for(let ship of this.ships){
                 ship.selected=false;
+            }
+        }
+        for(let i = this.bullets.length-1; i >= 0; i--) {
+            let bullet = this.bullets[i];
+            bullet.lifetime -= timepassed;
+            
+            if (bullet.lifetime < 0) {
+                this.bullets.remove(bullet);
+                bullet.remove();
+            } else {
+                bullet.x += bullet.velocityX;
+                bullet.y += bullet.velocityY;
+                //IF bullet colides code here
             }
         }
     }
@@ -83,6 +101,24 @@ class Data {
             sprite.x += x;
             sprite.y += y;
         }
+    }
+
+    createBullet(origin, target, faction) {
+
+        let x = target.x-origin.x;
+        let y = target.y-origin.y;
+
+        length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+
+        // normalize vector
+        x = x / length;
+        y = y / length;
+
+        //apply bullet speed
+        x = x * 10;
+        y = y * 10;
+
+        this.bullets.push(this.factory.createBullet(origin.x, origin.y, x, y, faction));
     }
 }
 

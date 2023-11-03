@@ -14,6 +14,8 @@ class ObjectFactory {
         this.images.push({id: "laser", path: "assets/img/laser.png"})
         this.images.push({id: "torpedo", path: "assets/img/torpedo.png"})
         this.images.push({id: "gun", path: "assets/img/destroyer.png"})
+        this.images.push({id: "turret", path: "assets/img/crystal.png"})
+        this.images.push({id: "bullet", path: "assets/img/bullet.png"})
 
         this.anims.push({id: "rock", path: [
             "assets/img/rock_asteroid1.png",
@@ -66,6 +68,7 @@ class ObjectFactory {
     createRefinery(x, y) {
         let obj = this.createShip(x, y, "refinery");
         obj.image = this.getByID("refinery",this.images);
+        obj.faction = 0;
         obj.vel.x = 0.2;
         obj.range=LONG_RANGE;
         // obj.scale=2
@@ -83,6 +86,7 @@ class ObjectFactory {
     createDrone(x, y) {
         let obj = this.createShip(x, y, "drone");
         obj.image = this.getByID("drone",this.images);
+        obj.faction = 0;
         obj.targetResource = null;
         obj.moveTimer = 0;
         obj.metal=0;
@@ -92,6 +96,7 @@ class ObjectFactory {
     createLaser(x,y){
         let obj = this.createShip(x, y, "laser");
         obj.image = this.getByID("laser",this.images);
+        obj.faction = 0;
         // obj.scale = 1.5;
         obj.selected = false;
         obj.range=MIN_RANGE;
@@ -103,6 +108,7 @@ class ObjectFactory {
         let obj = this.createShip(x, y, "torpedo");
         obj.image = this.getByID("torpedo",this.images);
         obj.diameter=obj.image.h-10;
+        obj.faction = 0;
         // obj.scale = 2;
         obj.range=LONG_RANGE;
         obj.selected = false;
@@ -112,9 +118,31 @@ class ObjectFactory {
     createGun(x,y){
         let obj = this.createShip(x, y, "gun");
         obj.image = this.getByID("gun",this.images);
+        obj.faction = 0;
         // obj.scale = 2;
         obj.selected = false;
         obj.range=MED_RANGE;
         return obj
+    }
+
+    createEnemyTurret(x,y,faction){
+        let obj = this.createShip(x, y, "turret");
+        obj.image = this.getByID("turret",this.images);
+        obj.faction = faction;
+        obj.range=MED_RANGE;
+        obj.scale = 0.5;
+        obj.timerShoot = 0;
+        obj.timerShootStart = 1000;
+        return obj;
+    }
+
+    createBullet(x,y, vx, vy, faction) {
+        let obj = this.createObject(x, y, "bullet");
+        obj.image = this.getByID("bullet",this.images);
+        obj.faction = faction;
+        obj.velocityX = vx;
+        obj.velocityY = vy;
+        obj.lifetime = 2000;
+        return obj;
     }
 }

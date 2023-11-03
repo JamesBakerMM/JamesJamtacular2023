@@ -27,6 +27,9 @@ class ManagerShip {
             if (ship.type === "gun") {
                 this.doGunAI(timepassed, data, ship);
             }
+            if (ship.type === "turret") {
+                this.doTurretAI(timepassed, data, ship);
+            }
 
             if(ship.selected){
                 this.drawRange(ship);
@@ -145,6 +148,29 @@ class ManagerShip {
         this.selection(ship, GUN_BINDING);
         this.mouseControls(ship);
     }
+
+    doTurretAI(timepassed, data, ship) {
+        ship.timerShoot -= timepassed;
+        if (ship.timerShoot < 0) {
+            ship.timerShoot += ship.timerShootStart;
+            let closestTarget = null;
+            let distance = 0;
+            for (let i = 0; i < data.ships.length; i++) {
+                let s = data.ships[i]
+                if (ship.faction != s.faction) {
+                    if (closestTarget == null || dist(ship.x, ship.y, s.x, s.y) < distance) {
+                        closestTarget = s;
+                    }
+                }
+            }
+            if (closestTarget != null) {
+                console.log(ship, closestTarget)
+                data.createBullet(ship, closestTarget, ship.faction)
+                ship.rotation = ship.angleTo(closestTarget.x, closestTarget.y);
+            }
+        }
+    }
+
     selection(ship, binding) {
         
         if (kb.pressing(binding)) {
