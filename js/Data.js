@@ -9,12 +9,14 @@ class Data {
         this.torpedo;
         this.refinery = null;
         this.resources; //will be group in setup
+        this.background = new Background();
 
         this.managerShip = new ManagerShip();
     }
 
     preload() {
         this.factory.preload();
+        this.background.preload();
     }
 
     /*
@@ -40,12 +42,16 @@ class Data {
         this.ships.push(this.refinery);
         this.drones.push(this.factory.createDrone(900, 450));
         this.drones.push(this.factory.createDrone(700, 450));
+
+        this.background.setup();
     }
 
     /*
     * This is called each frame to update all our objects
     */
     update(timepassed) {
+        this.background.update();
+
         this.managerShip.update(timepassed, this);
 
         //MOVE LATER TO SOMEWHERE BETTER
@@ -72,15 +78,10 @@ class Data {
     }
 
     setOffset(x, y) {
-        for (let i = 0; i < this.resources.length; i++) {
-            let res = this.resources[i];
-            res.x += x;
-            res.y += y;
-        }
-        for (let i = 0; i < this.ships.length; i++) {
-            let ship = this.ships[i];
-            ship.x += x;
-            ship.y += y;
+        for (let i = 0; i < allSprites.length; i++) {
+            let sprite = allSprites[i];
+            sprite.x += x;
+            sprite.y += y;
         }
     }
 }

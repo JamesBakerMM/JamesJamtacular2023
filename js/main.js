@@ -1,9 +1,10 @@
 "use strict";
 
+const SCREEN_WIDTH = 1600;
+const SCREEN_HEIGHT = 900;
+
 const data = new Data();
 const menu = new Menu();
-const bg = new Background();
-
 
 var prevTime = 0;
 
@@ -11,25 +12,23 @@ var xOffset = 0;
 var yOffset = 0;
 
 function preload(){
-    bg.preload();
     data.preload();
     menu.preload();
 }
 
 function setup(){
     prevTime = new Date().getTime();
-    bg.setup();
     data.setup();
-    new Canvas(1600, 900);
+    new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
     menu.setup(data); //pass data so menu can do its bindings
 }
 
 function draw(){    
 
-    data.setOffset(xOffset, yOffset);
+    data.setOffset(cameraGood.getX(), cameraGood.getY());
 
     background(25)
-    bg.update();
+
     let newTime = new Date().getTime();
 	let msPassed = newTime - prevTime;
 	prevTime = newTime;
@@ -39,21 +38,9 @@ function draw(){
 	}
     menu.draw(data);
     data.update(msPassed);
+    cameraGood.update(msPassed);
 
-    if (kb.pressing('arrowUp')) {
-        yOffset -= msPassed / 5;
-    }
-    if (kb.pressing('arrowDown')) {
-        yOffset += msPassed / 5;
-    }
-    if (kb.pressing('arrowLeft')) {
-        xOffset -= msPassed / 5;
-    }
-    if (kb.pressing('arrowRight')) {
-        xOffset += msPassed / 5;
-    }
-    
-    data.setOffset(-xOffset, -yOffset);
+    data.setOffset(-cameraGood.getX(), -cameraGood.getY());
 
     //menu.draw();
 }

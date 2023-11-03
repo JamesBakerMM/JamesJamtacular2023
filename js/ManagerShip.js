@@ -54,7 +54,7 @@ class ManagerShip {
             ship.moveTowards(data.refinery, 0.1);
             ship.rotation = ship.direction;
             stroke(0,0,255);
-            line(ship.x,ship.y,data.refinery.x,data.refinery.y);
+            line(ex(ship.x),why(ship.y),ex(data.refinery.x),why(data.refinery.y));
         } else if (ship.metal > 0) {
             data.metals += ship.metal;
             ship.metal = 0;
@@ -71,7 +71,7 @@ class ManagerShip {
         if (ship.metal <= 0) {
             if (ship.targetResource) {
                 stroke(255,255,0);
-                line(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y);
+                line(ex(ship.x),why(ship.y),ex(ship.targetResource.x),why(ship.targetResource.y));
                 ship.rotation = ship.direction;
                 ship.moveTowards(ship.targetResource, 0.1);
                 if (ship.overlaps(ship.targetResource)) {
@@ -82,6 +82,7 @@ class ManagerShip {
                         ship.targetResource.text = ship.targetResource.metal;
                         ship.text = ship.metal;
                         if (ship.targetResource.metal <= 0) {
+                            cameraGood.addScreenShake();
                             ship.targetResource.remove();
                             this.returnToRefinery(data,ship);
                             ship.targetResource = data.getClosestResource(ship.x, ship.y);
@@ -161,12 +162,12 @@ class ManagerShip {
         if (ship.selected) {
             noStroke();
             fill("white");
-            ellipse(ship.x, ship.y, ship.img.width * 1.5);
+            ellipse(ex(ship.x), why(ship.y), ship.img.width * 1.5);
         }
     }
     mouseControls(ship) {
         if (Utility.safePressed("left") && ship.selected) {
-            ship.targetPos = {x:mouseX, y:mouseY};
+            ship.targetPos = {x:exReverse(mouseX), y:whyReverse(mouseY)};
         }
         ship.rotation = ship.direction;
         //if (ship.selected) {
@@ -186,7 +187,7 @@ class ManagerShip {
         push(); //scope control drawstate
             noFill();
             stroke(255,255,255,100);
-            ellipse(ship.x,ship.y,ship.range);
+            ellipse(ex(ship.x),why(ship.y),ship.range);
         pop();
     }
 }

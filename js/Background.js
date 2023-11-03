@@ -75,10 +75,27 @@ class Prop {
     }
     draw() {
         const isAnimation=(this.img.length!==undefined);
+
+        let offsetX = cameraGood.getX();
+        let offsetY = cameraGood.getY();
+        if (this.layer == FAR_BACKGROUND) {
+            offsetX = offsetX * 0.25;
+            offsetY = offsetY * 0.25;
+        } else if (this.layer == BACKGROUND) {
+            offsetX = offsetX * 0.50;
+            offsetY = offsetY * 0.50;
+        } else if (this.layer == FOREGROUND) {
+            offsetX = offsetX * 0.75;
+            offsetY = offsetY * 0.75;
+        } else if (this.layer == FAR_FOREGROUND) {
+            offsetX = offsetX * 1.00;
+            offsetY = offsetY * 1.00;
+        }
+
         if(isAnimation){
-            animation(this.img,this.x,this.y);
+            animation(this.img,this.x-offsetX,this.y-offsetY);
         } else {
-            image(this.img, this.x, this.y);
+            image(this.img,this.x-offsetX,this.y-offsetY);
         }
     }
 }
