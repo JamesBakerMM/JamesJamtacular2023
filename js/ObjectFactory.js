@@ -85,6 +85,7 @@ class ObjectFactory {
         obj.originalPosition = {x: x, y: y};
         obj.targetPos = obj.originalPosition;
         obj.type = type;
+        obj.hp = new Health(1);
         return obj;
     }
 
@@ -97,6 +98,7 @@ class ObjectFactory {
         obj.targetResource = null;
         obj.moveTimer = 0;
         obj.metal=0;
+        obj.hp.setHealth(10);
         return obj;
     }
 
@@ -107,7 +109,7 @@ class ObjectFactory {
         // obj.scale = 1.5;
         obj.selected = false;
         obj.range=MIN_RANGE;
-        
+        obj.hp.setHealth(20);
         return obj
     }
 
@@ -119,6 +121,7 @@ class ObjectFactory {
         // obj.scale = 2;
         obj.range=LONG_RANGE;
         obj.selected = false;
+        obj.hp.setHealth(20);
         return obj
     }
 
@@ -129,6 +132,7 @@ class ObjectFactory {
         // obj.scale = 2;
         obj.selected = false;
         obj.range=MED_RANGE;
+        obj.hp.setHealth(20);
         return obj
     }
 
@@ -140,6 +144,7 @@ class ObjectFactory {
         obj.scale = 0.5;
         obj.timerShoot = 0;
         obj.timerShootStart = 1000;
+        obj.hp.setHealth(20);
         return obj;
     }
 
