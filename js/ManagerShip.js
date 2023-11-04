@@ -181,6 +181,7 @@ class ManagerShip {
             ship.moveTowards(ship.targetPos, ship.speedFactor/distanceToTravel);
         } else {
             ship.vel = {x:0,y:0};
+            ship.rotationLock = true;
         }
         //} 
                 
