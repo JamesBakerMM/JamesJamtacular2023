@@ -86,6 +86,8 @@ class ObjectFactory {
     createDrone(x, y) {
         let obj = this.createShip(x, y, "drone");
         obj.image = this.getByID("drone",this.images);
+        obj.diameter = obj.width;
+        obj.debug = true;
         obj.faction = 0;
         obj.targetResource = null;
         obj.moveTimer = 0;
