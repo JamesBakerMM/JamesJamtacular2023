@@ -49,7 +49,7 @@ class ObjectFactory {
 
     createObject(x, y) {
         let obj = new Sprite(x, y);
-        // obj.debug = true;
+        obj.debug = true;
         return obj;
     }
 
@@ -68,6 +68,7 @@ class ObjectFactory {
     createRefinery(x, y) {
         let obj = this.createShip(x, y, "refinery");
         obj.image = this.getByID("refinery",this.images);
+        obj.hp=100;
         obj.faction = 0;
         obj.vel.x = 0.2;
         obj.range=LONG_RANGE;
@@ -140,6 +141,7 @@ class ObjectFactory {
         let obj = this.createObject(x, y, "bullet");
         obj.image = this.getByID("bullet",this.images);
         obj.faction = faction;
+        obj.damage = 1;
         obj.velocityX = vx;
         obj.velocityY = vy;
         obj.lifetime = 2000;
