@@ -62,6 +62,10 @@ class ObjectFactory {
         obj.metal=amount;
         obj.textSize=34;
         obj.text = obj.metal;
+        obj.mass = 10;
+        obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
+        obj.diameter = obj.width;
+        obj.drag = 0.5;
         return obj;
     }
 
@@ -144,8 +148,8 @@ class ObjectFactory {
         obj.image = this.getByID("bullet",this.images);
         obj.faction = faction;
         obj.damage = 1;
-        obj.velocityX = vx;
-        obj.velocityY = vy;
+        obj.vel.x = vx;
+        obj.vel.y = vy;
         obj.lifetime = 2000;
         return obj;
     }
