@@ -62,13 +62,17 @@ class ObjectFactory {
         obj.metal=amount;
         obj.textSize=34;
         obj.text = obj.metal;
+        obj.mass = 10;
+        obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
+        obj.diameter = obj.width;
+        obj.drag = 0.5;
         return obj;
     }
 
     createRefinery(x, y) {
         let obj = this.createShip(x, y, "refinery");
         obj.image = this.getByID("refinery",this.images);
-        obj.hp=100;
+        obj.hp.setHealth(20);
         obj.faction = 0;
         obj.vel.x = 0.2;
         obj.range=LONG_RANGE;
@@ -81,6 +85,7 @@ class ObjectFactory {
         obj.originalPosition = {x: x, y: y};
         obj.targetPos = obj.originalPosition;
         obj.type = type;
+        obj.hp = new Health(1);
         return obj;
     }
 
@@ -93,6 +98,7 @@ class ObjectFactory {
         obj.targetResource = null;
         obj.moveTimer = 0;
         obj.metal=0;
+        obj.hp.setHealth(10);
         return obj;
     }
 
@@ -103,7 +109,7 @@ class ObjectFactory {
         // obj.scale = 1.5;
         obj.selected = false;
         obj.range=MIN_RANGE;
-        
+        obj.hp.setHealth(20);
         return obj
     }
 
@@ -115,6 +121,7 @@ class ObjectFactory {
         // obj.scale = 2;
         obj.range=LONG_RANGE;
         obj.selected = false;
+        obj.hp.setHealth(20);
         return obj
     }
 
@@ -125,6 +132,7 @@ class ObjectFactory {
         // obj.scale = 2;
         obj.selected = false;
         obj.range=MED_RANGE;
+        obj.hp.setHealth(20);
         return obj
     }
 
@@ -136,6 +144,7 @@ class ObjectFactory {
         obj.scale = 0.5;
         obj.timerShoot = 0;
         obj.timerShootStart = 1000;
+        obj.hp.setHealth(20);
         return obj;
     }
 
@@ -144,9 +153,10 @@ class ObjectFactory {
         obj.image = this.getByID("bullet",this.images);
         obj.faction = faction;
         obj.damage = 1;
-        obj.velocityX = vx;
-        obj.velocityY = vy;
+        obj.vel.x = vx;
+        obj.vel.y = vy;
         obj.lifetime = 2000;
+        obj.damage=1;
         return obj;
     }
 }
