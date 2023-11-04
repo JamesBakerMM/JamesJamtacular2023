@@ -169,7 +169,7 @@ class ManagerShip {
             }
             if (closestTarget != null) {
                 console.log(ship, closestTarget)
-                data.createBullet(ship, closestTarget, ship.faction)
+                data.createMissile(ship, closestTarget)
                 ship.rotation = ship.angleTo(closestTarget.x, closestTarget.y);
             }
         }

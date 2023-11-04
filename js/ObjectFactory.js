@@ -16,6 +16,7 @@ class ObjectFactory {
         this.images.push({id: "gun", path: "assets/img/destroyer.png"})
         this.images.push({id: "turret", path: "assets/img/crystal.png"})
         this.images.push({id: "bullet", path: "assets/img/bullet.png"})
+        this.images.push({id: "missile", path: "assets/img/missile.png"})
 
         this.anims.push({id: "rock", path: [
             "assets/img/rock_asteroid1.png",
@@ -148,14 +149,41 @@ class ObjectFactory {
         return obj;
     }
 
-    createBullet(x,y, vx, vy, faction) {
-        let obj = this.createObject(x, y, "bullet");
+    createBullet(origin, target) {
+
+        let ox = origin.x;
+        let oy = origin.y;
+
+        let vx = target.x-ox;
+        let vy = target.y-oy;
+
+        length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+
+        // normalize vector
+        vx = vx / length;
+        vy = vy / length;
+
+        //apply bullet speed
+        vx = vx * 10;
+        vy = vy * 10;
+
+        let obj = this.createObject(ox, oy, "bullet");
         obj.image = this.getByID("bullet",this.images);
-        obj.faction = faction;
+        obj.faction = origin.faction;
         obj.damage = 1;
         obj.vel.x = vx;
         obj.vel.y = vy;
         obj.lifetime = 2000;
+        return obj;
+    }
+
+    createMissile(origin, target) {
+        let obj = this.createObject(origin.x, origin.y-1, "missile");
+        obj.image = this.getByID("missile",this.images);
+        obj.faction = origin.faction;
+        obj.damage = 1;
+        obj.target = target;
+        obj.lifetime = 10000;
         return obj;
     }
 }

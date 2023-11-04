@@ -85,6 +85,19 @@ class Data {
                     }
                 }
             }
+
+            if (bullet.target != null) {
+                bullet.rotateTowards(bullet.target, 0.02, 0);
+                bullet.vel.x = cos(bullet.rotation) * 4;
+                bullet.vel.y = sin(bullet.rotation) * 4;
+
+                for(let res of this.resources){
+                    if(res.collides(bullet)){
+                        this.bullets.remove(bullet);
+                        bullet.remove();
+                    }
+                }
+            }
         }
     }
 
@@ -112,22 +125,11 @@ class Data {
     }
 
     createBullet(origin, target, faction) {
-        console.log("faction",faction)
+        this.bullets.push(this.factory.createBullet(origin, target));
+    }
 
-        let x = target.x-origin.x;
-        let y = target.y-origin.y;
-
-        length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-
-        // normalize vector
-        x = x / length;
-        y = y / length;
-
-        //apply bullet speed
-        x = x * 10;
-        y = y * 10;
-
-        this.bullets.push(this.factory.createBullet(origin.x, origin.y, x, y, faction));
+    createMissile(origin, target) {
+        this.bullets.push(this.factory.createMissile(origin, target));
     }
 }
 
