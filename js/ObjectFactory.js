@@ -24,6 +24,28 @@ class ObjectFactory {
             "assets/img/rock_asteroid3.png",
             "assets/img/rock_asteroid4.png"
         ]})
+        this.anims.push({id: "dirtyExplosion", path: [
+            "assets/img/explosion-at1.png",
+            "assets/img/explosion-at2.png",
+            "assets/img/explosion-at3.png",
+            "assets/img/explosion-at4.png",
+            "assets/img/explosion-at5.png",
+            "assets/img/explosion-at6.png",
+            "assets/img/explosion-at7.png",
+            "assets/img/explosion-at8.png"
+        ]})
+        this.anims.push({id: "cleanExplosion", path: [
+            "assets/img/explosion-e1.png",
+            "assets/img/explosion-e2.png",
+            "assets/img/explosion-e3.png",
+            "assets/img/explosion-e4.png",
+            "assets/img/explosion-e5.png",
+            "assets/img/explosion-e6.png",
+            "assets/img/explosion-e7.png",
+            "assets/img/explosion-e8.png",
+            "assets/img/explosion-e9.png",
+            "assets/img/explosion-e10.png",
+        ]})
 
         for(let img of this.images) {
             img.image = loadImage(img.path);
@@ -188,5 +210,22 @@ class ObjectFactory {
         obj.target = target;
         obj.lifetime = 10000;
         return obj;
+    }
+
+    createDirtyExplosion(x,y){
+        let obj = this.createObject(x,y);
+        obj.img = this.getByID("dirtyExplosion",this.anims);
+        console.log(obj)
+        obj.collider="none";
+        obj.life = obj._ani.length*obj._ani.frameDelay-1;
+        return obj
+    }
+    createCleanExplosion(x,y){
+        let obj = this.createObject(x,y);
+        obj.img = this.getByID("cleanExplosion",this.anims);
+        console.log(obj)
+        obj.collider="none";
+        obj.life = obj._ani.length*obj._ani.frameDelay-1;
+        return obj
     }
 }
