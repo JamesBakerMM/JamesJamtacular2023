@@ -84,6 +84,8 @@ class Data {
                 bullet.remove();
             } else {
                 //IF bullet colides code here
+                let hasHitShip=false;
+                let hasHitAsteroid=false;
                 for(let ship of this.ships){
                     if(ship.overlaps(bullet) && ship.faction!==bullet.faction) {
                         this.factory.createDirtyExplosion(bullet.x,bullet.y,0.5);
@@ -91,6 +93,16 @@ class Data {
                         // ship.remove()
                         this.bullets.remove(bullet);
                         bullet.remove();
+                    }
+                }
+                // this.factory.createDirtyExplosion(bullet.x,bullet.y,0.15);
+                if(hasHitShip===false) {
+                    for(let resource of this.resources){
+                        if(resource.collides(bullet)){
+                            this.factory.createDirtyExplosion(bullet.x,bullet.y,0.5);
+                            this.bullets.remove(bullet);
+                            bullet.remove();
+                        }
                     }
                 }
             }
