@@ -107,17 +107,6 @@ class ManagerShip {
                 ship.targetResource = data.getClosestResource(ship.x, ship.y);
                 this.returnToRefinery(timepassed,data,ship);
             }
-
-            /*have to check for at least null and .removed, 
-            otherwise can end up in states where drone never 
-            fetches a new resource if another drone finished off the same target resource*/
-            // if (
-            //         ship.targetResource == null ||
-            //         ship.targetResource == undefined ||
-            //         ship.targetResource.removed
-            //     ) {
-            //     ship.targetResource = data.getClosestResource(ship.x, ship.y);
-            // }
         } else {
             this.returnToRefinery(timepassed,data,ship);
         }
@@ -168,7 +157,6 @@ class ManagerShip {
                 }
             }
             if (closestTarget != null) {
-                console.log(ship, closestTarget)
                 data.createBullet(ship, closestTarget, ship.faction)
                 ship.rotation = ship.angleTo(closestTarget.x, closestTarget.y);
             }
