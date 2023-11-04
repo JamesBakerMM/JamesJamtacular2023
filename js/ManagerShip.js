@@ -189,11 +189,7 @@ class ManagerShip {
             ship.selected = true;
         }
 
-        if (ship.selected) {
-            noStroke();
-            fill("white");
-            ellipse(ex(ship.x), why(ship.y), ship.img.width * 1.5);
-        }
+
     }
     mouseControls(ship) {
         if (Utility.safePressed("left") && ship.selected) {
@@ -214,10 +210,6 @@ class ManagerShip {
         // }
     }
     drawRange(ship){
-        push(); //scope control drawstate
-            noFill();
-            stroke(255,255,255,100);
-            ellipse(ex(ship.x),why(ship.y),ship.range);
-        pop();
+
     }
 }

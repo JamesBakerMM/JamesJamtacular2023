@@ -5,6 +5,7 @@ const SCREEN_HEIGHT = 900;
 
 const data = new Data();
 const menu = new Menu(50);
+const gui = new GUI();
 
 var prevTime = 0;
 
@@ -14,6 +15,7 @@ var yOffset = 0;
 function preload(){
     data.preload();
     menu.preload();
+    gui.preload();
 }
 
 function setup(){
@@ -21,6 +23,7 @@ function setup(){
     data.setup();
     new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
     menu.setup(data); //pass data so menu can do its bindings
+    gui.setup()
 }
 
 function draw(){    
@@ -36,8 +39,11 @@ function draw(){
 	if (msPassed < 1) {
 		msPassed = 1;
 	}
+
     data.update(msPassed);
     cameraGood.update(msPassed);
+
+    gui.update(data);
 
     menu.draw(data);
     data.setOffset(-cameraGood.getX(), -cameraGood.getY());
