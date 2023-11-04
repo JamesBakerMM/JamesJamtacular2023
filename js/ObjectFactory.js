@@ -76,6 +76,7 @@ class ObjectFactory {
         obj.faction = 0;
         obj.vel.x = 0.2;
         obj.range=LONG_RANGE;
+        obj.speedFactor = 2;
         // obj.scale=2
         return obj;
     }
@@ -86,6 +87,7 @@ class ObjectFactory {
         obj.targetPos = obj.originalPosition;
         obj.type = type;
         obj.hp = new Health(1);
+        obj.speedFactor = 1;
         return obj;
     }
 
@@ -99,6 +101,7 @@ class ObjectFactory {
         obj.moveTimer = 0;
         obj.metal=0;
         obj.hp.setHealth(10);
+        obj.speedFactor = 2.1;
         return obj;
     }
 

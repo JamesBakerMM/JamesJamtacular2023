@@ -42,22 +42,15 @@ class ManagerShip {
     }
 
     returnToRefinery(timepassed,data,ship) {
-        //TODO: ADD STATE MACHINE OF ROTATION TOWARDS REFINERY
-        //ship.rotateTo(data.refinery);
-        // if (ship.moveTimer > 2000) {
-        //     ship.vel = 0;
-        //     ship.rotateTo(data.refinery);
-        // } else {
-            if (dist(ship.x,ship.y,data.refinery.x,data.refinery.y) 
-            > Math.min(
-            data.refinery.width, 
-            (ship.targetResource ? dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y) 
-            : data.refinery.width)
-            )
-            )
-            {
-                //ship.moveTowards(ship.targetResource, 1/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
-                ship.moveTowards(data.refinery, 1/dist(ship.x,ship.y,data.refinery.x,data.refinery.y));
+        let distanceToRefinery = dist(ship.x,ship.y,data.refinery.x,data.refinery.y);
+        if (distanceToRefinery > Math.min(
+                data.refinery.width, 
+                (ship.targetResource ? 
+                dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y) 
+                : data.refinery.width)
+                )
+            ) {
+                ship.moveTowards(data.refinery, ship.speedFactor/distanceToRefinery);
                 ship.rotation = ship.direction;
                 stroke(0,0,255);
                 line(ex(ship.x),why(ship.y),ex(data.refinery.x),why(data.refinery.y));
@@ -80,7 +73,7 @@ class ManagerShip {
                 stroke(255,255,0);
                 line(ex(ship.x),why(ship.y),ex(ship.targetResource.x),why(ship.targetResource.y));
                 ship.rotation = ship.direction;
-                ship.moveTowards(ship.targetResource, 1/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
+                ship.moveTowards(ship.targetResource, ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
                 if (ship.overlaps(ship.targetResource)) {
                     if (ship.targetResource.metal > 0) {
                         ship.targetResource.ani.nextFrame();
@@ -183,12 +176,12 @@ class ManagerShip {
             ship.targetPos = {x:exReverse(mouseX), y:whyReverse(mouseY)};
         }
         ship.rotation = ship.direction;
-        //if (ship.selected) {
-            if (dist(ship.x,ship.y,ship.targetPos.x,ship.targetPos.y) > (ship.img.width)) {
-                ship.moveTowards(ship.targetPos, 0.01);
-            } else {
-                ship.vel = {x:0,y:0};
-            }
+        let distanceToTravel = dist(ship.x,ship.y,ship.targetPos.x,ship.targetPos.y);
+        if (distanceToTravel > (ship.img.width)) {
+            ship.moveTowards(ship.targetPos, ship.speedFactor/distanceToTravel);
+        } else {
+            ship.vel = {x:0,y:0};
+        }
         //} 
                 
         //  else if (ship.selected && 
