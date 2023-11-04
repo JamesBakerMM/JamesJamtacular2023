@@ -80,11 +80,13 @@ class Data {
             
             if (bullet.lifetime < 0) {
                 this.bullets.remove(bullet);
+                this.factory.createCleanExplosion(bullet.x,bullet.y);
                 bullet.remove();
             } else {
                 //IF bullet colides code here
                 for(let ship of this.ships){
-                    if(ship.collides(bullet) && ship.faction!==bullet.faction) {
+                    if(ship.overlaps(bullet) && ship.faction!==bullet.faction) {
+                        this.factory.createDirtyExplosion(bullet.x,bullet.y,0.5);
                         ship.hp.doDamage(bullet.damage)
                         // ship.remove()
                         this.bullets.remove(bullet);

@@ -72,7 +72,7 @@ class ObjectFactory {
 
     createObject(x, y) {
         let obj = new Sprite(x, y);
-        obj.debug = true;
+        // obj.debug = true;
         return obj;
     }
 
@@ -212,19 +212,20 @@ class ObjectFactory {
         return obj;
     }
 
-    createDirtyExplosion(x,y){
+    createDirtyExplosion(x,y,scale){
         let obj = this.createObject(x,y);
         obj.img = this.getByID("dirtyExplosion",this.anims);
         console.log(obj)
         obj.collider="none";
+        obj.scale=scale;
         obj.life = obj._ani.length*obj._ani.frameDelay-1;
         return obj
     }
     createCleanExplosion(x,y){
         let obj = this.createObject(x,y);
         obj.img = this.getByID("cleanExplosion",this.anims);
-        console.log(obj)
         obj.collider="none";
+        obj.scale=scale;
         obj.life = obj._ani.length*obj._ani.frameDelay-1;
         return obj
     }
