@@ -24,6 +24,28 @@ class ObjectFactory {
             "assets/img/rock_asteroid3.png",
             "assets/img/rock_asteroid4.png"
         ]})
+        this.anims.push({id: "dirtyExplosion", path: [
+            "assets/img/explosion-at1.png",
+            "assets/img/explosion-at2.png",
+            "assets/img/explosion-at3.png",
+            "assets/img/explosion-at4.png",
+            "assets/img/explosion-at5.png",
+            "assets/img/explosion-at6.png",
+            "assets/img/explosion-at7.png",
+            "assets/img/explosion-at8.png"
+        ]})
+        this.anims.push({id: "cleanExplosion", path: [
+            "assets/img/explosion-e1.png",
+            "assets/img/explosion-e2.png",
+            "assets/img/explosion-e3.png",
+            "assets/img/explosion-e4.png",
+            "assets/img/explosion-e5.png",
+            "assets/img/explosion-e6.png",
+            "assets/img/explosion-e7.png",
+            "assets/img/explosion-e8.png",
+            "assets/img/explosion-e9.png",
+            "assets/img/explosion-e10.png",
+        ]})
 
         for(let img of this.images) {
             img.image = loadImage(img.path);
@@ -72,12 +94,20 @@ class ObjectFactory {
     createRefinery(x, y) {
         let obj = this.createShip(x, y, "refinery");
         obj.image = this.getByID("refinery",this.images);
+        let centreDiameter = obj.image.height/2;
+        // obj.diameter = centreDiameter;
+        // let miniHeight = obj.height/2;
+        // obj.addCollider(miniHeight, 0, obj.image.height);
+        // obj.addCollider(-2*miniHeight, 0, obj.image.height);
+        //obj.addCollider(-obj.height/2, 0, obj.image.height);
         obj.hp.setHealth(20);
         obj.faction = 0;
         obj.vel.x = 0.2;
         obj.range=LONG_RANGE;
+        obj.speedFactor = 2;
         // obj.scale=2
         return obj;
+        obj.debug = true;
     }
 
     createShip(x, y, type) {
@@ -86,6 +116,7 @@ class ObjectFactory {
         obj.targetPos = obj.originalPosition;
         obj.type = type;
         obj.hp = new Health(1);
+        obj.speedFactor = 1;
         return obj;
     }
 
@@ -99,6 +130,7 @@ class ObjectFactory {
         obj.moveTimer = 0;
         obj.metal=0;
         obj.hp.setHealth(10);
+        obj.speedFactor = 2.1;
         return obj;
     }
 
@@ -194,5 +226,23 @@ class ObjectFactory {
         obj.target = target;
         obj.lifetime = 10000;
         return obj;
+    }
+
+    createDirtyExplosion(x,y,scale){
+        let obj = this.createObject(x,y);
+        obj.img = this.getByID("dirtyExplosion",this.anims);
+        console.log(obj)
+        obj.collider="none";
+        obj.scale=scale;
+        obj.life = obj._ani.length*obj._ani.frameDelay-1;
+        return obj
+    }
+    createCleanExplosion(x,y){
+        let obj = this.createObject(x,y);
+        obj.img = this.getByID("cleanExplosion",this.anims);
+        obj.collider="none";
+        obj.scale=scale;
+        obj.life = obj._ani.length*obj._ani.frameDelay-1;
+        return obj
     }
 }
