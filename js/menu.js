@@ -24,24 +24,6 @@ class Menu {
         // this.makeControlButtons();
         this.makeMainButtons(data);
     }
-
-    // makeControlButtons() {
-    //     let offset_x = this.x + 10;
-    //     let offset_y = this.y + 0;
-    //     this.btns.control.main = this.makeButton(
-    //         offset_x,
-    //         offset_y,
-    //         "Main ",
-    //         () => {
-    //             this.current = 0;
-    //         }
-    //     );
-    //     offset_x += 50;
-    // }
-    mouseInMenu(mouse){
-        
-
-    }
     makeMainButtons() {
         //main buttons
         let offset_y = this.y + 40;

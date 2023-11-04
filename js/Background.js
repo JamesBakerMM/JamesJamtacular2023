@@ -17,7 +17,6 @@ class Background {
     setup() {
         this.addProp( new Prop(0,0,this.visuals.dust,BACKGROUND) ); 
         this.addProp( new Prop(0,0,this.visuals.stars,FAR_BACKGROUND) );
-        
     }
     update() {
         for (let prop of this.props) {

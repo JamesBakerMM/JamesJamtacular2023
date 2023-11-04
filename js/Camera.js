@@ -20,7 +20,6 @@ class Camera {
         //Camera Controls
         let edgeW = width * Camera.SCROLL_EDGE_SIZE;
         let edgeH = height * Camera.SCROLL_EDGE_SIZE;
- /*       
         if (kb.pressing('arrowUp') || (mouseY < edgeH)) {
             cameraGood.y -= timepassed * Camera.SCROLL_SPEED;
         }
@@ -33,7 +32,6 @@ class Camera {
         if (kb.pressing('arrowRight') || (mouseX > (width - edgeW))) {
             cameraGood.x += timepassed * Camera.SCROLL_SPEED;
         }
-*/
         //Do shake code each frame. tapers off linearly
         if (this.shakeTime > 0) {
             this.shakeTime -= timepassed;

@@ -4,7 +4,7 @@ const SCREEN_WIDTH = 1600;
 const SCREEN_HEIGHT = 900;
 
 const data = new Data();
-const menu = new Menu();
+const menu = new Menu(50);
 
 var prevTime = 0;
 
@@ -36,10 +36,10 @@ function draw(){
 	if (msPassed < 1) {
 		msPassed = 1;
 	}
-    menu.draw(data);
     data.update(msPassed);
     cameraGood.update(msPassed);
 
+    menu.draw(data);
     data.setOffset(-cameraGood.getX(), -cameraGood.getY());
 
     //menu.draw();
