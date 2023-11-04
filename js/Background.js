@@ -16,7 +16,17 @@ class Background {
     }
     setup() {
         this.addProp( new Prop(0,0,this.visuals.dust,BACKGROUND) ); 
-        this.addProp( new Prop(0,0,this.visuals.stars,FAR_BACKGROUND) );
+        this.addProp( new Prop(0,-this.visuals.dust.h,this.visuals.dust,BACKGROUND) ); 
+        this.addProp( new Prop(0,this.visuals.dust.h,this.visuals.dust,BACKGROUND) ); 
+        this.addProp( new Prop(0,-this.visuals.stars.h,this.visuals.stars,FAR_BACKGROUND) ); 
+        this.addProp( new Prop(this.visuals.stars.w,-this.visuals.stars.h,this.visuals.stars,FAR_BACKGROUND) ); 
+        this.addProp( new Prop(-this.visuals.stars.w,-this.visuals.stars.h,this.visuals.stars,FAR_BACKGROUND) ); 
+        this.addProp( new Prop(0,0,this.visuals.stars,FAR_BACKGROUND) ); 
+        this.addProp( new Prop(0,this.visuals.stars.h,this.visuals.stars,FAR_BACKGROUND) );
+        this.addProp( new Prop(this.visuals.stars.w,0,this.visuals.stars,FAR_BACKGROUND) );
+        this.addProp( new Prop(-this.visuals.stars.w,0,this.visuals.stars,FAR_BACKGROUND) );
+        this.addProp( new Prop(this.visuals.stars.w,this.visuals.stars.h,this.visuals.stars,FAR_BACKGROUND) );
+        this.addProp( new Prop(-this.visuals.stars.w,this.visuals.stars.h,this.visuals.stars,FAR_BACKGROUND) );
     }
     update() {
         for (let prop of this.props) {

@@ -31,8 +31,8 @@ class Menu {
             this.makeButton(this.x, offset_y, "drone", () => {
                 data.drones.push(
                     data.factory.createDrone(
-                        900 + random(-180, 180),
-                        450 + random(-180, 180)
+                        data.refinery.x + random(-180, 180),
+                        data.refinery.y + random(-180, 180)
                     )
                 );
             })
@@ -43,8 +43,8 @@ class Menu {
             this.makeButton(this.x, offset_y, "laser", () => {
                 data.laser.push(
                     data.factory.createLaser(
-                        900 + random(-180, 180),
-                        450 + random(-180, 180)
+                        data.refinery.x + random(-180, 180),
+                        data.refinery.y + random(-180, 180)
                     )
                 );
             })
@@ -54,8 +54,8 @@ class Menu {
             this.makeButton(this.x, offset_y, "torpedo", () => {
                 data.torpedo.push(
                     data.factory.createTorpedo(
-                        900 + random(-180, 180),
-                        450 + random(-180, 180)
+                        data.refinery.x + random(-180, 180),
+                        data.refinery.y + random(-180, 180)
                     )
                 );
             })
@@ -65,8 +65,8 @@ class Menu {
             this.makeButton(this.x, offset_y, "gun", () => {
                 data.gun.push(
                     data.factory.createGun(
-                        900 + random(-180, 180),
-                        450 + random(-180, 180)
+                        data.refinery.x + random(-180, 180),
+                        data.refinery.y + random(-180, 180)
                     )
                 );
             })

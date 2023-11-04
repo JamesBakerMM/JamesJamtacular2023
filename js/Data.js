@@ -7,6 +7,7 @@ class Data {
         this.laser;
         this.gun;
         this.torpedo;
+        this.effects;
         this.bullets;
         this.refinery = null;
         this.resources; //will be group in setup
@@ -29,6 +30,8 @@ class Data {
         this.laser = new this.ships.Group();
         this.gun = new this.ships.Group();
         this.torpedo = new this.ships.Group();
+        this.effects = new Group();
+        this.effects.collider="none";
 
         this.bullets = new Group();
 
