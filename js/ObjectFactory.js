@@ -55,7 +55,6 @@ class ObjectFactory {
 
     createResource(x, y, amount=4) {
         let obj = this.createObject(x, y);
-        console.log(this.getByID("rock",this.anims));
         obj.addAni("rock",this.getByID("rock",this.anims));
         obj.ani.stop();
         obj.scale = 2

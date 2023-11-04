@@ -16,7 +16,6 @@ class GUI {
         pop();
     }
     hpBar(ship) {
-        console.log(ship.hp)
         if(ship.hp!==undefined){
             const current = ship.hp.getHealth();
             const max = ship.hp.getMaxHealth();
