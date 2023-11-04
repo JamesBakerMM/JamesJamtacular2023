@@ -89,7 +89,6 @@ class ManagerShip {
                         ship.targetResource.text = ship.targetResource.metal;
                         ship.text = ship.metal;
                         if (ship.targetResource.metal <= 0) {
-                            cameraGood.addScreenShake();
                             ship.targetResource.remove();
                             this.returnToRefinery(timepassed,data,ship);
                             ship.targetResource = data.getClosestResource(ship.x, ship.y);

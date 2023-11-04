@@ -78,12 +78,19 @@ class Data {
             } else {
                 //IF bullet colides code here
                 for(let ship of this.ships){
-                    if(ship.collides(bullet) && ship.faction!==bullet.faction){
-                        ship.remove()
+                    if(ship.collides(bullet) && ship.faction!==bullet.faction) {
+                        ship.hp.doDamage(bullet.damage)
+                        // ship.remove()
                         this.bullets.remove(bullet);
                         bullet.remove();
                     }
                 }
+            }
+        }
+        for(let ship of this.ships){ 
+            if(ship.hp.isDead()){
+                ship.remove();
+                cameraGood.addScreenShake();
             }
         }
     }

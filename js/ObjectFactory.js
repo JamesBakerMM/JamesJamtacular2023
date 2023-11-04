@@ -72,7 +72,7 @@ class ObjectFactory {
     createRefinery(x, y) {
         let obj = this.createShip(x, y, "refinery");
         obj.image = this.getByID("refinery",this.images);
-        obj.hp=100;
+        obj.hp.setHealth(20);
         obj.faction = 0;
         obj.vel.x = 0.2;
         obj.range=LONG_RANGE;
@@ -156,6 +156,7 @@ class ObjectFactory {
         obj.vel.x = vx;
         obj.vel.y = vy;
         obj.lifetime = 2000;
+        obj.damage=1;
         return obj;
     }
 }

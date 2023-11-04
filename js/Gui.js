@@ -16,15 +16,19 @@ class GUI {
         pop();
     }
     hpBar(ship) {
+        console.log(ship.hp)
         if(ship.hp!==undefined){
-            const current = ship.hp.getCurrent();
-            const max = ship.hp.getMax();
+            const current = ship.hp.getHealth();
+            const max = ship.hp.getMaxHealth();
+            let rectSize=map(current,0,max,0,GUI.HP.W)
+            stroke("black")
             fill("red");
-            rect(ship.x,ship.y,GUI.HP.W,GUI.HP.H)
+            rect(ex(ship.x-ship.img.w/2),why(ship.y+ship.img.h),GUI.HP.W,GUI.HP.H)
+            fill("yellow");
+            rect(ex(ship.x-ship.img.w/2),why(ship.y+ship.img.h),rectSize,GUI.HP.H)
+
         } else {
             fill("red");
-            stroke("black")
-            rectMode(CENTER);
             rect(ex(ship.x),why(ship.y+ship.img.h),GUI.HP.W,GUI.HP.H);
         }
     }
