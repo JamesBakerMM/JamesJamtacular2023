@@ -80,6 +80,14 @@ class Data {
                 bullet.y += bullet.velocityY;
                 //IF bullet colides code here
             }
+
+            for(let ship of this.ships){
+                if(ship.collides(bullet) && ship.faction!==bullet.faction){
+                    ship.remove()
+                    // this.bullets.remove(bullet);
+                    // bullet.remove();
+                }
+            }
         }
     }
 
@@ -107,6 +115,7 @@ class Data {
     }
 
     createBullet(origin, target, faction) {
+        console.log("faction",faction)
 
         let x = target.x-origin.x;
         let y = target.y-origin.y;
