@@ -118,10 +118,10 @@ class ObjectFactory {
         obj.image = this.getByID("torpedo",this.images);
         obj.diameter=obj.image.h-10;
         obj.faction = 0;
-        // obj.scale = 2;
-        obj.range=LONG_RANGE;
+        obj.scale = 2;
         obj.selected = false;
         obj.hp.setHealth(20);
+        obj.shooting = new Shooting(3000, LONG_RANGE);
         return obj
     }
 
@@ -177,8 +177,17 @@ class ObjectFactory {
         return obj;
     }
 
-    createMissile(origin, target) {
-        let obj = this.createObject(origin.x, origin.y-1, "missile");
+    createMissile(origin, target, offset) {
+
+        let offsetX = sin(origin.rotation) * offset;
+        let offsetY = cos(origin.rotation) * offset;
+        console.log();
+        let obj = this.createObject(origin.x + offsetX, origin.y+offsetY, "missile");
+        if (offset > 0) {
+            obj.rotation = -origin.rotation + 90;
+        } else {
+            obj.rotation = -origin.rotation - 90;
+        }
         obj.image = this.getByID("missile",this.images);
         obj.faction = origin.faction;
         obj.damage = 1;

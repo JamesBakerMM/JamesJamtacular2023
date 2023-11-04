@@ -53,6 +53,7 @@ class Data {
             this.resources.push(this.factory.createResource(x, y, 4));
         }
 
+        this.ships.push(this.factory.createTorpedo(800, 300));
         this.ships.push(this.factory.createEnemyTurret(1500, 800));
 
         this.background.setup();
@@ -143,8 +144,8 @@ class Data {
         this.bullets.push(this.factory.createBullet(origin, target));
     }
 
-    createMissile(origin, target) {
-        this.bullets.push(this.factory.createMissile(origin, target));
+    createMissile(origin, target, offset) {
+        this.bullets.push(this.factory.createMissile(origin, target, offset));
     }
 }
 

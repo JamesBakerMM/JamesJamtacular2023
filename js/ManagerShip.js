@@ -133,6 +133,20 @@ class ManagerShip {
         this.mouseControls(ship);
     }
     doTorpedoAI(timepassed, data, ship) {
+
+        ship.shooting.update(timepassed);
+
+        if (ship.shooting.canShoot()) {
+            let target = this.getNearestShip(ship, data, ship.shooting.getRange());
+            if (target != null) {
+                ship.shooting.reset(target);
+                data.createMissile(ship, target, 20);
+                data.createMissile(ship, target, -20);
+            }
+        }
+
+        //Needs to move away from target if too close
+
         this.selection(ship, TORPEDO_BINDING);
         this.mouseControls(ship);
     }
@@ -145,21 +159,30 @@ class ManagerShip {
         ship.timerShoot -= timepassed;
         if (ship.timerShoot < 0) {
             ship.timerShoot += ship.timerShootStart;
-            let closestTarget = null;
-            let distance = 0;
-            for (let i = 0; i < data.ships.length; i++) {
-                let s = data.ships[i]
-                if (ship.faction != s.faction) {
-                    if (closestTarget == null || dist(ship.x, ship.y, s.x, s.y) < distance) {
+            let target = this.getNearestShip(ship, data);
+            if (target != null) {
+                data.createBullet(ship, target);
+                ship.rotation = ship.angleTo(target.x, target.y);
+            }
+        }
+    }
+
+    getNearestShip(ship, data, maxDistance) {
+        let closestTarget = null;
+        let distance = 0;
+        for (let i = 0; i < data.ships.length; i++) {
+            let s = data.ships[i]
+            if (ship.faction != s.faction) {
+                let d = dist(ship.x, ship.y, s.x, s.y);
+                if (d < maxDistance) {
+                    if (closestTarget == null || d < distance) {
                         closestTarget = s;
+                        distance = d;
                     }
                 }
             }
-            if (closestTarget != null) {
-                data.createMissile(ship, closestTarget)
-                ship.rotation = ship.angleTo(closestTarget.x, closestTarget.y);
-            }
         }
+        return closestTarget;
     }
 
     selection(ship, binding) {
@@ -175,8 +198,6 @@ class ManagerShip {
             }
             ship.selected = true;
         }
-
-
     }
     mouseControls(ship) {
         if (Utility.safePressed("left") && ship.selected) {
