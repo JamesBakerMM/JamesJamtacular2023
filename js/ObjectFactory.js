@@ -156,7 +156,7 @@ class ObjectFactory {
         let vx = target.x-ox;
         let vy = target.y-oy;
 
-        length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        length = Math.sqrt(Math.pow(vx, 2) + Math.pow(vy, 2));
 
         // normalize vector
         vx = vx / length;

@@ -139,7 +139,7 @@ class Data {
         }
     }
 
-    createBullet(origin, target, faction) {
+    createBullet(origin, target) {
         this.bullets.push(this.factory.createBullet(origin, target));
     }
 
