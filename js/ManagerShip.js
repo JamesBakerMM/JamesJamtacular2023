@@ -89,7 +89,6 @@ class ManagerShip {
                         ship.targetResource.text = ship.targetResource.metal;
                         ship.text = ship.metal;
                         if (ship.targetResource.metal <= 0) {
-                            cameraGood.addScreenShake();
                             ship.targetResource.remove();
                             this.returnToRefinery(timepassed,data,ship);
                             ship.targetResource = data.getClosestResource(ship.x, ship.y);
@@ -107,17 +106,6 @@ class ManagerShip {
                 ship.targetResource = data.getClosestResource(ship.x, ship.y);
                 this.returnToRefinery(timepassed,data,ship);
             }
-
-            /*have to check for at least null and .removed, 
-            otherwise can end up in states where drone never 
-            fetches a new resource if another drone finished off the same target resource*/
-            // if (
-            //         ship.targetResource == null ||
-            //         ship.targetResource == undefined ||
-            //         ship.targetResource.removed
-            //     ) {
-            //     ship.targetResource = data.getClosestResource(ship.x, ship.y);
-            // }
         } else {
             this.returnToRefinery(timepassed,data,ship);
         }
@@ -168,8 +156,7 @@ class ManagerShip {
                 }
             }
             if (closestTarget != null) {
-                console.log(ship, closestTarget)
-                data.createMissile(ship, closestTarget)
+                data.createBullet(ship, closestTarget, ship.faction)
                 ship.rotation = ship.angleTo(closestTarget.x, closestTarget.y);
             }
         }
@@ -189,11 +176,7 @@ class ManagerShip {
             ship.selected = true;
         }
 
-        if (ship.selected) {
-            noStroke();
-            fill("white");
-            ellipse(ex(ship.x), why(ship.y), ship.img.width * 1.5);
-        }
+
     }
     mouseControls(ship) {
         if (Utility.safePressed("left") && ship.selected) {
@@ -214,10 +197,6 @@ class ManagerShip {
         // }
     }
     drawRange(ship){
-        push(); //scope control drawstate
-            noFill();
-            stroke(255,255,255,100);
-            ellipse(ex(ship.x),why(ship.y),ship.range);
-        pop();
+
     }
 }
