@@ -72,7 +72,7 @@ class ObjectFactory {
 
     createObject(x, y) {
         let obj = new Sprite(x, y);
-        // obj.debug = true;
+        obj.debug = true;
         return obj;
     }
 
@@ -94,6 +94,12 @@ class ObjectFactory {
     createRefinery(x, y) {
         let obj = this.createShip(x, y, "refinery");
         obj.image = this.getByID("refinery",this.images);
+        let centreDiameter = obj.image.height/2;
+        // obj.diameter = centreDiameter;
+        // let miniHeight = obj.height/2;
+        // obj.addCollider(miniHeight, 0, obj.image.height);
+        // obj.addCollider(-2*miniHeight, 0, obj.image.height);
+        //obj.addCollider(-obj.height/2, 0, obj.image.height);
         obj.hp.setHealth(20);
         obj.faction = 0;
         obj.vel.x = 0.2;
@@ -101,6 +107,7 @@ class ObjectFactory {
         obj.speedFactor = 2;
         // obj.scale=2
         return obj;
+        obj.debug = true;
     }
 
     createShip(x, y, type) {
