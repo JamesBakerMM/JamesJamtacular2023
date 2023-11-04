@@ -156,7 +156,7 @@ class ManagerShip {
                 }
             }
             if (closestTarget != null) {
-                //data.createMissile(ship, closestTarget)
+                data.createMissile(ship, closestTarget)
                 ship.rotation = ship.angleTo(closestTarget.x, closestTarget.y);
             }
         }
