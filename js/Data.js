@@ -49,9 +49,9 @@ class Data {
         //         this.refinery.y + random(-1000,1000), 4));
         for (let i = 0; i < 10; i++) {
             let x = Math.random() * 1600;
-            while (Math.abs(x - this.refinery.x) < 5) x = Math.random() * 1600;
+            //while (Math.abs(x - this.refinery.x) < 5) x = Math.random() * 1600;
             let y = Math.random() * 900;
-            while (Math.abs(y - this.refinery.y) < 5) x = Math.random() * 1600;
+            //while (Math.abs(y - this.refinery.y) < 5) x = Math.random() * 1600;
             this.resources.push(this.factory.createResource(x, y, 4));
         }
 
