@@ -111,12 +111,16 @@ class Minimap {
         rect(Minimap.positionX, Minimap.positionY, this.width, this.height);
 
         //crt lines
-        stroke(255,1001,100,5);
+        stroke(255,100,100,5);
         for(let i=0; i<30; i++){
             let x=Minimap.positionX+this.width;
             let y=Minimap.positionY+(10*i);
             line(Minimap.positionX,y,x,y);
         }
+
+        //crt block
+        fill(255,0,0,2);
+        rect(Minimap.positionX,Minimap.positionY+abs(frameCount%300),this.width,this.height/3)
 
         image(GUI.visuals.mapFrame,Minimap.positionX-2, Minimap.positionY-35)
         pop();
