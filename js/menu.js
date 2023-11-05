@@ -10,7 +10,12 @@ const SIDE_MENU = 1;
 const OTHER_SIDE_MENU = 2;
 
 class Menu {
-    constructor(x = 0, y = 0, w = 200, h = 400) {
+
+    static BTN={
+        h:50
+    }
+
+    constructor(x = 0, y = 0, w = 200, h = 240) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -60,7 +65,7 @@ class Menu {
                 );
             })
         );
-        offset_y += 40;
+        offset_y += Menu.BTN.h;
 
         this.btns.main.push(
             this.makeButton(this.x, offset_y, `> laser ${COST.LASER}`, () => {
@@ -76,7 +81,7 @@ class Menu {
                 );
             })
         );
-        offset_y += 40;
+        offset_y += Menu.BTN.h;
         this.btns.main.push(
             this.makeButton(this.x, offset_y, `> torpedo ${COST.TORPEDO}`, () => {
                 if (this.costCheck(data.metals, COST.TORPEDO) === false) {
@@ -85,13 +90,13 @@ class Menu {
                 data.metals -= COST.TORPEDO;
                 data.torpedo.push(
                     data.factory.createTorpedo(
-                        data.refinery.x + randomg(-180, 180),
+                        data.refinery.x + random(-180, 180),
                         data.refinery.y + random(-180, 180)
                     )
                 );
             })
         );
-        offset_y += 40;
+        offset_y += Menu.BTN.h;
         this.btns.main.push(
             this.makeButton(this.x, offset_y, `> gun ${COST.GUN}`, () => {
                 if (this.costCheck(data.metals, COST.GUN) === false) {
@@ -106,7 +111,7 @@ class Menu {
                 );
             })
         );
-        offset_y += 40;
+        offset_y += Menu.BTN.h;
     }
 
     makeButton(
@@ -143,9 +148,9 @@ class Menu {
         if (this.current === MAIN_MENU) {
             this.show(this.btns.main);
         }
-        fill("black");
+        fill("yellow");
         textSize(32);
-        text(`🪨${data.metals}`, this.x + 20, this.y + 300);
+        text(`| res:${data.metals}`, this.x + 20, this.y + 30);
         pop();
     }
 }
