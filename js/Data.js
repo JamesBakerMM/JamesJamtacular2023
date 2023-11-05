@@ -43,9 +43,9 @@ class Data {
         this.drones.push(this.factory.createDrone(700, 450));
 
         this.resources = new Group();
-        for (let i = 0; i < 10; i++) {
-            let x = random(1600);
-            let y = random(900);
+        for (let i = 0; i < 100; i++) {
+            let x = random(5000);
+            let y = random(5000);
             this.resources.push(this.factory.createResource(x, y, Math.round(random(4,12))));
         }
         this.resources.comets = new Group();
