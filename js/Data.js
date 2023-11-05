@@ -10,13 +10,15 @@ class Data {
         this.effects;
         this.bullets;
         this.refinery = null;
-        this.resources; //will be group in setup
+        this.resources;
+        this.universe = new Universe();
         this.background = new Background();
 
         this.managerShip = new ManagerShip();
     }
 
     preload() {
+        this.universe.preload();
         this.factory.preload();
         this.background.preload();
     }
@@ -41,27 +43,16 @@ class Data {
         this.ships.push(this.refinery);
         this.drones.push(this.factory.createDrone(900, 450));
         this.drones.push(this.factory.createDrone(700, 450));
-
-        this.resources = new Group();
-        for (let i = 0; i < 100; i++) {
-            let x = random(5000);
-            let y = random(5000);
-            this.resources.push(this.factory.createResource(x, y, Math.round(random(4,12))));
-        }
-        this.resources.comets = new Group();
-        let comet = this.factory.createResource(random(-100,0), 
-                random(900,1000), 
-                Math.round(random(20,35))); //Comet POC
-        comet.vel.x = random(1,15);
-        comet.vel.y = -5; //random(-5,0);
-        this.resources.push(comet);
-
+        
+        
+        
         this.ships.push(this.factory.createTorpedo(800, 300));
         this.ships.push(this.factory.createEnemyTurret(1500, 800));
-
+        
         this.background.setup();
+        this.universe.setup(this.factory);
     }
-
+    
     /*
     * This is called each frame to update all our objects
     */
@@ -99,7 +90,7 @@ class Data {
                 }
                 // this.factory.createDirtyExplosion(bullet.x,bullet.y,0.15);
                 if(hasHitShip===false) {
-                    for(let resource of this.resources){
+                    for(let resource of this.universe.resources){
                         if(resource.collides(bullet)){
                             hasHitAsteroid=true;
                             this.factory.createDirtyExplosion(bullet.x,bullet.y,0.5);
@@ -126,7 +117,7 @@ class Data {
                 bullet.vel.x = cos(bullet.rotation) * 4;
                 bullet.vel.y = sin(bullet.rotation) * 4;
 
-                for(let res of this.resources){
+                for(let res of this.universe.resources){
                     if(res.collides(bullet)){
                         this.bullets.remove(bullet);
                         bullet.remove();
@@ -145,8 +136,8 @@ class Data {
     getClosestResource(x, y) {
         let index = -1;
         let distance = Number.MAX_VALUE;
-        for (let i = 0; i < this.resources.length; i++) {
-            let res = this.resources[i];
+        for (let i = 0; i < this.universe.resources.length; i++) {
+            let res = this.universe.resources[i];
             let distToResource = dist(this.refinery.x, this.refinery.y, res.x, res.y);
             let closest = distToResource < distance;
             let inRange = dist(this.refinery.x,this.refinery.y,res.x,res.y) <= this.refinery.range/2;
@@ -157,7 +148,7 @@ class Data {
             } else {
             }
         }
-        return this.resources[index];
+        return this.universe.resources[index];
 
     }
 

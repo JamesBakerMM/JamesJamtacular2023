@@ -38,8 +38,8 @@ class Minimap {
 
         //resources
         fill(255, 0, 255, 255);
-        for(let i = 0; i < data.resources.length; i++) {
-            let res = data.resources[i];
+        for(let i = 0; i < data.universe.resources.length; i++) {
+            let res = data.universe.resources[i];
             let x = this.worldToMinimapPixelX(res.x);
             let y = this.worldToMinimapPixelY(res.y);
             if (x != null && y != null) {
