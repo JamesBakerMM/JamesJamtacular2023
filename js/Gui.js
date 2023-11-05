@@ -9,7 +9,9 @@ class GUI {
     }
 
     preload() {}
+
     setup() {}
+
     update(data) {
         this.minimap.update(data);
         push();
@@ -20,6 +22,7 @@ class GUI {
         }
         pop();
     }
+
     hpBar(ship) {
         if(ship.hp!==undefined){
             const current = ship.hp.getHealth();
@@ -36,11 +39,13 @@ class GUI {
             rect(ex(ship.x),why(ship.y+ship.img.h),GUI.HP.W,GUI.HP.H);
         }
     }
+
     shipRange(ship) {
         noFill();
         stroke(255, 255, 255, 100);
         ellipse(ex(ship.x), why(ship.y), ship.range);
     }
+
     shipSelection(ship) {
         if (ship.selected) {
             noStroke();

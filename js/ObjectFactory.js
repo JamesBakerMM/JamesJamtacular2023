@@ -76,6 +76,12 @@ class ObjectFactory {
         return obj;
     }
 
+    createComet(x, y, amount=20) {
+        let obj = this.createResource(x, y, amount);
+        obj.minVel.x = random(1, 10);
+        obj.minVel.y = random(-10, 1);
+    }
+
     createResource(x, y, amount=4) {
         let obj = this.createObject(x, y);
         obj.addAni("rock",this.getByID("rock",this.anims));
@@ -84,7 +90,7 @@ class ObjectFactory {
         obj.startingMetal = obj.metal = amount; // Do I need to declare startingMetal first?
         obj.textSize=34;
         obj.text = obj.metal;
-        obj.mass = 10;
+        obj.mass = amount;
         obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
         obj.diameter = obj.width;
         obj.drag = 0.5;
@@ -95,6 +101,9 @@ class ObjectFactory {
         let obj = this.createShip(x, y, "refinery");
         obj.image = this.getByID("refinery",this.images);
         let centreDiameter = obj.image.height/2;
+        obj.w=obj.img.w/1.5;
+        // obj.
+        obj.addCollider(18,0,obj.img.h)
         // obj.diameter = centreDiameter;
         // let miniHeight = obj.height/2;
         // obj.addCollider(miniHeight, 0, obj.image.height);
@@ -210,7 +219,6 @@ class ObjectFactory {
     }
 
     createMissile(origin, target, offset) {
-
         let offsetX = sin(origin.rotation) * offset;
         let offsetY = cos(origin.rotation) * offset;
         console.log();

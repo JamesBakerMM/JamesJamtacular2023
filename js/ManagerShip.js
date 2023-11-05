@@ -66,20 +66,23 @@ class ManagerShip {
         // }
     }
 
-
     doDroneAI(timepassed, data, ship) {
+        ship.moveTimer += timepassed;
         if (ship.metal <= 0) {
             if (ship.targetResource) {
                 stroke(255,255,0);
                 line(ex(ship.x),why(ship.y),ex(ship.targetResource.x),why(ship.targetResource.y));
                 ship.rotation = ship.direction;
                 ship.moveTowards(ship.targetResource, ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
-                if (ship.overlaps(ship.targetResource)) {
-                    if (ship.targetResource.metal > 0) {
+                if (ship.overlapping(ship.targetResource)) {
+                    ship.vel.x = 0;
+                    ship.vel.y = 0;
+                    if (ship.targetResource.metal > 0 && ship.moveTimer > 2000) {
                         ship.targetResource.metal--;
                         ship.metal++;
                         ship.targetResource.text = ship.targetResource.metal;
                         ship.text = ship.metal;
+                        ship.targetResource.mass = ship.targetResource.metal;
                         if (ship.targetResource.metal <= 0) {
                             ship.targetResource.remove();
                             this.returnToRefinery(timepassed,data,ship);
@@ -107,11 +110,11 @@ class ManagerShip {
         } else {
             this.returnToRefinery(timepassed,data,ship);
         }
+
+        if (ship.moveTimer > 2000) {
+            ship.moveTimer -= 2000;
+        }
         //timed action code
-        ship.moveTimer += timepassed;
-        // if (ship.moveTimer > 2000) {
-        //     ship.moveTimer -= 2000;
-        // }
         // if (ship.moveTimer < 1000) { //
         //     this.returnToRefinery(timepassed,data,ship);
         // } else {

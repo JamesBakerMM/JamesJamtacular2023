@@ -45,7 +45,7 @@ function draw(){
 
     gui.update(data);
 
-    menu.draw(data);
+    menu.update(data);
     data.setOffset(-cameraGood.getX(), -cameraGood.getY());
 
     //menu.draw();
