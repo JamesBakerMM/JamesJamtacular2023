@@ -4,7 +4,7 @@ const SCREEN_WIDTH = 1600;
 const SCREEN_HEIGHT = 900;
 
 const data = new Data();
-const menu = new Menu(50);
+const menu = new Menu(0);
 const gui = new GUI();
 
 var prevTime = 0;

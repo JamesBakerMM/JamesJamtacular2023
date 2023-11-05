@@ -31,7 +31,7 @@ class Menu {
         // this.makeControlButtons();
         this.makeMainButtons(data);
     }
-    
+
     costCheck(res, cost) {
         const debug = false;
         if (debug) {
@@ -47,7 +47,7 @@ class Menu {
         //main buttons
         let offset_y = this.y + 40;
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, `drone ${COST.DRONE}`, () => {
+            this.makeButton(this.x, offset_y, `> drone ${COST.DRONE}`, () => {
                 if (this.costCheck(data.metals, COST.DRONE) === false) {
                     return false
                 }
@@ -63,7 +63,7 @@ class Menu {
         offset_y += 40;
 
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, `laser ${COST.LASER}`, () => {
+            this.makeButton(this.x, offset_y, `> laser ${COST.LASER}`, () => {
                 if (this.costCheck(data.metals, COST.LASER) === false) {
                     return false
                 }
@@ -78,14 +78,14 @@ class Menu {
         );
         offset_y += 40;
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, `torpedo ${COST.TORPEDO}`, () => {
+            this.makeButton(this.x, offset_y, `> torpedo ${COST.TORPEDO}`, () => {
                 if (this.costCheck(data.metals, COST.TORPEDO) === false) {
                     return false
                 }
                 data.metals -= COST.TORPEDO;
                 data.torpedo.push(
                     data.factory.createTorpedo(
-                        data.refinery.x + random(-180, 180),
+                        data.refinery.x + randomg(-180, 180),
                         data.refinery.y + random(-180, 180)
                     )
                 );
@@ -93,7 +93,7 @@ class Menu {
         );
         offset_y += 40;
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, `gun ${COST.GUN}`, () => {
+            this.makeButton(this.x, offset_y, `> gun ${COST.GUN}`, () => {
                 if (this.costCheck(data.metals, COST.GUN) === false) {
                     return false
                 }
@@ -138,7 +138,7 @@ class Menu {
     update(data) {
         push();
         noStroke();
-        fill(50 + 77 * this.current);
+        fill(GUI.BLACK);
         rect(this.x, this.y, this.w, this.h);
         if (this.current === MAIN_MENU) {
             this.show(this.btns.main);

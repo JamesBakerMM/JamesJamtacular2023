@@ -80,22 +80,14 @@ class ManagerShip {
                     //ship.speed = 0;
                     ship.rotationSpeed = 0;
                     if (ship.targetResource.metal > 0 && ship.moveTimer > 2000) {
-                        ship.targetResource.metal--;
+                        data.universe.damage(ship.targetResource);
                         ship.metal++;
-                        ship.targetResource.text = ship.targetResource.metal;
                         ship.text = ship.metal;
-                        ship.targetResource.mass = ship.targetResource.metal;
-                        if (ship.targetResource.metal <= 0) {
-                            ship.targetResource.remove();
+                        if (ship.targetResource.removed || ship.targetResource.metal <= 0) {
                             this.returnToRefinery(timepassed,data,ship);
-                            ship.targetResource = data.getClosestResource(ship.x, ship.y);
-                        } else if (ship.targetResource.metal <= ship.targetResource.startingMetal/4) {
-                            ship.targetResource.ani.frame = 3;
-                        } else if (ship.targetResource.metal <= ship.targetResource.startingMetal/2) {
-                            ship.targetResource.ani.frame = 2;
-                        } else if (ship.targetResource.metal <= ship.targetResource.startingMetal/4*3) {
-                            ship.targetResource.ani.frame = 1;
+                            //resource = data.getClosestResource(ship.x, ship.y);
                         }
+                        
                     } 
                 }
             } else {

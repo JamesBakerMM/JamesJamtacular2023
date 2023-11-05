@@ -95,6 +95,7 @@ class Data {
                             hasHitAsteroid=true;
                             this.factory.createDirtyExplosion(bullet.x,bullet.y,0.5);
                             this.bullets.remove(bullet);
+                            this.universe.damage(resource);
                             bullet.remove();
                         }
                     }
