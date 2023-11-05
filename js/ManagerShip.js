@@ -75,8 +75,10 @@ class ManagerShip {
                 ship.rotation = ship.direction;
                 ship.moveTowards(ship.targetResource, ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
                 if (ship.overlapping(ship.targetResource)) {
-                    ship.vel.x = 0;
-                    ship.vel.y = 0;
+                    //ship.vel.x = 0;
+                    //ship.vel.y = 0;
+                    //ship.speed = 0;
+                    ship.rotationSpeed = 0;
                     if (ship.targetResource.metal > 0 && ship.moveTimer > 2000) {
                         ship.targetResource.metal--;
                         ship.metal++;
