@@ -205,14 +205,7 @@ class ManagerShip {
             ship.moveTowards(ship.targetPos, ship.speedFactor/distanceToTravel);
         } else {
             ship.vel = {x:0,y:0};
-            //ship.rotationLock = true;
         }
-        //} 
-                
-        //  else if (ship.selected && 
-        //     dist(ship.x,ship.y,ship.targetPos.x,ship.targetPos.y) <=> (ship.img.width * ship_counter)) {
-        //         ship.vel = {x:0,y:0};
-        // }
     }
     drawRange(ship){
 
