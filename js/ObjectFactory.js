@@ -219,7 +219,6 @@ class ObjectFactory {
     }
 
     createMissile(origin, target, offset) {
-
         let offsetX = sin(origin.rotation) * offset;
         let offsetY = cos(origin.rotation) * offset;
         console.log();

@@ -4,13 +4,16 @@ class GUI {
         H:20
     }
 
-    constructor() {}
+    constructor() {
+        this.minimap = new Minimap();
+    }
 
     preload() {}
 
     setup() {}
 
     update(data) {
+        this.minimap.update(data);
         push();
         for(let ship of data.ships){
             this.shipRange(ship);
