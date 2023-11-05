@@ -128,10 +128,6 @@ class Data {
                 cameraGood.addScreenShake();
             }
         }
-
-        // for (let comet of this.resources.comets) {
-        //     this.doCometAI(comet);
-        // }
     }
 
     getClosestResource(x, y) {
