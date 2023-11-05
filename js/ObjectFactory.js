@@ -1,6 +1,9 @@
 const MIN_RANGE=300;
 const MED_RANGE=500;
 const LONG_RANGE=700;
+const RESOURCE_LAYER = 1;
+const ENEMY_LAYER = 2;
+const PC_LAYER = 3;
 
 class ObjectFactory {
     constructor() {
@@ -94,6 +97,7 @@ class ObjectFactory {
         obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
         obj.diameter = obj.width;
         obj.drag = 0.5;
+        obj.layer = RESOURCE_LAYER;
         return obj;
     }
 
@@ -126,6 +130,7 @@ class ObjectFactory {
         obj.type = type;
         obj.hp = new Health(1);
         obj.speedFactor = 1;
+        obj.layer = PC_LAYER;
         return obj;
     }
 
@@ -186,6 +191,7 @@ class ObjectFactory {
         obj.timerShoot = 0;
         obj.timerShootStart = 1000;
         obj.hp.setHealth(20);
+        obj.layer = ENEMY_LAYER;
         return obj;
     }
 
