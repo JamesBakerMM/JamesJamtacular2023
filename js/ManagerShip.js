@@ -79,6 +79,7 @@ class ManagerShip {
                         ship.metal++;
                         ship.targetResource.text = ship.targetResource.metal;
                         ship.text = ship.metal;
+                        ship.targetResource.mass = ship.targetResource.metal;
                         if (ship.targetResource.metal <= 0) {
                             ship.targetResource.remove();
                             this.returnToRefinery(timepassed,data,ship);

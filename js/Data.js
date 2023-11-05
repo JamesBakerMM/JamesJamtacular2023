@@ -44,10 +44,17 @@ class Data {
 
         this.resources = new Group();
         for (let i = 0; i < 10; i++) {
-            let x = Math.random() * 1600;
-            let y = Math.random() * 900;
+            let x = random(1600);
+            let y = random(900);
             this.resources.push(this.factory.createResource(x, y, Math.round(random(4,12))));
         }
+        this.resources.comets = new Group();
+        let comet = this.factory.createResource(random(-100,0), 
+                random(900,1000), 
+                Math.round(random(20,35))); //Comet POC
+        comet.vel.x = random(1,15);
+        comet.vel.y = -5; //random(-5,0);
+        this.resources.push(comet);
 
         this.ships.push(this.factory.createTorpedo(800, 300));
         this.ships.push(this.factory.createEnemyTurret(1500, 800));
@@ -121,6 +128,10 @@ class Data {
                 cameraGood.addScreenShake();
             }
         }
+
+        // for (let comet of this.resources.comets) {
+        //     this.doCometAI(comet);
+        // }
     }
 
     getClosestResource(x, y) {
@@ -156,6 +167,11 @@ class Data {
 
     createMissile(origin, target, offset) {
         this.bullets.push(this.factory.createMissile(origin, target, offset));
+    }
+
+    doCometAI(comet) {
+        if (comet.vel.x < comet.minVal.x) comet.vel.x = comet.minVal.x;
+        if (comet.vel.y < comet.minVal.y) comet.vel.y = comet.minVal.y;
     }
 }
 
