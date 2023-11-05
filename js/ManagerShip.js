@@ -66,7 +66,6 @@ class ManagerShip {
         // }
     }
 
-
     doDroneAI(timepassed, data, ship) {
         if (ship.metal <= 0) {
             if (ship.targetResource) {
@@ -74,7 +73,7 @@ class ManagerShip {
                 line(ex(ship.x),why(ship.y),ex(ship.targetResource.x),why(ship.targetResource.y));
                 ship.rotation = ship.direction;
                 ship.moveTowards(ship.targetResource, ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
-                if (ship.overlaps(ship.targetResource)) {
+                if (ship.overlapping(ship.targetResource)) {
                     if (ship.targetResource.metal > 0) {
                         ship.targetResource.metal--;
                         ship.metal++;

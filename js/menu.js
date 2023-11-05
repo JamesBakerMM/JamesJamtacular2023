@@ -1,3 +1,10 @@
+const COST = {
+    DRONE: 1,
+    LASER: 3,
+    TORPEDO: 4,
+    GUN: 3,
+};
+
 const MAIN_MENU = 0;
 const SIDE_MENU = 1;
 const OTHER_SIDE_MENU = 2;
@@ -24,11 +31,27 @@ class Menu {
         // this.makeControlButtons();
         this.makeMainButtons(data);
     }
+    
+    costCheck(res, cost) {
+        const debug = false;
+        if (debug) {
+            return true;
+        }
+        if (res >= cost) {
+            return true;
+        }
+        return false
+    }
+
     makeMainButtons() {
         //main buttons
         let offset_y = this.y + 40;
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, "drone", () => {
+            this.makeButton(this.x, offset_y, `drone ${COST.DRONE}`, () => {
+                if (this.costCheck(data.metals, COST.DRONE) === false) {
+                    return false
+                }
+                data.metals -= COST.DRONE;
                 data.drones.push(
                     data.factory.createDrone(
                         data.refinery.x + random(-180, 180),
@@ -40,7 +63,11 @@ class Menu {
         offset_y += 40;
 
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, "laser", () => {
+            this.makeButton(this.x, offset_y, `laser ${COST.LASER}`, () => {
+                if (this.costCheck(data.metals, COST.LASER) === false) {
+                    return false
+                }
+                data.metals -= COST.LASER;
                 data.laser.push(
                     data.factory.createLaser(
                         data.refinery.x + random(-180, 180),
@@ -51,7 +78,11 @@ class Menu {
         );
         offset_y += 40;
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, "torpedo", () => {
+            this.makeButton(this.x, offset_y, `torpedo ${COST.TORPEDO}`, () => {
+                if (this.costCheck(data.metals, COST.TORPEDO) === false) {
+                    return false
+                }
+                data.metals -= COST.TORPEDO;
                 data.torpedo.push(
                     data.factory.createTorpedo(
                         data.refinery.x + random(-180, 180),
@@ -62,7 +93,11 @@ class Menu {
         );
         offset_y += 40;
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, "gun", () => {
+            this.makeButton(this.x, offset_y, `gun ${COST.GUN}`, () => {
+                if (this.costCheck(data.metals, COST.GUN) === false) {
+                    return false
+                }
+                data.metals -= COST.GUN;
                 data.gun.push(
                     data.factory.createGun(
                         data.refinery.x + random(-180, 180),
@@ -100,7 +135,7 @@ class Menu {
         }
     }
 
-    draw(data) {
+    update(data) {
         push();
         noStroke();
         fill(50 + 77 * this.current);
