@@ -76,7 +76,6 @@ class ManagerShip {
                 ship.moveTowards(ship.targetResource, ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
                 if (ship.overlaps(ship.targetResource)) {
                     if (ship.targetResource.metal > 0) {
-                        ship.targetResource.ani.nextFrame();
                         ship.targetResource.metal--;
                         ship.metal++;
                         ship.targetResource.text = ship.targetResource.metal;
@@ -85,6 +84,12 @@ class ManagerShip {
                             ship.targetResource.remove();
                             this.returnToRefinery(timepassed,data,ship);
                             ship.targetResource = data.getClosestResource(ship.x, ship.y);
+                        } else if (ship.targetResource.metal <= ship.targetResource.startingMetal/4) {
+                            ship.targetResource.ani.frame = 3;
+                        } else if (ship.targetResource.metal <= ship.targetResource.startingMetal/2) {
+                            ship.targetResource.ani.frame = 2;
+                        } else if (ship.targetResource.metal <= ship.targetResource.startingMetal/4*3) {
+                            ship.targetResource.ani.frame = 1;
                         }
                     } 
                 }
@@ -143,6 +148,7 @@ class ManagerShip {
         this.selection(ship, TORPEDO_BINDING);
         this.mouseControls(ship);
     }
+    
     doGunAI(timepassed, data, ship) {
         this.selection(ship, GUN_BINDING);
         this.mouseControls(ship);

@@ -80,8 +80,8 @@ class ObjectFactory {
         let obj = this.createObject(x, y);
         obj.addAni("rock",this.getByID("rock",this.anims));
         obj.ani.stop();
-        obj.scale = 2
-        obj.metal=amount;
+        obj.scale = amount/2;
+        obj.startingMetal = obj.metal = amount; // Do I need to declare startingMetal first?
         obj.textSize=34;
         obj.text = obj.metal;
         obj.mass = 10;
