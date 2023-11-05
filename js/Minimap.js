@@ -1,22 +1,21 @@
 class Minimap {
     
-    constructor() {
+    static borderPadding = 6;
+    static halfBorder = Minimap.borderPadding/2;
+    static positionX = 0 + Minimap.halfBorder;
+    static positionXEnd = 300 + Minimap.halfBorder;
+    static positionY = 600 - Minimap.halfBorder;
+    static positionYEnd = 900 - Minimap.halfBorder;
 
-        this.borderPadding = 6;
-        this.halfBorder = this.borderPadding/2;
+    constructor() {        
 
-        this.worldX = 0 + this.halfBorder;
-        this.worldXEnd = 5000 + this.halfBorder;
-        this.worldY = 0 + this.halfBorder;
-        this.worldYEnd = 5000 + this.halfBorder;
+        this.worldX = 0 + Minimap.halfBorder;
+        this.worldXEnd = 5000 + Minimap.halfBorder;
+        this.worldY = 0 + Minimap.halfBorder;
+        this.worldYEnd = 5000 + Minimap.halfBorder;
 
-        this.positionX = 0 + this.halfBorder;
-        this.positionXEnd = 300 + this.halfBorder;
-        this.positionY = 600 - this.halfBorder;
-        this.positionYEnd = 900 - this.halfBorder;
-
-        this.width = Utility.getDifference(this.positionX, this.positionXEnd);
-        this.height = Utility.getDifference(this.positionY, this.positionYEnd);
+        this.width = Utility.getDifference(Minimap.positionX, Minimap.positionXEnd);
+        this.height = Utility.getDifference(Minimap.positionY, Minimap.positionYEnd);
     }
 
     update(data) {
@@ -24,17 +23,25 @@ class Minimap {
         noStroke();
 
         //do mouse handling here
-        if (mouse.pressing('left')) {
-            if (mouseX > this.positionX && mouseX < this.positionXEnd &&
-                mouseY > this.positionY && mouseY < this.positionYEnd) {
-                    cameraGood.x = this.minimapToWorldPixelX(mouseX);
-                    cameraGood.y = this.minimapToWorldPixelY(mouseY);
+        if (mouseX > Minimap.positionX && mouseX < Minimap.positionXEnd &&
+            mouseY > Minimap.positionY && mouseY < Minimap.positionYEnd) {
+            if (mouse.pressing('left')) {
+                cameraGood.x = this.minimapToWorldPixelX(mouseX) - (width/2);
+                cameraGood.y = this.minimapToWorldPixelY(mouseY) - (height/2);
+            }
+            if (mouse.pressing('right')) {
+                for(let i = 0; i < data.ships.length; i++) {
+                    let ship = data.ships[i];
+                    if (ship.selected) {
+                        ship.targetPos = {x:this.minimapToWorldPixelX(mouseX), y:this.minimapToWorldPixelY(mouseY)};
+                    }
+                }
             }
         }
 
         //background
         fill(0, 0, 0, 255);
-        rect(this.positionX, this.positionY, this.width, this.height);
+        rect(Minimap.positionX, Minimap.positionY, this.width, this.height);
 
         //resources
         fill(255, 0, 255, 255);
@@ -82,16 +89,16 @@ class Minimap {
 
         if ((x != null || x2 != null) && (y != null || y2 != null)) {
             if (x == null) {
-                x = this.positionX;
+                x = Minimap.positionX;
             }
             if (y == null) {
-                y = this.positionY;
+                y = Minimap.positionY;
             }
             if (x2 == null) {
-                x2 = this.positionXEnd;
+                x2 = Minimap.positionXEnd;
             }
             if (y2 == null) {
-                y2 = this.positionYEnd;
+                y2 = Minimap.positionYEnd;
             }
     
             rect(x, y, x2-x, y2-y);
@@ -99,9 +106,9 @@ class Minimap {
 
         //frame
         stroke(255,255,255,255);
-        strokeWeight(this.borderPadding);
+        strokeWeight(Minimap.borderPadding);
         noFill();
-        rect(this.positionX, this.positionY, this.width, this.height);
+        rect(Minimap.positionX, Minimap.positionY, this.width, this.height);
 
         pop();
     }
@@ -115,7 +122,7 @@ class Minimap {
         let difference2 = Utility.getDifference(this.worldX, value);
         let percentage = difference2 / difference;
 
-        let miniX = (this.positionX) + (percentage * this.width);
+        let miniX = (Minimap.positionX) + (percentage * this.width);
         return miniX;
     }
 
@@ -128,23 +135,19 @@ class Minimap {
         let difference2 = Utility.getDifference(this.worldY, value);
         let percentage = difference2 / difference;
 
-        let miniY = (this.positionY) + (percentage * this.height);
+        let miniY = (Minimap.positionY) + (percentage * this.height);
         return miniY;
     }
 
     minimapToWorldPixelX(value) {
-        let difference = Utility.getDifference(this.positionX, value);
+        let difference = Utility.getDifference(Minimap.positionX, value);
         let percentage = difference / this.width;
-        let newX = this.worldX + (percentage * Utility.getDifference(this.worldX, this.worldXEnd));
-        newX = newX - (width/2);
-        return newX;
+        return this.worldX + (percentage * Utility.getDifference(this.worldX, this.worldXEnd));
     }
 
     minimapToWorldPixelY(value) {
-        let difference = Utility.getDifference(this.positionY, value);
+        let difference = Utility.getDifference(Minimap.positionY, value);
         let percentage = difference / this.height;
-        let newY = this.worldY + (percentage * Utility.getDifference(this.worldY, this.worldYEnd));
-        newY = newY - (height/2);
-        return newY
+        return this.worldY + (percentage * Utility.getDifference(this.worldY, this.worldYEnd));
     }
 }
