@@ -150,7 +150,7 @@ class Menu {
         }
         fill("yellow");
         textSize(32);
-        text(`| res:${data.metals}`, this.x + 20, this.y + 30);
+        text(`| metal: ${data.metals}`, this.x + 20, this.y + 30);
         pop();
     }
 }

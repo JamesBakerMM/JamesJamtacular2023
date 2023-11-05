@@ -40,9 +40,8 @@ class Minimap {
         }
 
         //background
-        fill(0, 0, 0, 255);
+        fill(GUI.BLACK);
         rect(Minimap.positionX, Minimap.positionY, this.width, this.height);
-
         //resources
         fill(255, 0, 255, 255);
         for(let i = 0; i < data.universe.resources.length; i++) {
@@ -63,7 +62,7 @@ class Minimap {
             if (x != null && y != null) {
 
                 if (ship.faction == 0) {
-                    fill(255, 255, 0, 255);
+                    fill(GUI.YELLOW);
                 } else {
                     fill(255, 0, 0, 255);
                 }
@@ -78,7 +77,7 @@ class Minimap {
         }
 
         //screen pos
-        stroke(255,255,255,255);
+        stroke(GUI.YELLOW);
         strokeWeight(2);
         noFill();
 
@@ -105,11 +104,21 @@ class Minimap {
         }
 
         //frame
-        stroke(255,255,255,255);
+        noStroke();
+        stroke(0,0,0);
         strokeWeight(Minimap.borderPadding);
         noFill();
         rect(Minimap.positionX, Minimap.positionY, this.width, this.height);
 
+        //crt lines
+        stroke(255,1001,100,5);
+        for(let i=0; i<30; i++){
+            let x=Minimap.positionX+this.width;
+            let y=Minimap.positionY+(10*i);
+            line(Minimap.positionX,y,x,y);
+        }
+
+        image(GUI.visuals.mapFrame,Minimap.positionX-2, Minimap.positionY-35)
         pop();
     }
 

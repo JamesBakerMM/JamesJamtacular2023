@@ -228,7 +228,6 @@ class ObjectFactory {
     createMissile(origin, target, offset) {
         let offsetX = sin(origin.rotation) * offset;
         let offsetY = cos(origin.rotation) * offset;
-        console.log();
         let obj = this.createObject(origin.x + offsetX, origin.y+offsetY, "missile");
         if (offset > 0) {
             obj.rotation = -origin.rotation + 90;
@@ -246,7 +245,6 @@ class ObjectFactory {
     createDirtyExplosion(x,y,scale){
         let obj = this.createObject(x,y);
         obj.img = this.getByID("dirtyExplosion",this.anims);
-        console.log(obj)
         obj.collider="none";
         obj.scale=scale;
         obj.life = obj._ani.length*obj._ani.frameDelay-1;

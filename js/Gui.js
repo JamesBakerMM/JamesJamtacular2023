@@ -2,6 +2,9 @@
 class GUI {
     static YELLOW="#f5bb00";
     static BLACK="#030219";
+    static GREY="#221e20";
+    static GRAY=GUI.GREY;
+    static visuals={};
 
     static HP={
         W:100,
@@ -10,15 +13,22 @@ class GUI {
 
     constructor() {
         this.minimap = new Minimap();
+        this.visuals={}
     }
 
-    preload() {}
+    preload() {
+        GUI.visuals.mapFrame=loadImage("./assets/img/miniMapframe.png");
+    }
 
-    setup() {}
+    setup() {
+        
+        // noCursor();
+    }
 
     update(data) {
         this.minimap.update(data);
         push();
+        this.customCursor();
         for(let ship of data.ships){
             this.shipRange(ship);
             this.shipSelection(ship);
@@ -26,17 +36,23 @@ class GUI {
         }
         pop();
     }
+    
+    customCursor(){
+        push();
+        //resync sprite of cursor
+        pop();
+    }
 
     hpBar(ship) {
         if(ship.hp!==undefined){
             const current = ship.hp.getHealth();
             const max = ship.hp.getMaxHealth();
-            let rectSize=map(current,0,max,0,GUI.HP.W)
-            stroke("black")
+            let rectSize=map(current,0,max,0,GUI.HP.W);
+            stroke("black");
             fill("red");
-            rect(ex(ship.x-ship.img.w/2),why(ship.y+ship.img.h),GUI.HP.W,GUI.HP.H)
+            rect(ex(ship.x-ship.img.w/2),why(ship.y+ship.img.h),GUI.HP.W,GUI.HP.H);
             fill("yellow");
-            rect(ex(ship.x-ship.img.w/2),why(ship.y+ship.img.h),rectSize,GUI.HP.H)
+            rect(ex(ship.x-ship.img.w/2),why(ship.y+ship.img.h),rectSize,GUI.HP.H);
 
         } else {
             fill("red");
