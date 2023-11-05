@@ -105,7 +105,7 @@ class ObjectFactory {
         let obj = this.createShip(x, y, "refinery");
         obj.image = this.getByID("refinery",this.images);
         let centreDiameter = obj.image.height/2;
-        obj.w=obj.img.w/1.5;
+        obj.w=obj.img.w/1.25;
         // obj.
         obj.addCollider(18,0,obj.img.h)
         // obj.diameter = centreDiameter;

@@ -1,4 +1,8 @@
+
 class GUI {
+    static YELLOW="#f5bb00";
+    static BLACK="#030219";
+
     static HP={
         W:100,
         H:20
