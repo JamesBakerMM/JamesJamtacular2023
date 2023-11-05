@@ -101,9 +101,21 @@ class Data {
                 if(hasHitShip===false) {
                     for(let resource of this.resources){
                         if(resource.collides(bullet)){
+                            hasHitAsteroid=true;
                             this.factory.createDirtyExplosion(bullet.x,bullet.y,0.5);
                             this.bullets.remove(bullet);
                             bullet.remove();
+                        }
+                    }
+                }
+
+                if(hasHitShip===false && hasHitAsteroid===false){
+                    for(let bullet of this.bullets){
+                        for(let otherBullet of this.bullets){
+                            if(bullet.overlaps(otherBullet) && bullet.faction!==otherBullet.faction) {
+                                bullet.remove();
+                                otherBullet.remove();
+                            }
                         }
                     }
                 }
