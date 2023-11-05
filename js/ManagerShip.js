@@ -196,7 +196,7 @@ class ManagerShip {
         }
     }
     mouseControls(ship) {
-        if (Utility.safePressed("left") && ship.selected) {
+        if (Utility.safePressed("right") && ship.selected) {
             ship.targetPos = {x:exReverse(mouseX), y:whyReverse(mouseY)};
         }
         ship.rotation = ship.direction;

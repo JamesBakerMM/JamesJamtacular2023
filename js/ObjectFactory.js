@@ -118,6 +118,7 @@ class ObjectFactory {
         obj.vel.x = 0.2;
         obj.range=LONG_RANGE;
         obj.speedFactor = 2;
+        obj.drag = 10;
         // obj.scale=2
         return obj;
         obj.debug = true;

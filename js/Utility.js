@@ -48,13 +48,25 @@ class Utility {
         const mouseIsLeftOfRightEdge = mouseX < menu.x + menu.w;
         const mouseIsBelowTopEdge = mouseY > menu.y;
         const mouseIsAboveBottomEdge = mouseY < menu.y + menu.h;
+
+        const mouseOnMinimapLeftEdge = mouseX > Minimap.positionX;
+        const mouseOnMinimapRightEdge = mouseX < Minimap.positionXEnd;
+        const mouseOnMinimapTopEdge = mouseY > Minimap.positionY;
+        const mouseOnMinimapBottomEdge = mouseY < Minimap.positionYEnd;
     
         const mouseIsInside =
             mouseIsRightOfLeftEdge &&
             mouseIsLeftOfRightEdge &&
             mouseIsBelowTopEdge &&
             mouseIsAboveBottomEdge;
-        if (mouseIsInside) {
+
+        const mouseIsInsideMinimap =
+            mouseOnMinimapLeftEdge &&
+            mouseOnMinimapRightEdge &&
+            mouseOnMinimapTopEdge &&
+            mouseOnMinimapBottomEdge;
+            
+        if (mouseIsInside || mouseIsInsideMinimap) {
             return false;
         }
         return mouse.pressed(button);
