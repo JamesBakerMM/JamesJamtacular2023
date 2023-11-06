@@ -108,19 +108,6 @@ class ManagerShip {
         if (ship.moveTimer > 2000) {
             ship.moveTimer -= 2000;
         }
-        //timed action code
-        // if (ship.moveTimer < 1000) { //
-        //     this.returnToRefinery(timepassed,data,ship);
-        // } else {
-        //     //ship.x = ship.targetResource.x;
-        //     //ship.y = ship.targetResource.y;
-        //     //TODO: MAKE SHIP ROTATE FULLY BEFORE MOVING
-        //     ship.rotation = ship.direction;
-        //     //ship.rotateTo(ship.targetResource);
-        //     ship.moveTowards(ship.targetResource, 0.1);
-        // }
-
-        //has to be at end as could remove the target resource
         
     }
     doLaserAI(timepassed, data, ship) {
