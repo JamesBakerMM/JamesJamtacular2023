@@ -151,7 +151,7 @@ class ObjectFactory {
         return obj;
     }
 
-    createDrone(x, y) {
+    createDrone(x, y, refinery) {
         let obj = this.createShip(x, y, "drone");
         obj.image = this.getByID("drone",this.images);
         obj.diameter = obj.width;
@@ -161,6 +161,7 @@ class ObjectFactory {
         obj.metal=0;
         obj.hp.setHealth(10);
         obj.speedFactor = 2.1;
+        obj.refinery = refinery;
         return obj;
     }
 

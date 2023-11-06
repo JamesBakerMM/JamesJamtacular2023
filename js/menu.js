@@ -60,7 +60,8 @@ class Menu {
                 data.drones.push(
                     data.factory.createDrone(
                         data.refinery.x + random(-180, 180),
-                        data.refinery.y + random(-180, 180)
+                        data.refinery.y + random(-180, 180),
+                        data.refinery
                     )
                 );
             })
