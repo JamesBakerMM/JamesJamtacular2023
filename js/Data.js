@@ -128,6 +128,7 @@ class Data {
         }
         for(let ship of this.ships){ 
             if(ship.hp.isDead()){
+                this.universe.resources.push(this.factory.createWreckage(ship.x,ship.y));
                 ship.remove();
                 cameraGood.addScreenShake();
             }

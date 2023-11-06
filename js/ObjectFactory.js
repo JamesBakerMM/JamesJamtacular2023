@@ -48,7 +48,19 @@ class ObjectFactory {
             "assets/img/explosion-e8.png",
             "assets/img/explosion-e9.png",
             "assets/img/explosion-e10.png",
+        ]})        
+        this.anims.push({id: "smallWreckage", path: [
+            "assets/img/wreckage1.png",
+            "assets/img/wreckage2.png",
+            "assets/img/wreckage3.png",
+            "assets/img/wreckage4.png",
+            "assets/img/wreckage5.png",
+            "assets/img/wreckage6.png",
+            "assets/img/wreckage7.png",
+            "assets/img/wreckage8.png",
+            "assets/img/wreckage9.png"
         ]})
+
 
         for(let img of this.images) {
             img.image = loadImage(img.path);
@@ -92,12 +104,12 @@ class ObjectFactory {
         obj.scale = amount/2;
         obj.startingMetal = obj.metal = amount; // Do I need to declare startingMetal first?
         obj.textSize=34;
-        // obj.text = obj.metal;
         obj.mass = amount;
         obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
         obj.diameter = obj.width;
         obj.drag = 0.5;
         obj.layer = RESOURCE_LAYER;
+        obj.mass=200;
         return obj;
     }
 
@@ -118,7 +130,7 @@ class ObjectFactory {
         obj.vel.x = 0.2;
         obj.range=LONG_RANGE;
         obj.speedFactor = 2;
-        obj.drag = 10;
+        obj.drag = 30;
         // obj.scale=2
         return obj;
         obj.debug = true;
@@ -255,6 +267,24 @@ class ObjectFactory {
         obj.collider="none";
         obj.scale=scale;
         obj.life = obj._ani.length*obj._ani.frameDelay-1;
+        return obj
+    }
+
+    createWreckage(x,y,amount=4) {
+        let obj=this.createObject(x,y);
+        obj.img = this.getByID("smallWreckage",this.anims);
+        obj._ani.frameDelay=200;
+        obj.life = obj._ani.length*obj._ani.frameDelay-1;
+        
+        obj.diameter = obj.width;
+        obj.scale = amount/2;
+        obj.collider="static";
+        obj.textSize=34;
+
+        obj.startingMetal = obj.metal = amount; // Do I need to declare startingMetal first?
+        obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
+        obj.layer = RESOURCE_LAYER;
+        obj.drag = 0.5;
         return obj
     }
 }
