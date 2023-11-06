@@ -176,11 +176,15 @@ class ObjectFactory {
         return obj
     }
 
-    createTorpedo(x,y){
+    createTorpedo(x,y, faction){
         let obj = this.createShip(x, y, "torpedo");
-        obj.image = this.getByID("torpedo",this.images);
+        let image = "torpedo";
+        if (faction > 0) {
+            image = "enemy torpedo";
+        }
+        obj.image = this.getByID(image,this.images);
         obj.diameter=obj.image.h-10;
-        obj.faction = 0;
+        obj.faction = faction;
         obj.scale = 2;
         obj.selected = false;
         obj.hp.setHealth(20);
@@ -199,21 +203,7 @@ class ObjectFactory {
         return obj
     }
 
-    createEnemyTorpedo(x, y, faction){
-        let obj = this.createShip(x, y, "enemy torpedo");
-        obj.image = this.getByID("enemy torpedo",this.images);
-        obj.faction = faction;
-        obj.range=MED_RANGE;
-        obj.scale = 2;
-        obj.timerShoot = 0;
-        obj.timerShootStart = 1000;
-        obj.hp.setHealth(20);
-        obj.layer = ENEMY_LAYER;
-        return obj;
-    }
-
     createEnemyRefinery(x, y, faction) {
-        console.log(x, ", ", y);
         let obj = this.createShip(x, y, "enemy refinery");
         obj.image = this.getByID("enemy refinery",this.images);
         obj.faction = faction;

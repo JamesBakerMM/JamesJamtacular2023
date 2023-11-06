@@ -48,8 +48,8 @@ class Data {
         this.enemyRefinery = this.factory.createEnemyRefinery(random(5000), random(5000), 1);
         this.ships.push(this.enemyRefinery);
 
-        this.ships.push(this.factory.createLaser(800, 300));
-        this.ships.push(this.factory.createEnemyTorpedo(1500, 800, 1));
+        this.ships.push(this.factory.createTorpedo(800, 300, 0));
+        this.ships.push(this.factory.createTorpedo(1500, 800, 1));
 
         
         
@@ -74,14 +74,16 @@ class Data {
                 ship.selected=false;
             }
         }
-        for(let i = this.bullets.length-1; i >= 0; i--) {
+
+
+        let bulletsToRemove = new Array();
+        for(let i = 0; i < this.bullets.length; i++) {
             let bullet = this.bullets[i];
             bullet.lifetime -= timepassed;
             
             if (bullet.lifetime < 0) {
-                this.bullets.remove(bullet);
                 this.factory.createCleanExplosion(bullet.x,bullet.y);
-                bullet.remove();
+                bulletsToRemove.push(bullet);
             } else {
                 //IF bullet colides code here
                 let hasHitShip=false;
@@ -89,10 +91,8 @@ class Data {
                 for(let ship of this.ships){
                     if(ship.overlaps(bullet) && ship.faction!==bullet.faction) {
                         this.factory.createDirtyExplosion(bullet.x,bullet.y,0.5);
+                        bulletsToRemove.push(bullet);
                         ship.hp.doDamage(bullet.damage)
-                        // ship.remove()
-                        this.bullets.remove(bullet);
-                        bullet.remove();
                     }
                 }
                 // this.factory.createDirtyExplosion(bullet.x,bullet.y,0.15);
@@ -100,10 +100,9 @@ class Data {
                     for(let resource of this.universe.resources){
                         if(resource.collides(bullet)){
                             hasHitAsteroid=true;
-                            this.factory.createDirtyExplosion(bullet.x,bullet.y,0.5);
-                            this.bullets.remove(bullet);
                             this.universe.damage(resource);
-                            bullet.remove();
+                            this.factory.createDirtyExplosion(bullet.x,bullet.y,0.5);
+                            bulletsToRemove.push(bullet);
                         }
                     }
                 }
@@ -112,14 +111,15 @@ class Data {
                     for(let bullet of this.bullets){
                         for(let otherBullet of this.bullets){
                             if(bullet.overlaps(otherBullet) && bullet.faction!==otherBullet.faction) {
-                                bullet.remove();
-                                otherBullet.remove();
+                                this.factory.createCleanExplosion(bullet.x,bullet.y);
+                                bulletsToRemove.push(bullet);
+                                this.factory.createCleanExplosion(otherBullet.x,otherBullet.y);
+                                bulletsToRemove.push(otherBullet);
                             }
                         }
                     }
                 }
             }
-
             if (bullet.target != null) { //is missile
                 bullet.tracking += (timepassed/1000.0) * bullet.trackingChange;
                 bullet.rotateTowards(bullet.target, bullet.tracking, 0);
@@ -128,12 +128,18 @@ class Data {
 
                 for(let res of this.universe.resources){
                     if(res.collides(bullet)){
-                        this.bullets.remove(bullet);
-                        bullet.remove();
+                        this.factory.createDirtyExplosion(bullet.x,bullet.y,0.5);
+                        bulletsToRemove.push(bullet);
                     }
                 }
             }
         }
+
+        for(let i = 0; i < bulletsToRemove.length; i++) {
+            this.bullets.remove(bulletsToRemove[i]);
+            bulletsToRemove[i].remove();
+        }
+
         for(let ship of this.ships){ 
             if(ship.hp.isDead()){
                 console.log(ship.type);
@@ -142,6 +148,12 @@ class Data {
                 cameraGood.addScreenShake();
             }
         }
+
+        //selections
+        this.selection(REFINERY_BINDING);
+        this.selection(LASER_BINDING);
+        this.selection(GUN_BINDING);
+        this.selection(TORPEDO_BINDING);
     }
 
     getClosestResource(x, y) {
@@ -182,6 +194,31 @@ class Data {
     doCometAI(comet) {
         if (comet.vel.x < comet.minVal.x) comet.vel.x = comet.minVal.x;
         if (comet.vel.y < comet.minVal.y) comet.vel.y = comet.minVal.y;
+    }
+
+    selection(binding) {
+        if (kb.pressing(binding)) {
+            for (let s of this.ships) {
+                if (s.type == this.bindingToType(binding) && s.faction == 0) {
+                    console.log(s.faction);
+                    s.selected = true;
+                } else {
+                    s.selected = false;
+                }
+            }
+        }
+    }
+
+    bindingToType(value) {
+        if (value == REFINERY_BINDING) {
+            return "refinery";
+        } else if (value == LASER_BINDING) {
+            return "laser";
+        } else if (value == GUN_BINDING) {
+            return "gun";
+        } else if (value == TORPEDO_BINDING) {
+            return "torpedo";
+        }
     }
 }
 

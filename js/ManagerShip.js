@@ -27,9 +27,6 @@ class ManagerShip {
             if (ship.type === "gun") {
                 this.doGunAI(timepassed, data, ship);
             }
-            if (ship.type === "enemy torpedo") {
-                this.doTorpedoAI(timepassed, data, ship);
-            }
 
             if(ship.selected){
                 this.drawRange(ship);
@@ -37,7 +34,6 @@ class ManagerShip {
         }
     }
     doRefineryAI(timepassed, data, ship) {
-        this.selection(ship, REFINERY_BINDING);
         this.mouseControls(ship);
     }
 
@@ -135,12 +131,10 @@ class ManagerShip {
         }
 
         if (ship.faction == 0) {
-            this.selection(ship, LASER_BINDING);
             this.mouseControls(ship);
         }
     }
     doTorpedoAI(timepassed, data, ship) {
-
         ship.shooting.update(timepassed);
 
         if (ship.shooting.canShoot()) {
@@ -154,26 +148,12 @@ class ManagerShip {
 
         if (ship.faction == 0) {
             //Needs to move away from target if too close
-            this.selection(ship, TORPEDO_BINDING);
             this.mouseControls(ship);
         }
     }
     
     doGunAI(timepassed, data, ship) {
-        this.selection(ship, GUN_BINDING);
         this.mouseControls(ship);
-    }
-
-    doTorpedoAI(timepassed, data, ship) {
-        ship.timerShoot -= timepassed;
-        if (ship.timerShoot < 0) {
-            ship.timerShoot += ship.timerShootStart;
-            let target = this.getNearestShip(ship, data);
-            if (target != null) {
-                data.createBullet(ship, target);
-                ship.rotation = ship.angleTo(target.x, target.y);
-            }
-        }
     }
 
     getNearestShip(ship, data, maxDistance) {
@@ -194,20 +174,6 @@ class ManagerShip {
         return closestTarget;
     }
 
-    selection(ship, binding) {
-        
-        if (kb.pressing(binding)) {
-            for (let shipToBeDeselected of data.ships) {
-                if (shipToBeDeselected.type !== ship.type) {
-                    shipToBeDeselected.selected = false;
-                    ship_counter--;
-                } else {
-                    ship_counter++;
-                }
-            }
-            ship.selected = true;
-        }
-    }
     mouseControls(ship) {
         if (Utility.safePressed("right") && ship.selected) {
             ship.targetPos = {x:exReverse(mouseX), y:whyReverse(mouseY)};
