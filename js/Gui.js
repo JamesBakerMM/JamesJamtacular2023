@@ -13,7 +13,9 @@ class GUI {
 
     constructor() {
         this.minimap = new Minimap();
+        this.mapSprite;
         this.visuals={}
+        this.sprites;
     }
 
     preload() {
@@ -21,25 +23,34 @@ class GUI {
     }
 
     setup() {
-        
-        // noCursor();
+        this.sprites=new Group();
+        const MINIMAP_SPRITE_XOFFSET=655;
+        const MINIMAP_SPRITE_YOFFSET=-420;
+        this.mapSprite=this.createGuiSprite(
+            Minimap.positionX+MINIMAP_SPRITE_XOFFSET,
+            Minimap.positionY+MINIMAP_SPRITE_YOFFSET
+        );
+        this.mapSprite.draw=this.minimap.drawCmds();
+    }
+
+    createGuiSprite(x,y){
+        let obj = new Sprite(x,y);
+        obj.type="gui"
+        obj.collider="none";
+        obj.debug=true;
+        obj.width=this.minimap.width;
+        obj.height=this.minimap.height;
+        return obj
     }
 
     update(data) {
         this.minimap.update(data);
         push();
-        this.customCursor();
         for(let ship of data.ships){
             this.shipRange(ship);
             this.shipSelection(ship);
             this.hpBar(ship);
         }
-        pop();
-    }
-    
-    customCursor(){
-        push();
-        //resync sprite of cursor
         pop();
     }
 

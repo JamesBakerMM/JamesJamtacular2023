@@ -75,7 +75,7 @@ class ObjectFactory {
 
     createObject(x, y) {
         let obj = new Sprite(x, y);
-        obj.debug = true;
+        // obj.debug = true;
         return obj;
     }
 
@@ -92,7 +92,7 @@ class ObjectFactory {
         obj.scale = amount/2;
         obj.startingMetal = obj.metal = amount; // Do I need to declare startingMetal first?
         obj.textSize=34;
-        obj.text = obj.metal;
+        // obj.text = obj.metal;
         obj.mass = amount;
         obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
         obj.diameter = obj.width;
@@ -139,7 +139,6 @@ class ObjectFactory {
         let obj = this.createShip(x, y, "drone");
         obj.image = this.getByID("drone",this.images);
         obj.diameter = obj.width;
-        obj.debug = true;
         obj.faction = 0;
         obj.targetResource = null;
         obj.moveTimer = 0;
