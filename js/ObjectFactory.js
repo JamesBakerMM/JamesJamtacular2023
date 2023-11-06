@@ -251,6 +251,8 @@ class ObjectFactory {
         obj.damage = 1;
         obj.target = target;
         obj.lifetime = 10000;
+        obj.tracking = 0.02;
+        obj.trackingChange = 0.005;
         return obj;
     }
 
