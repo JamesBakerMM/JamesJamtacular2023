@@ -92,7 +92,8 @@ class Menu {
                 data.torpedo.push(
                     data.factory.createTorpedo(
                         data.refinery.x + random(-180, 180),
-                        data.refinery.y + random(-180, 180)
+                        data.refinery.y + random(-180, 180),
+                        0
                     )
                 );
             })
