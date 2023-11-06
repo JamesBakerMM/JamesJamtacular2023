@@ -45,7 +45,7 @@ class GUI {
     }
 
     updatePost(data) {
-        this.minimap.update();
+        this.minimap.update(data);
         push();
         for(let ship of data.ships){
             this.hpBar(ship);
