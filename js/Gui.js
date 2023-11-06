@@ -19,6 +19,7 @@ class GUI {
 
     preload() {
         GUI.visuals.mapFrame=loadImage("./assets/img/miniMapframe.png");
+        GUI.visuals.topFrame=loadImage("./assets/img/topFrame.png");
     }
 
     setup() {
@@ -35,7 +36,7 @@ class GUI {
     }
 
     update(data) {
-        this.minimap.update();
+        this.minimap.update(data);
         push();
         for(let ship of data.ships){
             this.shipRange(ship);
@@ -46,6 +47,7 @@ class GUI {
     }
 
     superDraw(data) {
+        image(GUI.visuals.topFrame,25,25);
         this.minimap.draw(data);
     }
 
