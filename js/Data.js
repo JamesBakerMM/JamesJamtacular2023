@@ -48,7 +48,7 @@ class Data {
         this.enemyRefinery = this.factory.createEnemyRefinery(random(5000), random(5000), 1);
         this.ships.push(this.enemyRefinery);
 
-        this.ships.push(this.factory.createTorpedo(800, 300));
+        this.ships.push(this.factory.createLaser(800, 300));
         this.ships.push(this.factory.createEnemyTorpedo(1500, 800, 1));
 
         
@@ -57,12 +57,15 @@ class Data {
         this.universe.setup(this.factory);
     }
     
+    updateBackground(timepassed) {
+        this.background.update();
+    }
+
     /*
     * This is called each frame to update all our objects
     */
     update(timepassed) {
-        this.background.update();
-
+        
         this.managerShip.update(timepassed, this);
 
         //MOVE LATER TO SOMEWHERE BETTER

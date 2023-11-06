@@ -112,8 +112,33 @@ class ManagerShip {
         
     }
     doLaserAI(timepassed, data, ship) {
-        this.selection(ship, LASER_BINDING);
-        this.mouseControls(ship);
+
+        ship.shooting.update(timepassed);
+
+        if (ship.shooting.canShoot()) {
+            ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange());
+            ship.shooting.reset();
+        }
+        
+        if (ship.shooting.target != null) {
+            let distance = dist(ship.x, ship.y, ship.shooting.target.x, ship.shooting.target.y);
+            if (distance < ship.shooting.getRange()) {
+                ship.rotateTo(ship.shooting.target, 100, 0);
+                //draw laser
+                push();
+                stroke(255, 0, 0, 255);
+                strokeWeight(10);
+                line(ex(ship.x),why(ship.y),ex(ship.shooting.target.x),why(ship.shooting.target.y));
+                pop();
+            } else {
+                ship.shooting.target = null;
+            }
+        }
+
+        if (ship.faction == 0) {
+            this.selection(ship, LASER_BINDING);
+            this.mouseControls(ship);
+        }
     }
     doTorpedoAI(timepassed, data, ship) {
 
@@ -128,10 +153,11 @@ class ManagerShip {
             }
         }
 
-        //Needs to move away from target if too close
-
-        this.selection(ship, TORPEDO_BINDING);
-        this.mouseControls(ship);
+        if (ship.faction == 0) {
+            //Needs to move away from target if too close
+            this.selection(ship, TORPEDO_BINDING);
+            this.mouseControls(ship);
+        }
     }
     
     doGunAI(timepassed, data, ship) {
@@ -187,7 +213,14 @@ class ManagerShip {
         if (Utility.safePressed("right") && ship.selected) {
             ship.targetPos = {x:exReverse(mouseX), y:whyReverse(mouseY)};
         }
-        ship.rotation = ship.direction;
+        if (ship.type == "laser") {
+            if (ship.shooting.target == null) {
+                ship.rotation = ship.direction;
+            }
+        } else {
+            ship.rotation = ship.direction;
+        }
+        
         let distanceToTravel = dist(ship.x,ship.y,ship.targetPos.x,ship.targetPos.y);
         if (distanceToTravel > (ship.img.width)) {
             ship.moveTowards(ship.targetPos, ship.speedFactor/distanceToTravel);
