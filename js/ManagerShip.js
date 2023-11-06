@@ -27,8 +27,8 @@ class ManagerShip {
             if (ship.type === "gun") {
                 this.doGunAI(timepassed, data, ship);
             }
-            if (ship.type === "turret") {
-                this.doTurretAI(timepassed, data, ship);
+            if (ship.type === "enemy torpedo") {
+                this.doTorpedoAI(timepassed, data, ship);
             }
 
             if(ship.selected){
@@ -151,7 +151,7 @@ class ManagerShip {
         this.mouseControls(ship);
     }
 
-    doTurretAI(timepassed, data, ship) {
+    doTorpedoAI(timepassed, data, ship) {
         ship.timerShoot -= timepassed;
         if (ship.timerShoot < 0) {
             ship.timerShoot += ship.timerShootStart;

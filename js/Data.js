@@ -45,7 +45,7 @@ class Data {
         //this.drones.push(this.factory.createDrone(700, 450));      
         
         this.ships.push(this.factory.createTorpedo(800, 300));
-        this.ships.push(this.factory.createEnemyTurret(1500, 800));
+        this.ships.push(this.factory.createEnemyTorpedo(1500, 800));
         
         this.background.setup();
         this.universe.setup(this.factory);

@@ -12,14 +12,17 @@ class ObjectFactory {
     }
 
     preload() {
-        this.images.push({id: "refinery", path: "assets/img/refinery.png"})
-        this.images.push({id: "drone", path: "assets/img/drone_smallest.png"})
-        this.images.push({id: "laser", path: "assets/img/laser.png"})
-        this.images.push({id: "torpedo", path: "assets/img/torpedo.png"})
-        this.images.push({id: "gun", path: "assets/img/destroyer.png"})
-        this.images.push({id: "turret", path: "assets/img/hostileTorpedo.png"})
-        this.images.push({id: "bullet", path: "assets/img/bullet.png"})
-        this.images.push({id: "missile", path: "assets/img/missile.png"})
+        this.images.push({id: "refinery",       path: "assets/img/refinery.png"});
+        this.images.push({id: "drone",          path: "assets/img/drone_smallest.png"});
+        this.images.push({id: "laser",          path: "assets/img/laser.png"});
+        this.images.push({id: "torpedo",        path: "assets/img/torpedo.png"});
+        this.images.push({id: "gun",            path: "assets/img/destroyer.png"});
+        this.images.push({id: "bullet",         path: "assets/img/bullet.png"});
+        this.images.push({id: "missile",        path: "assets/img/missile.png"});
+        this.images.push({id: "enemy refinery", path: "assets/img/hostileRefinery.png"});
+        this.images.push({id: "enemy drone",    path: "assets/img/hostileDrone.png"});
+        this.images.push({id: "enemy laser",    path: "assets/img/hostileLaser.png"});
+        this.images.push({id: "enemy torpedo",         path: "assets/img/hostileTorpedo.png"});
 
         this.anims.push({id: "rock", path: [
             "assets/img/rock_asteroid1.png",
@@ -195,9 +198,9 @@ class ObjectFactory {
         return obj
     }
 
-    createEnemyTurret(x,y,faction){
-        let obj = this.createShip(x, y, "turret");
-        obj.image = this.getByID("turret",this.images);
+    createEnemyTorpedo(x,y,faction){
+        let obj = this.createShip(x, y, "enemy torpedo");
+        obj.image = this.getByID("enemy torpedo",this.images);
         obj.faction = faction;
         obj.range=MED_RANGE;
         obj.scale = 2;
