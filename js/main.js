@@ -43,10 +43,14 @@ function draw(){
     data.update(msPassed);
     cameraGood.update(msPassed);
 
-    gui.update(data);
-
-    menu.update(data);
     data.setOffset(-cameraGood.getX(), -cameraGood.getY());
 
     //menu.draw();
+}
+
+
+function superDraw() {
+    gui.update(data);
+
+    menu.update(data);
 }
