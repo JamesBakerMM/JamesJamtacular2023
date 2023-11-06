@@ -164,6 +164,23 @@ class ObjectFactory {
         return obj;
     }
 
+    createEnemyDrone(x, y, faction, refinery) {
+        let obj = this.createShip(x, y, "enemy drone");
+        obj.image = this.getByID("enemy drone", this.images);
+        obj.faction = faction;
+        obj.diameter = obj.width;
+        obj.targetResource = null;
+        obj.moveTimer = 0;
+        obj.metal = 0;
+        //obj.range = 
+        //obj.scale = 
+        obj.hp.setHealth(10);
+        obj.speedFactor = 2.1;
+        obj.refinery = refinery;
+        obj.layer = ENEMY_LAYER;
+        return obj;
+    }
+
     createLaser(x,y){
         let obj = this.createShip(x, y, "laser");
         obj.image = this.getByID("laser",this.images);

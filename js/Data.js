@@ -45,8 +45,11 @@ class Data {
         this.drones.push(this.factory.createDrone(900, 450, this.refinery));
         this.drones.push(this.factory.createDrone(700, 450, this.refinery));      
         
-        this.enemyRefinery = this.factory.createEnemyRefinery(random(5000), random(5000), 1);
+        let enemyRefineryX = random(5000);
+        let enemyRefineryY = random(5000);
+        this.enemyRefinery = this.factory.createEnemyRefinery(enemyRefineryX, enemyRefineryY, 1);
         this.ships.push(this.enemyRefinery);
+        this.drones.push(this.factory.createEnemyDrone(enemyRefineryX + random(-50,50), enemyRefineryY + random(-50,50), this.enemyRefinery.faction, this.enemyRefinery));
 
         this.ships.push(this.factory.createLaser(800, 300));
         this.ships.push(this.factory.createEnemyTorpedo(1500, 800, 1));
