@@ -54,7 +54,7 @@ class GUI {
     }
 
     superDraw(data) {
-        image(GUI.visuals.topFrame,25,25);
+        image(GUI.visuals.topFrame,-1,-10);
         this.minimap.draw(data);
     }
 
