@@ -46,6 +46,7 @@ class Data {
         this.drones.push(this.factory.createDrone(700, 450, this.refinery));      
         
         this.enemyRefinery = this.factory.createEnemyRefinery(random(5000), random(5000), 1);
+        this.ships.push(this.enemyRefinery);
 
         this.ships.push(this.factory.createTorpedo(800, 300));
         this.ships.push(this.factory.createEnemyTorpedo(1500, 800, 1));
