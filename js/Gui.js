@@ -1,3 +1,4 @@
+"use strict"
 
 class GUI {
     static YELLOW="#f5bb00";

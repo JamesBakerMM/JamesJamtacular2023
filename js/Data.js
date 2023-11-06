@@ -42,9 +42,7 @@ class Data {
         this.refinery.overlaps(this.ships);
         this.ships.push(this.refinery);
         this.drones.push(this.factory.createDrone(900, 450));
-        this.drones.push(this.factory.createDrone(700, 450));
-        
-        
+        //this.drones.push(this.factory.createDrone(700, 450));      
         
         this.ships.push(this.factory.createTorpedo(800, 300));
         this.ships.push(this.factory.createEnemyTurret(1500, 800));
@@ -130,6 +128,7 @@ class Data {
         }
         for(let ship of this.ships){ 
             if(ship.hp.isDead()){
+                console.log(ship.type);
                 this.universe.resources.push(this.factory.createWreckage(ship.x,ship.y));
                 ship.remove();
                 cameraGood.addScreenShake();
