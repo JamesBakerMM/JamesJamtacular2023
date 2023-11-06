@@ -131,11 +131,10 @@ class ObjectFactory {
         //obj.addCollider(-obj.height/2, 0, obj.image.height);
         obj.hp.setHealth(20);
         obj.faction = 0;
-        obj.vel.x = 0.2;
+        //obj.vel.x = 0.2;
         obj.range=LONG_RANGE;
         obj.speedFactor = 2;
         obj.drag = 30;
-        // obj.scale=2
         return obj;
         obj.debug = true;
     }
@@ -162,6 +161,23 @@ class ObjectFactory {
         obj.hp.setHealth(10);
         obj.speedFactor = 2.1;
         obj.refinery = refinery;
+        return obj;
+    }
+
+    createEnemyDrone(x, y, faction, refinery) {
+        let obj = this.createShip(x, y, "enemy drone");
+        obj.image = this.getByID("enemy drone", this.images);
+        obj.faction = faction;
+        obj.diameter = obj.width;
+        obj.targetResource = null;
+        obj.moveTimer = 0;
+        obj.metal = 0;
+        //obj.range = 
+        //obj.scale = 
+        obj.hp.setHealth(10);
+        obj.speedFactor = 2.1;
+        obj.refinery = refinery;
+        obj.layer = ENEMY_LAYER;
         return obj;
     }
 
@@ -208,7 +224,6 @@ class ObjectFactory {
         obj.image = this.getByID("enemy refinery",this.images);
         obj.faction = faction;
         obj.hp.setHealth(20);
-        obj.vel.x = 0.2;
         obj.range=LONG_RANGE;
         obj.speedFactor = 2;
         obj.drag = 30;

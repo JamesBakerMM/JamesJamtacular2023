@@ -45,8 +45,15 @@ class Data {
         this.drones.push(this.factory.createDrone(900, 450, this.refinery));
         this.drones.push(this.factory.createDrone(700, 450, this.refinery));      
         
-        this.enemyRefinery = this.factory.createEnemyRefinery(random(5000), random(5000), 1);
+        let enemyRefineryX = random(5000);
+        let enemyRefineryY = random(5000);
+        this.enemyRefinery = this.factory.createEnemyRefinery(enemyRefineryX, enemyRefineryY, 1);
         this.ships.push(this.enemyRefinery);
+        this.drones.push(
+                this.factory.createEnemyDrone(enemyRefineryX + random(-50,50),
+                        enemyRefineryY + random(-50,50), 
+                        this.enemyRefinery.faction, 
+                        this.enemyRefinery));
 
         this.ships.push(this.factory.createTorpedo(800, 300, 0));
         this.ships.push(this.factory.createTorpedo(1500, 800, 1));
@@ -156,14 +163,14 @@ class Data {
         this.selection(TORPEDO_BINDING);
     }
 
-    getClosestResource(x, y) {
+    getClosestResource(ship) {
         let index = -1;
         let distance = Number.MAX_VALUE;
         for (let i = 0; i < this.universe.resources.length; i++) {
             let res = this.universe.resources[i];
-            let distToResource = dist(this.refinery.x, this.refinery.y, res.x, res.y);
+            let distToResource = dist(ship.refinery.x, ship.refinery.y, res.x, res.y);
             let closest = distToResource < distance;
-            let inRange = dist(this.refinery.x,this.refinery.y,res.x,res.y) <= this.refinery.range/2;
+            let inRange = distToResource <= ship.refinery.range/2;
             if (closest && inRange) {
                 index = i;
                 distance = distToResource;
