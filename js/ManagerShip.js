@@ -42,7 +42,7 @@ class ManagerShip {
     }
 
     returnToRefinery(timepassed,data,ship) {
-        let distanceToRefinery = dist(ship.x,ship.y,data.refinery.x,data.refinery.y);
+        let distanceToRefinery = dist(ship.x,ship.y,ship.refinery.x,ship.refinery.y);
         if (distanceToRefinery > Math.min(
                 data.refinery.width, 
                 (ship.targetResource ? 
@@ -70,10 +70,11 @@ class ManagerShip {
         ship.moveTimer += timepassed;
         if (ship.metal <= 0) {
             if (ship.targetResource) {
-                stroke(255,255,0);
-                line(ex(ship.x),why(ship.y),ex(ship.targetResource.x),why(ship.targetResource.y));
+                //stroke(255,255,0);
+                //line(ex(ship.x),why(ship.y),ex(ship.targetResource.x),why(ship.targetResource.y));
                 ship.rotation = ship.direction;
-                ship.moveTowards(ship.targetResource, ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
+                ship.moveTowards(ship.targetResource, 
+                        ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
                 if (ship.overlapping(ship.targetResource)) {
                     //ship.vel.x = 0;
                     //ship.vel.y = 0;
