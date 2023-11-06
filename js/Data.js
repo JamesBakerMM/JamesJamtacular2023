@@ -113,8 +113,10 @@ class Data {
                 }
             }
 
-            if (bullet.target != null) {
-                bullet.rotateTowards(bullet.target, 0.02, 0);
+            if (bullet.target != null) { //is missile
+                bullet.tracking += (timepassed/1000.0) * bullet.trackingChange;
+                console.log(bullet.tracking);
+                bullet.rotateTowards(bullet.target, bullet.tracking, 0);
                 bullet.vel.x = cos(bullet.rotation) * 4;
                 bullet.vel.y = sin(bullet.rotation) * 4;
 
