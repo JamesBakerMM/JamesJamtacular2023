@@ -10,6 +10,7 @@ class Data {
         this.effects;
         this.bullets;
         this.refinery = null;
+        this.enemyRefinery = null;
         this.resources;
         this.universe = new Universe();
         this.background = new Background();
@@ -42,10 +43,14 @@ class Data {
         this.refinery.overlaps(this.ships);
         this.ships.push(this.refinery);
         this.drones.push(this.factory.createDrone(900, 450, this.refinery));
-        //this.drones.push(this.factory.createDrone(700, 450, this.refinery));      
+        this.drones.push(this.factory.createDrone(700, 450, this.refinery));      
         
+        this.enemyRefinery = this.factory.createEnemyRefinery(random(5000), random(5000), 1);
+
         this.ships.push(this.factory.createTorpedo(800, 300));
-        this.ships.push(this.factory.createEnemyTorpedo(1500, 800));
+        this.ships.push(this.factory.createEnemyTorpedo(1500, 800, 1));
+
+        
         
         this.background.setup();
         this.universe.setup(this.factory);
