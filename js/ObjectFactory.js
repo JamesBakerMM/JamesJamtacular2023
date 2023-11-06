@@ -241,13 +241,17 @@ class ObjectFactory {
     }
 
     createMissile(origin, target, offset) {
-        let offsetX = sin(origin.rotation) * offset;
-        let offsetY = cos(origin.rotation) * offset;
+
+        let deg = origin.rotation - 90;
+        
+        let offsetX = cos(deg) * offset;
+        let offsetY = sin(deg) * offset;
+
         let obj = this.createObject(origin.x + offsetX, origin.y+offsetY, "missile");
         if (offset > 0) {
-            obj.rotation = -origin.rotation + 90;
+            obj.rotation = origin.rotation - 90;
         } else {
-            obj.rotation = -origin.rotation - 90;
+            obj.rotation = origin.rotation + 90;
         }
         obj.image = this.getByID("missile",this.images);
         obj.faction = origin.faction;
