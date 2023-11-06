@@ -12,14 +12,17 @@ class ObjectFactory {
     }
 
     preload() {
-        this.images.push({id: "refinery", path: "assets/img/refinery.png"})
-        this.images.push({id: "drone", path: "assets/img/drone_smallest.png"})
-        this.images.push({id: "laser", path: "assets/img/laser.png"})
-        this.images.push({id: "torpedo", path: "assets/img/torpedo.png"})
-        this.images.push({id: "gun", path: "assets/img/destroyer.png"})
-        this.images.push({id: "turret", path: "assets/img/hostileTorpedo.png"})
-        this.images.push({id: "bullet", path: "assets/img/bullet.png"})
-        this.images.push({id: "missile", path: "assets/img/missile.png"})
+        this.images.push({id: "refinery",       path: "assets/img/refinery.png"});
+        this.images.push({id: "drone",          path: "assets/img/drone_smallest.png"});
+        this.images.push({id: "laser",          path: "assets/img/laser.png"});
+        this.images.push({id: "torpedo",        path: "assets/img/torpedo.png"});
+        this.images.push({id: "gun",            path: "assets/img/destroyer.png"});
+        this.images.push({id: "bullet",         path: "assets/img/bullet.png"});
+        this.images.push({id: "missile",        path: "assets/img/missile.png"});
+        this.images.push({id: "enemy refinery", path: "assets/img/hostileRefinery.png"});
+        this.images.push({id: "enemy drone",    path: "assets/img/hostileDrone.png"});
+        this.images.push({id: "enemy laser",    path: "assets/img/hostileLaser.png"});
+        this.images.push({id: "enemy torpedo",  path: "assets/img/hostileTorpedo.png"});
 
         this.anims.push({id: "rock", path: [
             "assets/img/rock_asteroid1.png",
@@ -148,7 +151,7 @@ class ObjectFactory {
         return obj;
     }
 
-    createDrone(x, y) {
+    createDrone(x, y, refinery) {
         let obj = this.createShip(x, y, "drone");
         obj.image = this.getByID("drone",this.images);
         obj.diameter = obj.width;
@@ -158,6 +161,7 @@ class ObjectFactory {
         obj.metal=0;
         obj.hp.setHealth(10);
         obj.speedFactor = 2.1;
+        obj.refinery = refinery;
         return obj;
     }
 
@@ -195,9 +199,9 @@ class ObjectFactory {
         return obj
     }
 
-    createEnemyTurret(x,y,faction){
-        let obj = this.createShip(x, y, "turret");
-        obj.image = this.getByID("turret",this.images);
+    createEnemyTorpedo(x,y,faction){
+        let obj = this.createShip(x, y, "enemy torpedo");
+        obj.image = this.getByID("enemy torpedo",this.images);
         obj.faction = faction;
         obj.range=MED_RANGE;
         obj.scale = 2;
@@ -238,13 +242,17 @@ class ObjectFactory {
     }
 
     createMissile(origin, target, offset) {
-        let offsetX = sin(origin.rotation) * offset;
-        let offsetY = cos(origin.rotation) * offset;
+
+        let deg = origin.rotation - 90;
+        
+        let offsetX = cos(deg) * offset;
+        let offsetY = sin(deg) * offset;
+
         let obj = this.createObject(origin.x + offsetX, origin.y+offsetY, "missile");
         if (offset > 0) {
-            obj.rotation = -origin.rotation + 90;
+            obj.rotation = origin.rotation - 90;
         } else {
-            obj.rotation = -origin.rotation - 90;
+            obj.rotation = origin.rotation + 90;
         }
         obj.image = this.getByID("missile",this.images);
         obj.faction = origin.faction;

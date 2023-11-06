@@ -20,6 +20,21 @@ class Universe {
             let x = random(5000);
             let y = random(5000);
             this.resources.push(this.factory.createWreckage(x,y));
+            if (random([true,false])) {
+                x += random(-50,50);
+                y += random(-50,50);
+                this.resources.push(this.factory.createWreckage(x,y));
+            }
+            if (random([true,false])) {
+                x += random(-40,40);
+                y += random(-40,40);
+                this.resources.push(this.factory.createWreckage(x,y));
+            }
+            if (random([true,false])) {
+                x += random(-40,40);
+                y += random(-40,40);
+                this.resources.push(this.factory.createWreckage(x,y));
+            }
         }
         this.resources.comets = new Group();
         let comet = this.factory.createResource(random(-100,0), 

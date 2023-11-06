@@ -41,11 +41,11 @@ class Data {
         this.refinery.mass = 300;
         this.refinery.overlaps(this.ships);
         this.ships.push(this.refinery);
-        this.drones.push(this.factory.createDrone(900, 450));
-        //this.drones.push(this.factory.createDrone(700, 450));      
+        this.drones.push(this.factory.createDrone(900, 450, this.refinery));
+        //this.drones.push(this.factory.createDrone(700, 450, this.refinery));      
         
         this.ships.push(this.factory.createTorpedo(800, 300));
-        this.ships.push(this.factory.createEnemyTurret(1500, 800));
+        this.ships.push(this.factory.createEnemyTorpedo(1500, 800));
         
         this.background.setup();
         this.universe.setup(this.factory);

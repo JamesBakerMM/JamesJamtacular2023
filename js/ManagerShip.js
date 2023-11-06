@@ -27,8 +27,8 @@ class ManagerShip {
             if (ship.type === "gun") {
                 this.doGunAI(timepassed, data, ship);
             }
-            if (ship.type === "turret") {
-                this.doTurretAI(timepassed, data, ship);
+            if (ship.type === "enemy torpedo") {
+                this.doTorpedoAI(timepassed, data, ship);
             }
 
             if(ship.selected){
@@ -108,19 +108,6 @@ class ManagerShip {
         if (ship.moveTimer > 2000) {
             ship.moveTimer -= 2000;
         }
-        //timed action code
-        // if (ship.moveTimer < 1000) { //
-        //     this.returnToRefinery(timepassed,data,ship);
-        // } else {
-        //     //ship.x = ship.targetResource.x;
-        //     //ship.y = ship.targetResource.y;
-        //     //TODO: MAKE SHIP ROTATE FULLY BEFORE MOVING
-        //     ship.rotation = ship.direction;
-        //     //ship.rotateTo(ship.targetResource);
-        //     ship.moveTowards(ship.targetResource, 0.1);
-        // }
-
-        //has to be at end as could remove the target resource
         
     }
     doLaserAI(timepassed, data, ship) {
@@ -151,7 +138,7 @@ class ManagerShip {
         this.mouseControls(ship);
     }
 
-    doTurretAI(timepassed, data, ship) {
+    doTorpedoAI(timepassed, data, ship) {
         ship.timerShoot -= timepassed;
         if (ship.timerShoot < 0) {
             ship.timerShoot += ship.timerShootStart;
