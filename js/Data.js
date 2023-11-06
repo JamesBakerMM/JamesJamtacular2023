@@ -156,10 +156,8 @@ class Data {
     setOffset(x, y) {
         for (let i = 0; i < allSprites.length; i++) {
             let sprite = allSprites[i];
-            if(sprite.type!=="gui"){
-                sprite.x += x;
-                sprite.y += y;
-            }
+            sprite.x += x;
+            sprite.y += y;
         }
     }
 

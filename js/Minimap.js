@@ -1,5 +1,5 @@
 class Minimap {
-    static borderPadding = 6;
+    static borderPadding = 0;
     static halfBorder = Minimap.borderPadding / 2;
     static positionX = 0 + Minimap.halfBorder;
     static positionXEnd = 300 + Minimap.halfBorder;
@@ -183,6 +183,11 @@ class Minimap {
                 }
             }
         }
+    }
+
+    draw(data) {
+        push();
+        noStroke();
         //background
         fill(GUI.BLACK);
         rect(Minimap.positionX, Minimap.positionY, this.width, this.height);
@@ -219,10 +224,10 @@ class Minimap {
         stroke(GUI.YELLOW);
         strokeWeight(2);
         noFill();
-        let x = this.worldToMinimapPixelX(cameraGood.x);
-        let y = this.worldToMinimapPixelY(cameraGood.y);
-        let x2 = this.worldToMinimapPixelX(cameraGood.x + width);
-        let y2 = this.worldToMinimapPixelY(cameraGood.y + height);
+        let x = this.worldToMinimapPixelX(ex(cameraGood.x));
+        let y = this.worldToMinimapPixelY(why(cameraGood.y));
+        let x2 = this.worldToMinimapPixelX(ex(cameraGood.x + width));
+        let y2 = this.worldToMinimapPixelY(why(cameraGood.y + height));
         if ((x != null || x2 != null) && (y != null || y2 != null)) {
             if (x == null) {
                 x = Minimap.positionX;
@@ -238,12 +243,6 @@ class Minimap {
             }
             rect(x, y, x2 - x, y2 - y);
         }
-        //frame
-        noStroke();
-        stroke(0, 0, 0);
-        strokeWeight(Minimap.borderPadding);
-        noFill();
-        rect(Minimap.positionX, Minimap.positionY, this.width, this.height);
         //crt lines
         stroke(255, 100, 100, 5);
         for (let i = 0; i < 30; i++) {
@@ -261,19 +260,22 @@ class Minimap {
         );
         image(
             GUI.visuals.mapFrame,
-            Minimap.positionX - 2,
-            Minimap.positionY - 35
+            Minimap.positionX - 4,
+            Minimap.positionY - 42
         );
         pop();
     }
 
     worldToMinimapPixelX(value) {
-        if (value < this.worldX || value > this.worldXEnd) {
+
+        let worldValue = exReverse(value);
+
+        if (worldValue < this.worldX || worldValue > this.worldXEnd) {
             return null;
         }
 
         let difference = Utility.getDifference(this.worldX, this.worldXEnd);
-        let difference2 = Utility.getDifference(this.worldX, value);
+        let difference2 = Utility.getDifference(this.worldX, worldValue);
         let percentage = difference2 / difference;
 
         let miniX = Minimap.positionX + percentage * this.width;
@@ -281,12 +283,15 @@ class Minimap {
     }
 
     worldToMinimapPixelY(value) {
-        if (value < this.worldY || value > this.worldYEnd) {
+
+        let worldValue = whyReverse(value);
+
+        if (worldValue < this.worldY || worldValue > this.worldYEnd) {
             return null;
         }
 
         let difference = Utility.getDifference(this.worldY, this.worldYEnd);
-        let difference2 = Utility.getDifference(this.worldY, value);
+        let difference2 = Utility.getDifference(this.worldY, worldValue);
         let percentage = difference2 / difference;
 
         let miniY = Minimap.positionY + percentage * this.height;

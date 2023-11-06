@@ -14,9 +14,7 @@ class GUI {
 
     constructor() {
         this.minimap = new Minimap();
-        this.mapSprite;
         this.visuals={}
-        this.sprites;
     }
 
     preload() {
@@ -24,14 +22,6 @@ class GUI {
     }
 
     setup() {
-        this.sprites=new Group();
-        const MINIMAP_SPRITE_XOFFSET=655;
-        const MINIMAP_SPRITE_YOFFSET=-420;
-        this.mapSprite=this.createGuiSprite(
-            Minimap.positionX+MINIMAP_SPRITE_XOFFSET,
-            Minimap.positionY+MINIMAP_SPRITE_YOFFSET
-        );
-        this.mapSprite.draw=this.minimap.drawCmds();
     }
 
     createGuiSprite(x,y){
@@ -45,7 +35,7 @@ class GUI {
     }
 
     update(data) {
-        this.minimap.update(data);
+        this.minimap.update();
         push();
         for(let ship of data.ships){
             this.shipRange(ship);
@@ -53,6 +43,10 @@ class GUI {
             this.hpBar(ship);
         }
         pop();
+    }
+
+    superDraw(data) {
+        this.minimap.draw(data);
     }
 
     hpBar(ship) {
