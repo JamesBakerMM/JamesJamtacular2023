@@ -41,11 +41,13 @@ function draw(){
 	}
 
     
-    data.update(msPassed);
+    data.updateBackground(msPassed);
+    gui.updatePre(data);
+
     cameraGood.update(msPassed);
+    data.update(msPassed);
 
-    gui.update(data);
-
+    gui.updatePost(data);
     data.setOffset(-cameraGood.getX(), -cameraGood.getY());
 
     //menu.draw();
