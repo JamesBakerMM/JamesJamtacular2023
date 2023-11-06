@@ -5,6 +5,8 @@ class Shooting {
         this.delay = delay;
         this.range = range;
         this.target = null;
+        this.constantFire = 0;
+        this.target = null;
     }
 
     update(timepassed) {
@@ -25,7 +27,7 @@ class Shooting {
         return this.range;
     }
 
-    reset(newTarget) {
+    reset() {
         this.timer = this.delay;
     }
 

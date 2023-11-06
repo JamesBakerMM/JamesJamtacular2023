@@ -167,8 +167,8 @@ class ObjectFactory {
         obj.faction = 0;
         // obj.scale = 1.5;
         obj.selected = false;
-        obj.range=MIN_RANGE;
         obj.hp.setHealth(20);
+        obj.shooting = new Shooting(100, MIN_RANGE);
         return obj
     }
 

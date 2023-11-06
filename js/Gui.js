@@ -34,12 +34,19 @@ class GUI {
         return obj
     }
 
-    update(data) {
-        this.minimap.update();
+    updatePre(data) {
         push();
         for(let ship of data.ships){
             this.shipRange(ship);
             this.shipSelection(ship);
+        }
+        pop();
+    }
+
+    updatePost(data) {
+        this.minimap.update();
+        push();
+        for(let ship of data.ships){
             this.hpBar(ship);
         }
         pop();

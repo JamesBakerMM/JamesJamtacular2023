@@ -44,19 +44,22 @@ class Data {
         this.drones.push(this.factory.createDrone(900, 450));
         //this.drones.push(this.factory.createDrone(700, 450));      
         
-        this.ships.push(this.factory.createTorpedo(800, 300));
-        this.ships.push(this.factory.createEnemyTurret(1500, 800));
+        this.ships.push(this.factory.createLaser(800, 300));
+        this.ships.push(this.factory.createEnemyTurret(1000, 500));
         
         this.background.setup();
         this.universe.setup(this.factory);
     }
     
+    updateBackground(timepassed) {
+        this.background.update();
+    }
+
     /*
     * This is called each frame to update all our objects
     */
     update(timepassed) {
-        this.background.update();
-
+        
         this.managerShip.update(timepassed, this);
 
         //MOVE LATER TO SOMEWHERE BETTER
