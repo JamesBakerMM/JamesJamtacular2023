@@ -16,6 +16,11 @@ class Universe {
             let y = random(5000);
             this.resources.push(this.factory.createResource(x, y, Math.round(random(4,12))));
         }
+        for (let i = 0; i < 10; i++) {
+            let x = random(5000);
+            let y = random(5000);
+            this.resources.push(this.factory.createWreckage(x,y));
+        }
         this.resources.comets = new Group();
         let comet = this.factory.createResource(random(-100,0), 
                 random(900,1000), 

@@ -281,11 +281,10 @@ class ObjectFactory {
         
         obj.diameter = obj.width;
         obj.scale = 2;
-        obj.collider="static";
         obj.textSize=34;
-
-        obj.startingMetal = obj.metal = amount; // Do I need to declare startingMetal first?
         obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
+
+        obj.startingMetal = obj.metal = amount; 
         obj.layer = RESOURCE_LAYER;
         obj.drag = 0.5;
         return obj
