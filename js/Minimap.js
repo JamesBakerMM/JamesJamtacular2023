@@ -1,5 +1,5 @@
 class Minimap {
-    static borderPadding = 6;
+    static borderPadding = 0;
     static halfBorder = Minimap.borderPadding / 2;
     static positionX = 0 + Minimap.halfBorder;
     static positionXEnd = 300 + Minimap.halfBorder;
@@ -23,144 +23,8 @@ class Minimap {
     }
     preload() {}
     setup() {}
-    drawCmds() {
-        const XOFFSET = 40;
-        const YOFFSET = 30;
-        const OFFSET_MOD = 4.25;
-        return () => {
-            push();
-            noStroke();
-            console.log("camera",cameraGood)
 
-
-            //background
-            fill(GUI.BLACK);
-            rect(
-                Minimap.positionX - XOFFSET,
-                Minimap.positionY - YOFFSET,
-                this.width,
-                this.height
-            );
-            //resources
-            fill(255, 0, 255, 255);
-            for (let i = 0; i < data.universe.resources.length; i++) {
-                let res = data.universe.resources[i];
-                let x = this.worldToMinimapPixelX(res.x);
-                let y = this.worldToMinimapPixelY(res.y);
-                if (x != null && y != null) {
-                    let scale = res.scale;
-                    circle(
-                        x - XOFFSET * OFFSET_MOD,
-                        y - YOFFSET * OFFSET_MOD,
-                        1.5 * scale
-                    );
-                }
-            }
-
-            //ships
-            for (let i = 0; i < data.ships.length; i++) {
-                let ship = data.ships[i];
-                let x = this.worldToMinimapPixelX(ship.x);
-                let y = this.worldToMinimapPixelY(ship.y);
-                if (x != null && y != null) {
-                    if (ship.faction == 0) {
-                        fill(GUI.YELLOW);
-                    } else {
-                        fill(255, 0, 0, 255);
-                    }
-
-                    if (ship.selected) {
-                        fill(255, 255, 255, 255);
-                    }
-
-                    let scale = ship.width / 20;
-                    rect(
-                        x - XOFFSET * OFFSET_MOD,
-                        y - YOFFSET * OFFSET_MOD,
-                        2 * scale,
-                        2 * scale
-                    );
-                }
-            }
-
-            //screen pos
-            stroke(GUI.YELLOW);
-            strokeWeight(2);
-            noFill();
-
-            let x = this.worldToMinimapPixelX(cameraGood.x);
-            let y = this.worldToMinimapPixelY(cameraGood.y);
-            let x2 = this.worldToMinimapPixelX(cameraGood.x + width);
-            let y2 = this.worldToMinimapPixelY(cameraGood.y + height);
-
-            if ((x != null || x2 != null) && (y != null || y2 != null)) {
-                if (x == null) {
-                    x = Minimap.positionX;
-                }
-                if (y == null) {
-                    y = Minimap.positionY;
-                }
-                if (x2 == null) {
-                    x2 = Minimap.positionXEnd;
-                }
-                if (y2 == null) {
-                    y2 = Minimap.positionYEnd;
-                }
-
-                rect(
-                    x - XOFFSET * OFFSET_MOD,
-                    y - YOFFSET * OFFSET_MOD,
-                    x2 - x,
-                    y2 - y
-                );
-            }
-
-            //frame
-            noStroke();
-            stroke(0, 0, 0);
-            strokeWeight(Minimap.borderPadding);
-            noFill();
-            rect(
-                Minimap.positionX - XOFFSET,
-                Minimap.positionY - YOFFSET,
-                this.width,
-                this.height
-            );
-
-            //crt lines
-            stroke(255, 100, 100, 5);
-            for (let i = 0; i < 30; i++) {
-                let x = Minimap.positionX + this.width;
-                let y = Minimap.positionY + 10 * i-YOFFSET*6;
-                line(
-                    Minimap.positionX - 20-XOFFSET * OFFSET_MOD,
-                    y,
-                    x - XOFFSET * OFFSET_MOD,
-                    y
-                );
-            }
-
-            //crt block
-            fill(255, 0, 0, 2);
-            rect(
-                Minimap.positionX - XOFFSET,
-                Minimap.positionY + abs(frameCount % 300) - YOFFSET*OFFSET_MOD,
-                this.width,
-                this.height / 3
-            );
-
-            image(
-                GUI.visuals.mapFrame,
-                Minimap.positionX - 2,
-                Minimap.positionY - 35
-            );
-            pop();
-        };
-    }
-
-    update(data) {
-        push();
-        noStroke();
+    update() {
         //do mouse handling here
         if (
             mouseX > Minimap.positionX &&
@@ -184,6 +48,11 @@ class Minimap {
                 }
             }
         }
+    }
+
+    draw(data) {
+        push();
+        noStroke();
         //background
         fill(GUI.BLACK);
         rect(Minimap.positionX, Minimap.positionY, this.width, this.height);
@@ -220,10 +89,10 @@ class Minimap {
         stroke(GUI.YELLOW);
         strokeWeight(2);
         noFill();
-        let x = this.worldToMinimapPixelX(cameraGood.x);
-        let y = this.worldToMinimapPixelY(cameraGood.y);
-        let x2 = this.worldToMinimapPixelX(cameraGood.x + width);
-        let y2 = this.worldToMinimapPixelY(cameraGood.y + height);
+        let x = this.worldToMinimapPixelX(ex(cameraGood.x));
+        let y = this.worldToMinimapPixelY(why(cameraGood.y));
+        let x2 = this.worldToMinimapPixelX(ex(cameraGood.x + width));
+        let y2 = this.worldToMinimapPixelY(why(cameraGood.y + height));
         if ((x != null || x2 != null) && (y != null || y2 != null)) {
             if (x == null) {
                 x = Minimap.positionX;
@@ -239,12 +108,6 @@ class Minimap {
             }
             rect(x, y, x2 - x, y2 - y);
         }
-        //frame
-        noStroke();
-        stroke(0, 0, 0);
-        strokeWeight(Minimap.borderPadding);
-        noFill();
-        rect(Minimap.positionX, Minimap.positionY, this.width, this.height);
         //crt lines
         stroke(255, 100, 100, 5);
         for (let i = 0; i < 30; i++) {
@@ -262,19 +125,22 @@ class Minimap {
         );
         image(
             GUI.visuals.mapFrame,
-            Minimap.positionX - 2,
-            Minimap.positionY - 35
+            Minimap.positionX - 4,
+            Minimap.positionY - 42
         );
         pop();
     }
 
     worldToMinimapPixelX(value) {
-        if (value < this.worldX || value > this.worldXEnd) {
+
+        let worldValue = exReverse(value);
+
+        if (worldValue < this.worldX || worldValue > this.worldXEnd) {
             return null;
         }
 
         let difference = Utility.getDifference(this.worldX, this.worldXEnd);
-        let difference2 = Utility.getDifference(this.worldX, value);
+        let difference2 = Utility.getDifference(this.worldX, worldValue);
         let percentage = difference2 / difference;
 
         let miniX = Minimap.positionX + percentage * this.width;
@@ -282,12 +148,15 @@ class Minimap {
     }
 
     worldToMinimapPixelY(value) {
-        if (value < this.worldY || value > this.worldYEnd) {
+
+        let worldValue = whyReverse(value);
+
+        if (worldValue < this.worldY || worldValue > this.worldYEnd) {
             return null;
         }
 
         let difference = Utility.getDifference(this.worldY, this.worldYEnd);
-        let difference2 = Utility.getDifference(this.worldY, value);
+        let difference2 = Utility.getDifference(this.worldY, worldValue);
         let percentage = difference2 / difference;
 
         let miniY = Minimap.positionY + percentage * this.height;

@@ -40,8 +40,11 @@ function draw(){
 		msPassed = 1;
 	}
 
+    
     data.update(msPassed);
     cameraGood.update(msPassed);
+
+    gui.update(data);
 
     data.setOffset(-cameraGood.getX(), -cameraGood.getY());
 
@@ -50,7 +53,7 @@ function draw(){
 
 
 function superDraw() {
-    gui.update(data);
+    gui.superDraw(data);
 
     menu.update(data);
 }
