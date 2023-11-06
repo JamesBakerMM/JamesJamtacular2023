@@ -18,6 +18,9 @@ class ManagerShip {
             if (ship.type === "drone") {
                 this.doDroneAI(timepassed, data, ship);
             }
+            if (ship.type === "enemy drone") {
+                this.doDroneAI(timepassed, data, ship);
+            }
             if (ship.type === "laser") {
                 this.doLaserAI(timepassed, data, ship);
             }
@@ -41,28 +44,27 @@ class ManagerShip {
         this.mouseControls(ship);
     }
 
-    returnToRefinery(timepassed,data,ship) {
+    returnToRefinery(timepassed, data, ship) {
         let distanceToRefinery = dist(ship.x,ship.y,ship.refinery.x,ship.refinery.y);
         if (distanceToRefinery > Math.min(
-                data.refinery.width, 
+                ship.refinery.width, 
                 (ship.targetResource ? 
-                dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y) 
-                : data.refinery.width)
+                        dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y) 
+                        : ship.refinery.width)
                 )
             ) {
-                ship.moveTowards(data.refinery, ship.speedFactor/distanceToRefinery);
+                ship.moveTowards(ship.refinery, ship.speedFactor/distanceToRefinery);
                 ship.rotation = ship.direction;
                 stroke(0,0,255);
-                line(ex(ship.x),why(ship.y),ex(data.refinery.x),why(data.refinery.y));
+                line(ex(ship.x),why(ship.y),ex(ship.refinery.x),why(ship.refinery.y));
             } else if (ship.metal > 0) {
                 data.metals += ship.metal;
                 ship.metal = 0;
             } else {
                 ship.vel = {x:0,y:0};
-                ship.rotation = data.refinery.rotation;
-                //ship.attractTo(data.refinery, 5);
+                ship.rotation = ship.refinery.rotation;
             }
-            ship.targetResource = data.getClosestResource(ship.x, ship.y);
+            ship.targetResource = data.getClosestResource(ship);
         // }
     }
 
@@ -70,8 +72,6 @@ class ManagerShip {
         ship.moveTimer += timepassed;
         if (ship.metal <= 0) {
             if (ship.targetResource) {
-                //stroke(255,255,0);
-                //line(ex(ship.x),why(ship.y),ex(ship.targetResource.x),why(ship.targetResource.y));
                 ship.rotation = ship.direction;
                 ship.moveTowards(ship.targetResource, 
                         ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
@@ -86,20 +86,19 @@ class ManagerShip {
                         ship.text = ship.metal;
                         if (ship.targetResource.removed || ship.targetResource.metal <= 0) {
                             this.returnToRefinery(timepassed,data,ship);
-                            //resource = data.getClosestResource(ship.x, ship.y);
                         }
                         
                     } 
                 }
             } else {
-                ship.targetResource = data.getClosestResource(ship.x, ship.y);
+                ship.targetResource = data.getClosestResource(ship);
             }
             if (
                     ship.targetResource == null ||
                     ship.targetResource == undefined ||
                     ship.targetResource.removed
             ) {
-                ship.targetResource = data.getClosestResource(ship.x, ship.y);
+                ship.targetResource = data.getClosestResource(ship);
                 this.returnToRefinery(timepassed,data,ship);
             }
         } else {
