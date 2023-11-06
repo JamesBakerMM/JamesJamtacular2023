@@ -30,7 +30,6 @@ class Minimap {
         return () => {
             push();
             noStroke();
-            console.log("camera",cameraGood)
 
 
             //background

@@ -32,12 +32,17 @@ class Universe {
         resource.text = resource.mass = resource.metal;
         if (resource.metal <= 0) {
             resource.remove();
-        } else if (resource.metal <= resource.startingMetal/4) {
-            resource.ani.frame = 3;
-        } else if (resource.metal <= resource.startingMetal/2) {
-            resource.ani.frame = 2;
-        } else if (resource.metal <= resource.startingMetal/4*3) {
-            resource.ani.frame = 1;
+        }
+        if (resource.type === "metal") {
+            if (resource.metal <= resource.startingMetal/4) {
+                resource.ani.frame = 3;
+            } else if (resource.metal <= resource.startingMetal/2) {
+                resource.ani.frame = 2;
+            } else if (resource.metal <= resource.startingMetal/4*3) {
+                resource.ani.frame = 1;
+            }
+        } else if (resource.type === "wreckage") {
+            resource.ani.nextFrame();
         }
     }
 }

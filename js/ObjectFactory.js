@@ -17,7 +17,7 @@ class ObjectFactory {
         this.images.push({id: "laser", path: "assets/img/laser.png"})
         this.images.push({id: "torpedo", path: "assets/img/torpedo.png"})
         this.images.push({id: "gun", path: "assets/img/destroyer.png"})
-        this.images.push({id: "turret", path: "assets/img/crystal.png"})
+        this.images.push({id: "turret", path: "assets/img/hostileTorpedo.png"})
         this.images.push({id: "bullet", path: "assets/img/bullet.png"})
         this.images.push({id: "missile", path: "assets/img/missile.png"})
 
@@ -99,6 +99,7 @@ class ObjectFactory {
 
     createResource(x, y, amount=4) {
         let obj = this.createObject(x, y);
+        obj.type = "metal"
         obj.addAni("rock",this.getByID("rock",this.anims));
         obj.ani.stop();
         obj.scale = amount/2;
@@ -199,7 +200,7 @@ class ObjectFactory {
         obj.image = this.getByID("turret",this.images);
         obj.faction = faction;
         obj.range=MED_RANGE;
-        obj.scale = 0.5;
+        obj.scale = 2;
         obj.timerShoot = 0;
         obj.timerShootStart = 1000;
         obj.hp.setHealth(20);
@@ -270,14 +271,16 @@ class ObjectFactory {
         return obj
     }
 
-    createWreckage(x,y,amount=4) {
+    createWreckage(x,y,amount=9,scale=1) {
         let obj=this.createObject(x,y);
+        obj.type = "wreckage";
         obj.img = this.getByID("smallWreckage",this.anims);
-        obj._ani.frameDelay=200;
-        obj.life = obj._ani.length*obj._ani.frameDelay-1;
+        //obj._ani.frameDelay=200;
+        obj.ani.stop();
+        //obj.life = obj._ani.length*obj._ani.frameDelay-1;
         
         obj.diameter = obj.width;
-        obj.scale = amount/2;
+        obj.scale = 2;
         obj.collider="static";
         obj.textSize=34;
 
