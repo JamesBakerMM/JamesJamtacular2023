@@ -95,7 +95,7 @@ class Menu {
                 if (this.costCheck(data.metals, COST.DRONE) === false) {
                     return false
                 }
-                data.metals -= COST.DRONE;
+                data.metals[0] -= COST.DRONE;
                 data.drones.push(
                     data.factory.createDrone(
                         data.refinery.x + random(-180, 180),
@@ -109,10 +109,10 @@ class Menu {
 
         this.btns.main.push(
             this.makeButton(this.x+Menu.ICO_SIZE, offset_y, `> laser ${COST.LASER}`, () => {
-                if (this.costCheck(data.metals, COST.LASER) === false) {
+                if (this.costCheck(data.metals[0], COST.LASER) === false) {
                     return false
                 }
-                data.metals -= COST.LASER;
+                data.metals[0] -= COST.LASER;
                 data.laser.push(
                     data.factory.createLaser(
                         data.refinery.x + random(-180, 180),
@@ -124,10 +124,10 @@ class Menu {
         offset_y += Menu.BTN.h;
         this.btns.main.push(
             this.makeButton(this.x+Menu.ICO_SIZE, offset_y, `> torpedo ${COST.TORPEDO}`, () => {
-                if (this.costCheck(data.metals, COST.TORPEDO) === false) {
+                if (this.costCheck(data.metals[0], COST.TORPEDO) === false) {
                     return false
                 }
-                data.metals -= COST.TORPEDO;
+                data.metals[0] -= COST.TORPEDO;
                 data.torpedo.push(
                     data.factory.createTorpedo(
                         data.refinery.x + random(-180, 180),
@@ -140,10 +140,10 @@ class Menu {
         offset_y += Menu.BTN.h;
         this.btns.main.push(
             this.makeButton(this.x+Menu.ICO_SIZE, offset_y, `> gun ${COST.GUN}`, () => {
-                if (this.costCheck(data.metals, COST.GUN) === false) {
+                if (this.costCheck(data.metals[0], COST.GUN) === false) {
                     return false
                 }
-                data.metals -= COST.GUN;
+                data.metals[0] -= COST.GUN;
                 data.gun.push(
                     data.factory.createGun(
                         data.refinery.x + random(-180, 180),
@@ -191,7 +191,7 @@ class Menu {
         }
         fill("yellow");
         textSize(32);
-        text(`| metal: ${data.metals}`, this.x + 20, this.y + 30);
+        text(`| metal: ${data.metals[0]}`, this.x + 20, this.y + 30);
         console.log(this.btns.main[0]);
         animation(this.visuals.drone,this.btns.main[0].x-30,this.btns.main[0].y+25);
         animation(this.visuals.laser,this.btns.main[1].x-30,this.btns.main[1].y+25);

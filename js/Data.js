@@ -1,7 +1,7 @@
 class Data {
     constructor() {
         this.factory = new ObjectFactory();
-        this.metals = 0; // move to player later
+        this.metals = [0, 0, 0]; // move to player later
         this.ships; //will be group in setup
         this.drones;
         this.laser;
@@ -39,7 +39,7 @@ class Data {
         this.bullets = new Group();
 
         this.refinery = this.factory.createRefinery(800, 450);
-        this.refinery.mass = 300;
+        //this.refinery.mass = 300;
         this.refinery.overlaps(this.ships);
         this.ships.push(this.refinery);
         this.drones.push(this.factory.createDrone(900, 450, this.refinery));
@@ -52,6 +52,7 @@ class Data {
             enemyRefineryY,
             1
         );
+        this.enemyRefinery.overlaps(this.ships);
         this.ships.push(this.enemyRefinery);
         this.drones.push(
             this.factory.createEnemyDrone(
