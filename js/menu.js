@@ -6,11 +6,10 @@ const COST = {
 };
 
 const MAIN_MENU = 0;
-const SIDE_MENU = 1;
-const OTHER_SIDE_MENU = 2;
 
 class Menu {
 
+    static ICO_SIZE=50;
     static BTN={
         h:50
     }
@@ -28,13 +27,53 @@ class Menu {
             // },
             main: [],
         };
+        this.visuals={}
     }
 
-    preload() {}
+    preload() {
+        this.visuals.drone=loadAnimation(
+            "./3d/drone/output/0000.png",
+            "./3d/drone/output/0001.png",
+            "./3d/drone/output/0002.png",
+            "./3d/drone/output/0003.png",
+            "./3d/drone/output/0004.png",
+            "./3d/drone/output/0005.png",
+            "./3d/drone/output/0006.png",
+            "./3d/drone/output/0007.png"
+        );
+        this.visuals.torpedo=loadAnimation(
+            "./3d/torpedo/output/0000.png",
+            "./3d/torpedo/output/0001.png",
+            "./3d/torpedo/output/0002.png",
+            "./3d/torpedo/output/0003.png",
+            "./3d/torpedo/output/0004.png",
+            "./3d/torpedo/output/0005.png",
+            "./3d/torpedo/output/0006.png",
+            "./3d/torpedo/output/0007.png"
+        );
+        this.visuals.laser=loadAnimation(
+            "./3d/laser/output/0000.png",
+            "./3d/laser/output/0001.png",
+            "./3d/laser/output/0002.png",
+            "./3d/laser/output/0003.png",
+            "./3d/laser/output/0004.png",
+            "./3d/laser/output/0005.png",
+            "./3d/laser/output/0006.png",
+            "./3d/laser/output/0007.png"
+        );
+        Menu.ICO_SIZE=75;
+        this.visuals.topFrame=loadImage("./assets/img/topFrame.png");
+    }
 
     setup(data) {
         // this.makeControlButtons();
         this.makeMainButtons(data);
+        this.visuals.drone.scale=0.2;
+        this.visuals.drone.frameDelay=12;
+        this.visuals.laser.scale=0.2;
+        this.visuals.laser.frameDelay=12;
+        this.visuals.torpedo.scale=0.2;
+        this.visuals.torpedo.frameDelay=12;
     }
 
     costCheck(res, cost) {
@@ -52,7 +91,7 @@ class Menu {
         //main buttons
         let offset_y = this.y + 40;
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, `> drone ${COST.DRONE}`, () => {
+            this.makeButton(this.x+Menu.ICO_SIZE, offset_y, `> drone ${COST.DRONE}`, () => {
                 if (this.costCheck(data.metals, COST.DRONE) === false) {
                     return false
                 }
@@ -69,7 +108,7 @@ class Menu {
         offset_y += Menu.BTN.h;
 
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, `> laser ${COST.LASER}`, () => {
+            this.makeButton(this.x+Menu.ICO_SIZE, offset_y, `> laser ${COST.LASER}`, () => {
                 if (this.costCheck(data.metals, COST.LASER) === false) {
                     return false
                 }
@@ -84,7 +123,7 @@ class Menu {
         );
         offset_y += Menu.BTN.h;
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, `> torpedo ${COST.TORPEDO}`, () => {
+            this.makeButton(this.x+Menu.ICO_SIZE, offset_y, `> torpedo ${COST.TORPEDO}`, () => {
                 if (this.costCheck(data.metals, COST.TORPEDO) === false) {
                     return false
                 }
@@ -100,7 +139,7 @@ class Menu {
         );
         offset_y += Menu.BTN.h;
         this.btns.main.push(
-            this.makeButton(this.x, offset_y, `> gun ${COST.GUN}`, () => {
+            this.makeButton(this.x+Menu.ICO_SIZE, offset_y, `> gun ${COST.GUN}`, () => {
                 if (this.costCheck(data.metals, COST.GUN) === false) {
                     return false
                 }
@@ -146,13 +185,18 @@ class Menu {
         push();
         noStroke();
         fill(GUI.BLACK);
-        rect(this.x, this.y, this.w, this.h);
+        rect(this.x, this.y, this.w+100, this.h);
         if (this.current === MAIN_MENU) {
             this.show(this.btns.main);
         }
         fill("yellow");
         textSize(32);
         text(`| metal: ${data.metals}`, this.x + 20, this.y + 30);
+        console.log(this.btns.main[0]);
+        animation(this.visuals.drone,this.btns.main[0].x-30,this.btns.main[0].y+25);
+        animation(this.visuals.laser,this.btns.main[1].x-30,this.btns.main[1].y+25);
+        animation(this.visuals.torpedo,this.btns.main[2].x-30,this.btns.main[2].y+25);
+        image(this.visuals.topFrame,gui.minimap.width+73,-10);
         pop();
     }
 }

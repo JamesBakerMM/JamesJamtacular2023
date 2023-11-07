@@ -22,7 +22,6 @@ class GUI {
     preload() {
         GUI.FONT=loadFont("./assets/fonts/VT323-Regular.ttf");
         GUI.visuals.mapFrame=loadImage("./assets/img/miniMapframe.png");
-        GUI.visuals.topFrame=loadImage("./assets/img/topFrame.png");
     }
 
     setup() {
@@ -58,7 +57,6 @@ class GUI {
     }
 
     superDraw(data) {
-        image(GUI.visuals.topFrame,this.minimap.width-8,-10);
         this.minimap.draw(data);
     }
 
