@@ -92,7 +92,7 @@ class Menu {
         let offset_y = this.y + 40;
         this.btns.main.push(
             this.makeButton(this.x+Menu.ICO_SIZE, offset_y, `> drone ${COST.DRONE}`, () => {
-                if (this.costCheck(data.metals, COST.DRONE) === false) {
+                if (this.costCheck(data.metals[0], COST.DRONE) === false) {
                     return false
                 }
                 data.metals[0] -= COST.DRONE;
