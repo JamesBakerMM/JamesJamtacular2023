@@ -179,9 +179,20 @@ class Data {
             this.selection(ship, TORPEDO_BINDING);
 
             if (ship.hp.isDead()) {
-                this.universe.resources.push(
-                    this.factory.createWreckage(ship.x, ship.y)
-                );
+                if (ship.type.includes("refinery")) {
+                    this.universe.resources.push(
+                        this.factory.createWreckage(
+                                ship.x + random(-5,5), ship.y + random(-5,5))
+                        );
+                    this.universe.resources.push(
+                        this.factory.createWreckage(
+                                ship.x + random(-5,5), ship.y + random(-5,5))
+                        );
+                } else {
+                    this.universe.resources.push(
+                        this.factory.createWreckage(ship.x, ship.y)
+                        );
+                }
                 ship.remove();
                 cameraGood.addScreenShake();
             }
