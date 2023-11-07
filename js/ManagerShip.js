@@ -54,8 +54,6 @@ class ManagerShip {
             ) {
                 ship.moveTowards(ship.refinery, ship.speedFactor/distanceToRefinery);
                 ship.rotation = ship.direction;
-                stroke(0,0,255);
-                line(ex(ship.x),why(ship.y),ex(ship.refinery.x),why(ship.refinery.y));
             } else if (ship.metal > 0) {
                 data.metals += ship.metal;
                 ship.metal = 0;
@@ -82,7 +80,7 @@ class ManagerShip {
             line(ex(ship.x), why(ship.y), ex(ship.targetResource.x), why(ship.targetResource.y));
             console.log(ex(ship.x), why(ship.y), ex(ship.targetResource.x), why(ship.targetResource.y));
             pop();
-            if (dist(ship.x, ship.y, ship.targetResource.x, ship.targetResource.y) <= ship.range/2) {
+            if (dist(ship.x, ship.y, ship.targetResource.x, ship.targetResource.y) <= ship.range/3) {
                 ship.speed = 0;
                 console.log("Close enough I don't need to move")
             } else {
@@ -102,9 +100,6 @@ class ManagerShip {
                 ship.moveTowards(ship.targetResource, 
                         ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
                 if (ship.overlapping(ship.targetResource)) {
-                    //ship.vel.x = 0;
-                    //ship.vel.y = 0;
-                    //ship.speed = 0;
                     ship.rotationSpeed = 0;
                     if (ship.targetResource.metal > 0 && ship.moveTimer > 2000) {
                         data.universe.damage(ship.targetResource);
