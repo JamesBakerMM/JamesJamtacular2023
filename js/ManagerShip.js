@@ -15,6 +15,9 @@ class ManagerShip {
             if (ship.type === "refinery") {
                 this.doRefineryAI(timepassed, data, ship);
             }
+            if (ship.type === "enemy refinery") {
+                this.doEnemyRefineryAI(timepassed, data, ship);
+            }
             if (ship.type === "drone") {
                 this.doDroneAI(timepassed, data, ship);
             }
@@ -64,6 +67,33 @@ class ManagerShip {
         // }
     }
 
+    doEnemyRefineryAI(timepassed, data, ship) {
+        if (
+                !ship.targetResource ||
+                ship.targetResource === null ||
+                ship.targetResource === undefined ||
+                ship.targetResource.removed
+                ) {
+            ship.targetResource = data.getClosestResource(ship);
+        } else {
+            push();
+            stroke(0,0,255);
+            strokeWeight(20);
+            line(ex(ship.x), why(ship.y), ex(ship.targetResource.x), why(ship.targetResource.y));
+            console.log(ex(ship.x), why(ship.y), ex(ship.targetResource.x), why(ship.targetResource.y));
+            pop();
+            if (dist(ship.x, ship.y, ship.targetResource.x, ship.targetResource.y) <= ship.range/2) {
+                ship.speed = 0;
+                console.log("Close enough I don't need to move")
+            } else {
+                console.log("Move");
+                ship.rotation = ship.direction;
+                ship.moveTowards(ship.targetResource, 
+                ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
+            }
+        }
+    }
+
     doDroneAI(timepassed, data, ship) {
         ship.moveTimer += timepassed;
         if (ship.metal <= 0) {
@@ -90,8 +120,8 @@ class ManagerShip {
                 ship.targetResource = data.getClosestResource(ship);
             }
             if (
-                    ship.targetResource == null ||
-                    ship.targetResource == undefined ||
+                    ship.targetResource === null ||
+                    ship.targetResource === undefined ||
                     ship.targetResource.removed
             ) {
                 ship.targetResource = data.getClosestResource(ship);
@@ -174,6 +204,8 @@ class ManagerShip {
         return closestTarget;
     }
 
+    
+
     mouseControls(ship) {
         if (Utility.safePressed("right") && ship.selected) {
             ship.targetPos = {x:exReverse(mouseX), y:whyReverse(mouseY)};
@@ -193,6 +225,7 @@ class ManagerShip {
             ship.vel = {x:0,y:0};
         }
     }
+
     drawRange(ship){
 
     }

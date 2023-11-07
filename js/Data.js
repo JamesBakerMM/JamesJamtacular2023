@@ -61,6 +61,38 @@ class Data {
                 this.enemyRefinery
             )
         );
+        this.drones.push(
+            this.factory.createEnemyDrone(
+                enemyRefineryX + random(-50, 50),
+                enemyRefineryY + random(-50, 50),
+                this.enemyRefinery.faction,
+                this.enemyRefinery
+            )
+        );
+        this.drones.push(
+            this.factory.createEnemyDrone(
+                enemyRefineryX + random(-50, 50),
+                enemyRefineryY + random(-50, 50),
+                this.enemyRefinery.faction,
+                this.enemyRefinery
+            )
+        );
+        this.drones.push(
+            this.factory.createEnemyDrone(
+                enemyRefineryX + random(-50, 50),
+                enemyRefineryY + random(-50, 50),
+                this.enemyRefinery.faction,
+                this.enemyRefinery
+            )
+        );
+        this.drones.push(
+            this.factory.createEnemyDrone(
+                enemyRefineryX + random(-50, 50),
+                enemyRefineryY + random(-50, 50),
+                this.enemyRefinery.faction,
+                this.enemyRefinery
+            )
+        );
 
         this.ships.push(this.factory.createTorpedo(800, 300, 0));
         this.ships.push(this.factory.createTorpedo(1500, 800, 1));
@@ -202,21 +234,30 @@ class Data {
     getClosestResource(ship) {
         let index = -1;
         let distance = Number.MAX_VALUE;
+        let targetX, targetY, maxRange;
+        if (ship.refinery) {
+            targetX = ship.refinery.x;
+            targetY = ship.refinery.y;
+            maxRange = ship.refinery.range / 2;
+        } else {
+            targetX = ship.x;
+            targetY = ship.y;
+            maxRange = 5000;
+        }
         for (let i = 0; i < this.universe.resources.length; i++) {
             let res = this.universe.resources[i];
+            
             let distToResource = dist(
-                ship.refinery.x,
-                ship.refinery.y,
+                targetX,
+                targetY,
                 res.x,
                 res.y
             );
             let closest = distToResource < distance;
-            let inRange = distToResource <= ship.refinery.range / 2;
+            let inRange = distToResource <= maxRange;
             if (closest && inRange) {
                 index = i;
                 distance = distToResource;
-            } else if (!inRange) {
-            } else {
             }
         }
         return this.universe.resources[index];
