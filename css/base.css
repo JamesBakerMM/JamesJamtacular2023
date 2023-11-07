@@ -1,22 +1,33 @@
+@font-face {
+    font-family: "My Custom Font";
+    src: url("/assets/fonts/PressStart2P-Regular.ttf") format("truetype");
+}
+
+.button {
+    font-family: "My Custom Font";
+    font-size: 16px;
+}
+
 body {
-    padding:0;
-    margin:0;
-    background-color:#333333;
-    font-family:monospace;
+    padding: 0;
+    margin: 0;
+    background-color: #333333;
+    font-family: monospace;
 }
 
 button {
-    background:black;
-    color:yellow;
-    width:200px;
-    height:50px;
-    border:0;
-    font-weight:bold;
-    text-align:left;
-    padding:1rem;
+    font-family: "My Custom Font";
+    background: black;
+    color: yellow;
+    font-size: 10px;
+    width: 200px;
+    height: 50px;
+    border: 0;
+    text-align: left;
+    padding: 1rem;
 }
 
 button:hover {
-    background:yellow;
-    color:black;
+    background: yellow;
+    color: black;
 }

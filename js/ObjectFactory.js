@@ -18,7 +18,6 @@ class ObjectFactory {
         this.images.push({id: "torpedo",        path: "assets/img/torpedo.png"});
         this.images.push({id: "gun",            path: "assets/img/destroyer.png"});
         this.images.push({id: "bullet",         path: "assets/img/bullet.png"});
-        this.images.push({id: "missile",        path: "assets/img/missile.png"});
         this.images.push({id: "enemy refinery", path: "assets/img/hostileRefinery.png"});
         this.images.push({id: "enemy drone",    path: "assets/img/hostileDrone.png"});
         this.images.push({id: "enemy laser",    path: "assets/img/hostileLaser.png"});
@@ -63,6 +62,12 @@ class ObjectFactory {
             "assets/img/wreckage8.png",
             "assets/img/wreckage9.png"
         ]})
+        this.images.push({id: "missile", path: 
+            "assets/img/missile1.png",
+        })
+        this.images.push({id: "enemyMissile", path: 
+            "assets/img/enemy_missile1.png",
+        })
 
 
         for(let img of this.images) {
@@ -108,12 +113,11 @@ class ObjectFactory {
         obj.scale = amount/2;
         obj.startingMetal = obj.metal = amount; // Do I need to declare startingMetal first?
         obj.textSize=34;
-        obj.mass = amount;
+        // obj.mass = amount;
         obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
         obj.diameter = obj.width;
         obj.drag = 0.5;
         obj.layer = RESOURCE_LAYER;
-        obj.mass=200;
         return obj;
     }
 
@@ -257,7 +261,8 @@ class ObjectFactory {
         obj.damage = 1;
         obj.vel.x = vx;
         obj.vel.y = vy;
-        obj.lifetime = 2000;
+        // obj.lifetime = 2000;
+        obj.life=300;
         obj.damage=1;
         return obj;
     }
@@ -275,11 +280,16 @@ class ObjectFactory {
         } else {
             obj.rotation = origin.rotation + 90;
         }
-        obj.image = this.getByID("missile",this.images);
         obj.faction = origin.faction;
+        if(obj.faction!==0){
+            obj.image = this.getByID("enemyMissile",this.images);
+        } else {
+            obj.image = this.getByID("missile",this.images);
+        }
         obj.damage = 1;
         obj.target = target;
-        obj.lifetime = 10000;
+        obj.life=300;
+        // obj.lifetime = 10000;
         obj.tracking = 0.02;
         obj.trackingChange = 0.005;
         return obj;
@@ -306,9 +316,7 @@ class ObjectFactory {
         let obj=this.createObject(x,y);
         obj.type = "wreckage";
         obj.img = this.getByID("smallWreckage",this.anims);
-        //obj._ani.frameDelay=200;
         obj.ani.stop();
-        //obj.life = obj._ani.length*obj._ani.frameDelay-1;
         
         obj.diameter = obj.width;
         obj.scale = 2;
