@@ -191,8 +191,8 @@ class Menu {
         }
         fill("yellow");
         textSize(32);
-        text(`| metal: ${data.metals[0]}`, this.x + 20, this.y + 30);
-        console.log(this.btns.main[0]);
+        text(`| metal: ${Math.floor(data.metals[0])}`, this.x + 20, this.y + 30);
+        //console.log(this.btns.main[0]);
         animation(this.visuals.drone,this.btns.main[0].x-30,this.btns.main[0].y+25);
         animation(this.visuals.laser,this.btns.main[1].x-30,this.btns.main[1].y+25);
         animation(this.visuals.torpedo,this.btns.main[2].x-30,this.btns.main[2].y+25);

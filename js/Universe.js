@@ -51,7 +51,7 @@ class Universe {
 
     damage(resource, damage=1) {
         resource.metal -= damage;
-        resource.text = resource.mass = resource.metal;
+        resource.text = resource.mass = Math.floor(resource.metal);
         if (resource.metal <= 0) {
             resource.remove();
         }

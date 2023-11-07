@@ -86,7 +86,14 @@ class ManagerShip {
 
     doDroneAI(timepassed, data, ship) {
         ship.moveTimer += timepassed;
-        if (ship.metal < 1) {
+        if (ship.waypoint != null) {
+            if (dist(ship.x, ship.y, ship.waypoint.x, ship.waypoint.y) < 20) {
+                ship.waypoint = null;
+            } else {
+                ship.rotateTo(ship.waypoint, timepassed);
+                ship.moveTo(ship.waypoint, ship.speedFactor);
+            }
+        } else if (ship.metal < 1) {
             if (ship.targetResource == null || ship.targetResource.removed || ship.targetResource.metal <= 0) {
                 ship.targetResource = data.getClosestResource(ship);
             }
@@ -95,10 +102,15 @@ class ManagerShip {
                 if (ship.overlapping(ship.targetResource)) {
                     ship.velocity.x = 0;
                     ship.velocity.y = 0;
-                    let m = (timepassed / 1000);
-                    ship.metal += m;
-
                     data.universe.damage(ship.targetResource, (timepassed / 1000));
+
+                    ship.metal += (timepassed / 1000);
+                    if (ship.metal >= 1) {
+                        ship.waypoint = Utility.getMidPoint(ship, ship.refinery);
+                        let angle = Math.atan2(ship.refinery.y - ship.y, ship.refinery.x - ship.x);
+                        ship.waypoint.x += random(-100,100) * Math.sin(angle)
+                        ship.waypoint.y += random(-100,100) * Math.cos(angle);
+                    }
                 } else {
                     ship.moveTo(ship.targetResource, ship.speedFactor);
                 }
@@ -110,7 +122,7 @@ class ManagerShip {
                     ship.velocity.x = 0;
                     ship.velocity.y = 0;
                 }
-            }1
+            }
         } else {
             ship.rotateTo(ship.refinery, timepassed);
             if (dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y) > 60) {
@@ -121,9 +133,16 @@ class ManagerShip {
                 data.metals[ship.faction] += ship.metal;
                 ship.metal = 0;
                 ship.targetResource = data.getClosestResource(ship);
+                if (ship.targetResource != null) {
+                    ship.waypoint = Utility.getMidPoint(ship, ship.targetResource);
+                    let angle = Math.atan2(ship.targetResource.y - ship.y, ship.targetResource.x - ship.x);
+                    ship.waypoint.x += random(-100,100) * Math.sin(angle)
+                    ship.waypoint.y += random(-100,100) * Math.cos(angle);
+                }
             }
         }        
     }
+
     doLaserAI(timepassed, data, ship) {
 
         ship.shooting.update(timepassed);

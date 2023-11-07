@@ -44,7 +44,7 @@ class Data {
         this.refinery.overlaps(this.ships);
         this.ships.push(this.refinery);
         this.drones.push(this.factory.createDrone(900, 450, this.refinery));
-        this.drones.push(this.factory.createDrone(700, 450, this.refinery));
+        //this.drones.push(this.factory.createDrone(700, 450, this.refinery));
 
         let enemyRefineryX = random(5000);
         let enemyRefineryY = random(5000);
@@ -259,20 +259,30 @@ class Data {
         for (let i = 0; i < this.universe.resources.length; i++) {
             let res = this.universe.resources[i];
             
-            let distToResource = dist(
-                targetX,
-                targetY,
-                res.x,
-                res.y
-            );
-            let closest = distToResource < distance;
-            let inRange = distToResource <= maxRange;
-            if (closest && inRange) {
-                index = i;
-                distance = distToResource;
+            let distToResource = dist(targetX, targetY, res.x, res.y);
+            if (distToResource <= maxRange) {
+                
+                let droneCount = 0;
+                for (let j = 0; j < this.drones.length; j++) {
+                    let d = this.drones[j];
+                    if (d.targetResource == res && d.faction == ship.faction) {
+                        droneCount += 1;
+                    }
+                }
+                if (droneCount < 3) {
+                    if (distToResource < distance) {
+                        index = i;
+                        distance = distToResource;
+                    }
+                } 
             }
         }
-        return this.universe.resources[index];
+        if (index < 0) {
+            return null;
+        } else {
+            return this.universe.resources[index];
+        }
+        
     }
 
     setOffset(x, y) {

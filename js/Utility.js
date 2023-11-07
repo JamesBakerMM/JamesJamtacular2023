@@ -1,6 +1,25 @@
 class Utility {
     constructor() {}
 
+    static getMidPoint(p1, p2) {
+        let diffX = Utility.getDifference(p1.x, p2.x);
+        let x = 0;
+        if (p1.x < p2.x) {
+            x = p1.x + (diffX / 2);
+        } else {
+            x = p2.x + (diffX / 2);
+        }
+
+        let diffY = Utility.getDifference(p1.y, p2.y);
+        let y = 0;
+        if (p1.y < p2.y) {
+            y = p1.y + (diffY / 2);
+        } else {
+            y = p2.y + (diffY / 2);
+        }
+        return {x: x, y: y};
+    }
+
     static getDifference(v1, v2) {
         if (v1 > v2) {
             return v1 - v2;
