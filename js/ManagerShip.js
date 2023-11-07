@@ -76,9 +76,7 @@ class ManagerShip {
         } else {
             if (dist(ship.x, ship.y, ship.targetResource.x, ship.targetResource.y) <= ship.range/3) {
                 ship.speed = 0;
-                console.log("Close enough I don't need to move")
             } else {
-                console.log("Move");
                 ship.rotation = ship.direction;
                 ship.moveTowards(ship.targetResource, 
                 ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));

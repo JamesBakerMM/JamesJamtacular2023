@@ -10,7 +10,8 @@ class Data {
         this.effects;
         this.bullets;
         this.refinery = null;
-        this.enemyRefinery = null;
+        this.enemyRefinery1 = null;
+        this.enemyRefinery2 = null;
         this.resources;
         this.universe = new Universe();
         this.background = new Background();
@@ -47,51 +48,61 @@ class Data {
 
         let enemyRefineryX = random(5000);
         let enemyRefineryY = random(5000);
-        this.enemyRefinery = this.factory.createEnemyRefinery(
+        this.enemyRefinery1 = this.factory.createEnemyRefinery(
             enemyRefineryX,
             enemyRefineryY,
             1
         );
-        this.enemyRefinery.overlaps(this.ships);
-        this.ships.push(this.enemyRefinery);
+        this.enemyRefinery1.overlaps(this.ships);
+        this.ships.push(this.enemyRefinery1);
         this.drones.push(
             this.factory.createEnemyDrone(
                 enemyRefineryX + random(-50, 50),
                 enemyRefineryY + random(-50, 50),
-                this.enemyRefinery.faction,
-                this.enemyRefinery
+                this.enemyRefinery1.faction,
+                this.enemyRefinery1
             )
         );
         this.drones.push(
             this.factory.createEnemyDrone(
                 enemyRefineryX + random(-50, 50),
                 enemyRefineryY + random(-50, 50),
-                this.enemyRefinery.faction,
-                this.enemyRefinery
+                this.enemyRefinery1.faction,
+                this.enemyRefinery1
+            )
+        );
+
+        enemyRefineryX = random(5000);
+        enemyRefineryY = random(5000);
+        this.enemyRefinery2 = this.factory.createEnemyRefinery(
+            enemyRefineryX,
+            enemyRefineryY,
+            2
+        );
+        this.enemyRefinery2.overlaps(this.ships);
+        this.ships.push(this.enemyRefinery2);
+        this.drones.push(
+            this.factory.createEnemyDrone(
+                enemyRefineryX + random(-50, 50),
+                enemyRefineryY + random(-50, 50),
+                this.enemyRefinery2.faction,
+                this.enemyRefinery2
             )
         );
         this.drones.push(
             this.factory.createEnemyDrone(
                 enemyRefineryX + random(-50, 50),
                 enemyRefineryY + random(-50, 50),
-                this.enemyRefinery.faction,
-                this.enemyRefinery
+                this.enemyRefinery2.faction,
+                this.enemyRefinery2
             )
         );
         this.drones.push(
             this.factory.createEnemyDrone(
                 enemyRefineryX + random(-50, 50),
                 enemyRefineryY + random(-50, 50),
-                this.enemyRefinery.faction,
-                this.enemyRefinery
-            )
-        );
-        this.drones.push(
-            this.factory.createEnemyDrone(
-                enemyRefineryX + random(-50, 50),
-                enemyRefineryY + random(-50, 50),
-                this.enemyRefinery.faction,
-                this.enemyRefinery
+                this.enemyRefinery2.faction,
+                this.enemyRefinery2
             )
         );
 
@@ -288,7 +299,6 @@ class Data {
     selection(s, binding) {
         if (kb.pressing(binding)) {
             if (s.type == this.bindingToType(binding) && s.faction == 0) {
-                console.log(s.faction);
                 s.selected = true;
             } else {
                 s.selected = false;
