@@ -4,8 +4,9 @@ const SCREEN_WIDTH = 1600;
 const SCREEN_HEIGHT = 900;
 
 const data = new Data();
-const menu = new Menu(0);
 const gui = new GUI();
+const menu = new Menu(gui.minimap.width-3);
+gui.menu=menu;
 
 var prevTime = 0;
 
