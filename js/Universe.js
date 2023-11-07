@@ -39,7 +39,7 @@ class Universe {
         this.resources.comets = new Group();
         let comet = this.factory.createResource(random(-100,0), 
                 random(900,1000), 
-                Math.round(random(20,35))); //Comet POC
+                Math.round(random(20,30))); //Comet POC
         comet.vel.x = random(1,15);
         comet.vel.y = -5; //random(-5,0);
         this.resources.push(comet);

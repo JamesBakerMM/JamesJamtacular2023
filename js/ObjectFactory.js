@@ -233,6 +233,7 @@ class ObjectFactory {
         obj.drag = 30;
         obj.debug = true;
         obj.layer = ENEMY_LAYER;
+        obj.targetResource = null;
         return obj;
     }
 
