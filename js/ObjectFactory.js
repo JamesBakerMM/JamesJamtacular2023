@@ -63,6 +63,21 @@ class ObjectFactory {
             "assets/img/wreckage8.png",
             "assets/img/wreckage9.png"
         ]})
+        this.anims.push({id: "missile", path: [
+            "assets/img/missile1.png",
+            "assets/img/missile2.png",
+            "assets/img/missile3.png",
+            "assets/img/missile4.png",
+            "assets/img/missile5.png",
+            "assets/img/missile6.png",
+            "assets/img/missile7.png",
+            "assets/img/missile8.png",
+            "assets/img/missile9.png",
+            "assets/img/missile10.png",
+            "assets/img/missile11.png",
+            "assets/img/missile12.png",
+            "assets/img/missile13.png"
+        ]})
 
 
         for(let img of this.images) {
@@ -275,7 +290,7 @@ class ObjectFactory {
         } else {
             obj.rotation = origin.rotation + 90;
         }
-        obj.image = this.getByID("missile",this.images);
+        obj.image = this.getByID("missile",this.anims);
         obj.faction = origin.faction;
         obj.damage = 1;
         obj.target = target;
