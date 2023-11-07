@@ -6,6 +6,7 @@ class GUI {
     static GREY="#221e20";
     static GRAY=GUI.GREY;
     static visuals={};
+    static FONT;
 
     static HP={
         W:100,
@@ -18,11 +19,13 @@ class GUI {
     }
 
     preload() {
+        GUI.FONT=loadFont("./assets/fonts/VT323-Regular.ttf");
         GUI.visuals.mapFrame=loadImage("./assets/img/miniMapframe.png");
         GUI.visuals.topFrame=loadImage("./assets/img/topFrame.png");
     }
 
     setup() {
+        textFont(GUI.FONT);
     }
 
     createGuiSprite(x,y){
@@ -32,7 +35,7 @@ class GUI {
         obj.debug=true;
         obj.width=this.minimap.width;
         obj.height=this.minimap.height;
-        return obj
+        return obj1
     }
 
     updatePre(data) {
