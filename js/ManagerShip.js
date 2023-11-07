@@ -86,42 +86,43 @@ class ManagerShip {
 
     doDroneAI(timepassed, data, ship) {
         ship.moveTimer += timepassed;
-        if (ship.metal <= 0) {
-            if (ship.targetResource) {
-                ship.rotation = ship.direction;
-                ship.moveTowards(ship.targetResource, 
-                        ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
+        if (ship.metal < 1) {
+            if (ship.targetResource == null || ship.targetResource.removed || ship.targetResource.metal <= 0) {
+                ship.targetResource = data.getClosestResource(ship);
+            }
+            if (ship.targetResource != null) {
+                ship.rotateTo(ship.targetResource, timepassed);
                 if (ship.overlapping(ship.targetResource)) {
-                    ship.rotationSpeed = 0;
-                    if (ship.targetResource.metal > 0 && ship.moveTimer > 2000) {
-                        data.universe.damage(ship.targetResource);
-                        ship.metal++;
-                        ship.text = ship.metal;
-                        if (ship.targetResource.removed || ship.targetResource.metal <= 0) {
-                            this.returnToRefinery(timepassed,data,ship);
-                        }
-                        
-                    } 
+                    ship.velocity.x = 0;
+                    ship.velocity.y = 0;
+                    let m = (timepassed / 1000);
+                    ship.metal += m;
+
+                    data.universe.damage(ship.targetResource, (timepassed / 1000));
+                } else {
+                    ship.moveTo(ship.targetResource, ship.speedFactor);
                 }
             } else {
-                ship.targetResource = data.getClosestResource(ship);
-            }
-            if (
-                    ship.targetResource === null ||
-                    ship.targetResource === undefined ||
-                    ship.targetResource.removed
-            ) {
-                ship.targetResource = data.getClosestResource(ship);
-                this.returnToRefinery(timepassed,data,ship);
-            }
+                ship.rotateTo(ship.refinery, timepassed);
+                if (dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y) > 100) {
+                    ship.moveTo(ship.refinery, ship.speedFactor);
+                } else {
+                    ship.velocity.x = 0;
+                    ship.velocity.y = 0;
+                }
+            }1
         } else {
-            this.returnToRefinery(timepassed,data,ship);
-        }
-
-        if (ship.moveTimer > 2000) {
-            ship.moveTimer -= 2000;
-        }
-        
+            ship.rotateTo(ship.refinery, timepassed);
+            if (dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y) > 60) {
+                ship.moveTo(ship.refinery, ship.speedFactor);
+            } else {
+                ship.velocity.x = 0;
+                ship.velocity.y = 0;
+                data.metals[ship.faction] += ship.metal;
+                ship.metal = 0;
+                ship.targetResource = data.getClosestResource(ship);
+            }
+        }        
     }
     doLaserAI(timepassed, data, ship) {
 
