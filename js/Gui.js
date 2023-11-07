@@ -13,8 +13,9 @@ class GUI {
         H:20
     }
 
-    constructor() {
+    constructor(menu) {
         this.minimap = new Minimap();
+        this.menu=menu;
         this.visuals={}
     }
 
@@ -57,7 +58,7 @@ class GUI {
     }
 
     superDraw(data) {
-        image(GUI.visuals.topFrame,-1,-10);
+        image(GUI.visuals.topFrame,this.minimap.width-8,-10);
         this.minimap.draw(data);
     }
 

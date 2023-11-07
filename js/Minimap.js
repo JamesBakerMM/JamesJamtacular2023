@@ -2,9 +2,9 @@ class Minimap {
     static borderPadding = 0;
     static halfBorder = Minimap.borderPadding / 2;
     static positionX = 0 + Minimap.halfBorder;
-    static positionXEnd = 300 + Minimap.halfBorder;
-    static positionY = 600 - Minimap.halfBorder;
-    static positionYEnd = 900 - Minimap.halfBorder;
+    static positionXEnd = 328 + Minimap.halfBorder;
+    static positionY = 0 - Minimap.halfBorder;
+    static positionYEnd = 300 - Minimap.halfBorder;
 
     constructor() {
         this.worldX = 0 + Minimap.halfBorder;
@@ -127,8 +127,8 @@ class Minimap {
         );
         image(
             GUI.visuals.mapFrame,
-            Minimap.positionX - 4,
-            Minimap.positionY - 42
+            Minimap.positionX - 26,
+            Minimap.positionY - 3
         );
         pop();
     }
