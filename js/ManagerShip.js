@@ -55,7 +55,7 @@ class ManagerShip {
                 ship.moveTowards(ship.refinery, ship.speedFactor/distanceToRefinery);
                 ship.rotation = ship.direction;
             } else if (ship.metal > 0) {
-                data.metals += ship.metal;
+                data.metals[ship.faction] += ship.metal;
                 ship.metal = 0;
             } else {
                 ship.vel = {x:0,y:0};
@@ -74,12 +74,6 @@ class ManagerShip {
                 ) {
             ship.targetResource = data.getClosestResource(ship);
         } else {
-            push();
-            stroke(0,0,255);
-            strokeWeight(20);
-            line(ex(ship.x), why(ship.y), ex(ship.targetResource.x), why(ship.targetResource.y));
-            console.log(ex(ship.x), why(ship.y), ex(ship.targetResource.x), why(ship.targetResource.y));
-            pop();
             if (dist(ship.x, ship.y, ship.targetResource.x, ship.targetResource.y) <= ship.range/3) {
                 ship.speed = 0;
                 console.log("Close enough I don't need to move")

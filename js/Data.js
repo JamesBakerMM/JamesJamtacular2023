@@ -1,7 +1,7 @@
 class Data {
     constructor() {
         this.factory = new ObjectFactory();
-        this.metals = 0; // move to player later
+        this.metals = [0, 0, 0]; // move to player later
         this.ships; //will be group in setup
         this.drones;
         this.laser;

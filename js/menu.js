@@ -53,7 +53,7 @@ class Menu {
         let offset_y = this.y + 40;
         this.btns.main.push(
             this.makeButton(this.x, offset_y, `> drone ${COST.DRONE}`, () => {
-                if (this.costCheck(data.metals, COST.DRONE) === false) {
+                if (this.costCheck(data.metals[0], COST.DRONE) === false) {
                     return false
                 }
                 data.metals -= COST.DRONE;
@@ -70,7 +70,7 @@ class Menu {
 
         this.btns.main.push(
             this.makeButton(this.x, offset_y, `> laser ${COST.LASER}`, () => {
-                if (this.costCheck(data.metals, COST.LASER) === false) {
+                if (this.costCheck(data.metals[0], COST.LASER) === false) {
                     return false
                 }
                 data.metals -= COST.LASER;
@@ -85,7 +85,7 @@ class Menu {
         offset_y += Menu.BTN.h;
         this.btns.main.push(
             this.makeButton(this.x, offset_y, `> torpedo ${COST.TORPEDO}`, () => {
-                if (this.costCheck(data.metals, COST.TORPEDO) === false) {
+                if (this.costCheck(data.metals[0], COST.TORPEDO) === false) {
                     return false
                 }
                 data.metals -= COST.TORPEDO;
@@ -101,7 +101,7 @@ class Menu {
         offset_y += Menu.BTN.h;
         this.btns.main.push(
             this.makeButton(this.x, offset_y, `> gun ${COST.GUN}`, () => {
-                if (this.costCheck(data.metals, COST.GUN) === false) {
+                if (this.costCheck(data.metals[0], COST.GUN) === false) {
                     return false
                 }
                 data.metals -= COST.GUN;
@@ -152,7 +152,7 @@ class Menu {
         }
         fill("yellow");
         textSize(32);
-        text(`| metal: ${data.metals}`, this.x + 20, this.y + 30);
+        text(`| metal: ${data.metals[0]}`, this.x + 20, this.y + 30);
         pop();
     }
 }
