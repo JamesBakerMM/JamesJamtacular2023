@@ -205,10 +205,23 @@ class ManagerShip {
         if (ship.shooting.canShoot()) {
             let target = this.getNearestShip(ship, data, ship.shooting.getRange());
             if (target != null) {
-                ship.shooting.reset(target);
+                ship.shooting.target = target;
+                ship.shooting.reset();
                 data.createMissile(ship, target, 20);
                 data.createMissile(ship, target, -20);
             }
+        }
+
+        if (ship.targetPos == null && ship.shooting.target != null) {
+            let angle = Math.atan2(ship.y - ship.shooting.target.y, ship.x - ship.shooting.target.x);
+            let pos = {x: ship.shooting.target.x + (Math.cos(angle)*(LONG_RANGE*0.75)), y: ship.shooting.target.y + (Math.sin(angle)*(LONG_RANGE*0.75))};
+            if (dist(pos.x, pos.y, ship.x, ship.y) > 6) {
+                ship.rotateTo(pos, 100, 0);
+                ship.moveTo(pos, ship.speedFactor);
+            } else {
+                ship.vel = {x:0,y:0};
+            }
+            
         }
 
         if (ship.faction == 0) {
@@ -263,12 +276,16 @@ class ManagerShip {
                 ship.vel = {x:0,y:0};
             }
         } else {
-            if (ship.type != "laser") {
-                ship.vel = {x:0,y:0};
-            } else {
+            if (ship.type == "laser") {
                 if (ship.shooting.target == null) {
                     ship.vel = {x:0,y:0};
                 }
+            } else if (ship.type == "torpedo") {
+                if (ship.shooting.target == null) {
+                    ship.vel = {x:0,y:0};
+                }
+            } else {
+                ship.vel = {x:0,y:0};
             }
         }
     }
