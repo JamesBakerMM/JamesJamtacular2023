@@ -263,7 +263,7 @@ class Menu {
         this.fancyButton(this.btns.main[0],this.visuals.drone,true);
         this.fancyButton(this.btns.main[1],this.visuals.gun,true);
         this.fancyButton(this.btns.main[2],this.visuals.torpedo,true);
-        this.fancyButton(this.btns.main[3],this.visuals.laser,false);
+        this.fancyButton(this.btns.main[3],this.visuals.laser,true);
 
         image(this.visuals.topFrame, gui.minimap.width - 80, -8);
         pop();
