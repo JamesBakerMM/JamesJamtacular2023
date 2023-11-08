@@ -61,6 +61,16 @@ class Menu {
             "./3d/laser/output/0006.png",
             "./3d/laser/output/0007.png"
         );
+        this.visuals.gun=loadAnimation(
+            "./3d/gun/output/0000.png",
+            "./3d/gun/output/0001.png",
+            "./3d/gun/output/0002.png",
+            "./3d/gun/output/0003.png",
+            "./3d/gun/output/0004.png",
+            "./3d/gun/output/0005.png",
+            "./3d/gun/output/0006.png",
+            "./3d/gun/output/0007.png"
+        );
         Menu.ICO_SIZE=75;
         this.visuals.topFrame=loadImage("./assets/img/topFrame.png");
     }
@@ -74,6 +84,8 @@ class Menu {
         this.visuals.laser.frameDelay=12;
         this.visuals.torpedo.scale=0.2;
         this.visuals.torpedo.frameDelay=12;
+        this.visuals.gun.scale=0.2;
+        this.visuals.gun.frameDelay=12;
     }
 
     costCheck(res, cost) {
@@ -196,6 +208,7 @@ class Menu {
         animation(this.visuals.drone,this.btns.main[0].x-30,this.btns.main[0].y+25);
         animation(this.visuals.laser,this.btns.main[1].x-30,this.btns.main[1].y+25);
         animation(this.visuals.torpedo,this.btns.main[2].x-30,this.btns.main[2].y+25);
+        animation(this.visuals.gun,this.btns.main[3].x-30,this.btns.main[3].y+25);
         image(this.visuals.topFrame,gui.minimap.width-80,-8);
         pop();
     }
