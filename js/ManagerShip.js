@@ -146,7 +146,7 @@ class ManagerShip {
 
         if (ship.shooting.canShoot()) {
             let prevTarget = ship.shooting.target;
-            ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange());
+            ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange(), false);
             if (prevTarget != ship.shooting.target) {
                 ship.shooting.charge = 0;
             }
@@ -203,7 +203,7 @@ class ManagerShip {
         ship.shooting.update(timepassed);
 
         if (ship.shooting.canShoot()) {
-            let target = this.getNearestShip(ship, data, ship.shooting.getRange());
+            let target = this.getNearestShip(ship, data, ship.shooting.getRange(), false);
             if (target != null) {
                 ship.shooting.target = target;
                 ship.shooting.reset();
@@ -236,7 +236,7 @@ class ManagerShip {
         if (ship.targetPos == null) {
             if (ship.shooting.canShoot()) {
                 let prevTarget = ship.shooting.target;
-                ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange());
+                ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange(), true);
                 ship.shooting.reset();
     
                 if (ship.shooting.target != null) {
@@ -261,7 +261,7 @@ class ManagerShip {
         }
     }
 
-    getNearestShip(ship, data, maxDistance) {
+    getNearestShip(ship, data, maxDistance, targetTorpedos) {
         let closestTarget = null;
         let distance = 0;
         for (let i = 0; i < data.ships.length; i++) {
@@ -272,6 +272,22 @@ class ManagerShip {
                     if (closestTarget == null || d < distance) {
                         closestTarget = s;
                         distance = d;
+                    }
+                }
+            }
+        }
+        if (targetTorpedos) {
+            for (let i = 0; i < data.bullets.length; i++) {
+                let torpedo = data.bullets[i]
+                if (ship.faction != torpedo.faction) {
+                    if (torpedo.type === "torpedo") {
+                        let d = dist(ship.x, ship.y, torpedo.x, torpedo.y);
+                        if (d < maxDistance) {
+                            if (closestTarget == null || d < distance) {
+                                closestTarget = torpedo;
+                                distance = d;
+                            }
+                        }
                     }
                 }
             }

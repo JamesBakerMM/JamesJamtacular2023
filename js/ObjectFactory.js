@@ -230,7 +230,7 @@ class ObjectFactory {
         obj.selected = false;
         obj.range=MED_RANGE;
         obj.hp.setHealth(20);
-        obj.shooting = new Shooting(1000, MED_RANGE);
+        obj.shooting = new Shooting(700, MED_RANGE);
         return obj
     }
 
@@ -268,35 +268,38 @@ class ObjectFactory {
         obj.life = 3000;
         obj.damage = 0.25;
         obj.faction = origin.faction;
+        obj.type = "bullet";
+        obj.dead = false;
 
         return obj;
     }
 
     createMissile(origin, target, offset) {
 
-        let deg = origin.rotation - 90;
+        let deg = origin.rotation + 90;
         
         let offsetX = cos(deg) * offset;
         let offsetY = sin(deg) * offset;
 
-        let obj = this.createObject(origin.x + offsetX, origin.y+offsetY, "missile");
-        if (offset > 0) {
-            obj.rotation = origin.rotation - 90;
-        } else {
-            obj.rotation = origin.rotation + 90;
-        }
+        let obj = {};
+        obj.x = origin.x + offsetX;
+        obj.y = origin.y + offsetY;
+
+        obj.rotation = atan2(obj.y - origin.y, obj.x - origin.x) + 180;
         obj.faction = origin.faction;
         if(obj.faction!==0){
             obj.image = this.getByID("enemyMissile",this.images);
         } else {
             obj.image = this.getByID("missile",this.images);
         }
-        obj.damage = 1;
+        obj.type = "torpedo";
+        obj.damage = 2;
         obj.target = target;
-        obj.life=300;
-        // obj.lifetime = 10000;
-        obj.tracking = 0.02;
-        obj.trackingChange = 0.005;
+        obj.life=7000;
+        obj.tracking = 30;
+        obj.trackingChange = 8;
+        obj.speed = 200;
+        obj.dead = false;
         return obj;
     }
 

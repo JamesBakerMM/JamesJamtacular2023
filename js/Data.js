@@ -8,8 +8,7 @@ class Data {
         this.gun;
         this.torpedo;
         this.effects;
-        this.bullets;
-        this.bullets2 = new Array();
+        this.bullets = new Array();
         this.refinery = null;
         this.enemyRefinery1 = null;
         this.enemyRefinery2 = null;
@@ -37,8 +36,6 @@ class Data {
         this.torpedo = new this.ships.Group();
         this.effects = new Group();
         this.effects.collider = "none";
-
-        this.bullets = new Group();
 
         this.refinery = this.factory.createRefinery(800, 450);
         //this.refinery.mass = 300;
@@ -107,8 +104,8 @@ class Data {
             )
         );
 
-        this.ships.push(this.factory.createLaser(1300, 600, 0));
-        this.ships.push(this.factory.createLaser(1400, 700, 1));
+        this.ships.push(this.factory.createGun(1300, 600, 0));
+        this.ships.push(this.factory.createTorpedo(1400, 700, 1));
 
         this.background.setup();
         this.universe.setup(this.factory);
@@ -123,136 +120,97 @@ class Data {
      */
     update(timepassed) {
         this.managerShip.update(timepassed, this);
-
-        let bullets2ToRemove = new Array();
+        
         push();
         stroke('white');
         strokeWeight(4);
-        for (let i = 0; i < this.bullets2.length; i++) {
-            let bullet = this.bullets2[i];
+        for (let i = 0; i < this.bullets.length; i++) {
+            let bullet = this.bullets[i];
             bullet.life -= timepassed;
             if (bullet.life < 0) {
-                bullets2ToRemove.push(i);
+                bullet.dead = true;
+                if (bullet.type === "torpedo") {
+                    this.factory.createCleanExplosion(bullet.x, bullet.y);
+                }
             } else {
-                bullet.x += bullet.vx * (timepassed/1000);
-                bullet.y += bullet.vy * (timepassed/1000);
+                let p = {x: 0, y: 0}
 
-                let p = {x: ex(bullet.x), y: why(bullet.y)};
-                point(p.x, p.y);
+                if (bullet.type === "bullet") {
+                    bullet.x += bullet.vx * (timepassed/1000);
+                    bullet.y += bullet.vy * (timepassed/1000);
+
+                    p = {x: ex(bullet.x), y: why(bullet.y)};
+                    
+                    point(p.x, p.y);
+                } else if (bullet.type === "torpedo") {
+                    if (bullet.target.hp.isDead()) {
+                        bullet.life -= timepassed * 2;
+                    }
+                    bullet.tracking += bullet.trackingChange * (timepassed/1000);
+
+                    let angle = atan2(bullet.y - bullet.target.y, bullet.x - bullet.target.x);
+                    bullet.rotation = Utility.turnTowards(bullet.rotation, angle, bullet.tracking * (timepassed/1000));
+
+                    let offsetX = cos(bullet.rotation);
+                    let offsetY = sin(bullet.rotation);
+
+                    bullet.x += -offsetX * (timepassed/1000) * bullet.speed;
+                    bullet.y += -offsetY * (timepassed/1000) * bullet.speed;
+                    p = {x: ex(bullet.x)-12, y: why(bullet.y)-12};
+                    translate(p.x , p.y);
+                    rotate(bullet.rotation);
+                    image(bullet.image, 0, 0);
+                    rotate(-bullet.rotation);
+                    translate(-p.x, -p.y);
+                }
 
                 //COLLISION
+                let hit = false;
                 for(let j = 0; j < this.ships.length; j++) {
                     let ship = this.ships[j];
                     if (ship.faction != bullet.faction) {
-                        let d = dist(ship.x, ship.y, p.x, p.y);
+                        let d = dist(ship.x, ship.y, bullet.x, bullet.y);
                         if (d < ship.radius) {
-                            bullets2ToRemove.push(i);
+                            hit = true;
                             ship.hp.doDamage(bullet.damage);
                         }
                     }
                 }
                 for(let j = 0; j < this.universe.resources.length; j++) {
                     let res = this.universe.resources[j];
-                    let d = dist(res.x, res.y, p.x, p.y);
+                    let d = dist(res.x, res.y, bullet.x, bullet.y);
                     if (d < res.radius) {
-                        bullets2ToRemove.push(i);
+                        hit = true;
                         this.universe.damage(res, bullet.damage);
                     }
                 }
-            }
-            
+                for(let j = 0; j < this.bullets.length; j++) {
+                    let b = this.bullets[j];
+                    if (b.faction != bullet.faction) {
+                        let d = dist(b.x, b.y, bullet.x, bullet.y);
+                        let radius = 6;
+                        if (b.type === "torpedo" || bullet.type === "torpedo") {
+                            radius = 24;
+                        }
+                        if (d < radius) {
+                            hit = true;
+                            b.dead = true;
+                        }
+                    }
+                }
+                if (hit == true) {
+                    this.factory.createDirtyExplosion(bullet.x, bullet.y, 0.5);
+                    bullet.dead = true;
+                }
+            }        
         }
         pop();
-        for (let i = bullets2ToRemove.length-1; i >= 0; i--) {
-            this.bullets2.splice(bullets2ToRemove[i], 1);
-        }
-
-        let bulletsToRemove = new Array();
-        for (let i = 0; i < this.bullets.length; i++) {
-            let bullet = this.bullets[i];
-            bullet.lifetime -= timepassed;
-
-            if (bullet.life === 1) {
-                this.factory.createCleanExplosion(bullet.x, bullet.y);
-            } else {
-                //IF bullet colides code here
-                let hasHitShip = false;
-                let hasHitAsteroid = false;
-                for (let ship of this.ships) {
-                    if (
-                        ship.overlaps(bullet) &&
-                        ship.faction !== bullet.faction
-                    ) {
-                        this.factory.createDirtyExplosion(
-                            bullet.x,
-                            bullet.y,
-                            0.5
-                        );
-                        bulletsToRemove.push(bullet);
-                        ship.hp.doDamage(bullet.damage);
-                    }
-                }
-                // this.factory.createDirtyExplosion(bullet.x,bullet.y,0.15);
-                if (hasHitShip === false) {
-                    for (let resource of this.universe.resources) {
-                        if (resource.collides(bullet)) {
-                            hasHitAsteroid = true;
-                            this.universe.damage(resource);
-                            this.factory.createDirtyExplosion(
-                                bullet.x,
-                                bullet.y,
-                                0.5
-                            );
-                            bulletsToRemove.push(bullet);
-                        }
-                    }
-                }
-
-                if (hasHitShip === false && hasHitAsteroid === false) {
-                    for (let otherBullet of this.bullets) {
-                        if (
-                            bullet.overlaps(otherBullet) &&
-                            bullet.faction !== otherBullet.faction
-                        ) {
-                            this.factory.createCleanExplosion(
-                                bullet.x,
-                                bullet.y
-                            );
-                            bulletsToRemove.push(bullet);
-                            this.factory.createCleanExplosion(
-                                otherBullet.x,
-                                otherBullet.y
-                            );
-                            bulletsToRemove.push(otherBullet);
-                        }
-                    }
-                }
-            }
-            if (bullet.target != null) {
-                //is missile
-                bullet.tracking +=
-                    (timepassed / 1000.0) * bullet.trackingChange;
-                bullet.rotateTowards(bullet.target, bullet.tracking, 0);
-                bullet.vel.x = cos(bullet.rotation) * 4;
-                bullet.vel.y = sin(bullet.rotation) * 4;
-
-                for (let res of this.universe.resources) {
-                    if (res.collides(bullet)) {
-                        this.factory.createDirtyExplosion(
-                            bullet.x,
-                            bullet.y,
-                            0.5
-                        );
-                        bulletsToRemove.push(bullet);
-                    }
-                }
+        for (let i = this.bullets.length-1; i >= 0; i--) {
+            if (this.bullets[i].dead) {
+                this.bullets.splice(i, 1);
             }
         }
 
-        for (let i = 0; i < bulletsToRemove.length; i++) {
-            this.bullets.remove(bulletsToRemove[i]);
-            bulletsToRemove[i].remove();
-        }
 
         for (let ship of this.ships) {
             //MOVE LATER TO SOMEWHERE BETTER
@@ -338,7 +296,7 @@ class Data {
     }
 
     createBullet(origin, target) {
-        this.bullets2.push(this.factory.createBullet(origin, target));
+        this.bullets.push(this.factory.createBullet(origin, target));
     }
 
     createMissile(origin, target, offset) {

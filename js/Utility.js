@@ -28,6 +28,45 @@ class Utility {
         }
     }
 
+    static turnTowards(angle1, angle2, amount) {
+
+        let a1 = angle1;
+        while(a1 < 0) {
+            a1 += 360;
+        }
+        while(a1 >= 360) {
+            a1 -= 360;
+        }
+
+        let a2 = angle2;
+        while(a2 < 0) {
+            a2 += 360;
+        }
+        while(a2 >= 360) {
+            a2 -= 360;
+        }
+        
+        let turnLeft = true;
+        if (a1 > a2 && Utility.getDifference(a1, a2) > 180) {
+            turnLeft = false;
+        } else if (a1 < a2 && Utility.getDifference(a1, a2) < 180) {
+            turnLeft = false;
+        }
+        let angle = a1;
+        if (turnLeft) {
+            angle -= amount;
+        } else {
+            angle += amount;
+        }
+        if (angle >= 360) {
+            angle -= 360;
+        } else if (angle < 0) {
+            angle += 360;
+        }
+        
+        return angle;
+    }
+
     static distManhatten(v1, v2) {
         return getDifference(v1.x, v2.x) + getDifference(v1.y, v2.y);
     }
