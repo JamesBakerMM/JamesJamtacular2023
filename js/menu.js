@@ -125,14 +125,14 @@ class Menu {
             this.makeButton(
                 this.x + Menu.ICO_SIZE,
                 offset_y,
-                `> laser ${COST.LASER}`,
+                `> gun ${COST.GUN}`,
                 () => {
-                    if (this.costCheck(data.metals[0], COST.LASER) === false) {
+                    if (this.costCheck(data.metals[0], COST.GUN) === false) {
                         return false;
                     }
-                    data.metals[0] -= COST.LASER;
-                    data.laser.push(
-                        data.factory.createLaser(
+                    data.metals[0] -= COST.GUN;
+                    data.gun.push(
+                        data.factory.createGun(
                             data.refinery.x + random(-180, 180),
                             data.refinery.y + random(-180, 180),
                             0
@@ -165,18 +165,19 @@ class Menu {
             )
         );
         offset_y += Menu.BTN.h;
+        
         this.btns.main.push(
             this.makeButton(
                 this.x + Menu.ICO_SIZE,
                 offset_y,
-                `> gun ${COST.GUN}`,
+                `> laser ${COST.LASER}`,
                 () => {
-                    if (this.costCheck(data.metals[0], COST.GUN) === false) {
+                    if (this.costCheck(data.metals[0], COST.LASER) === false) {
                         return false;
                     }
-                    data.metals[0] -= COST.GUN;
-                    data.gun.push(
-                        data.factory.createGun(
+                    data.metals[0] -= COST.LASER;
+                    data.laser.push(
+                        data.factory.createLaser(
                             data.refinery.x + random(-180, 180),
                             data.refinery.y + random(-180, 180),
                             0
@@ -227,6 +228,11 @@ class Menu {
             anim.frame=0;
             anim.stop();
         }
+        animation(
+            anim,
+            button.x - 30,
+            button.y + 25
+        );
     }
 
     update(data) {
@@ -242,33 +248,11 @@ class Menu {
             this.y + 30
         );
 
-        //console.log(this.btns.main[0]);
-        //drone button
         this.fancyButton(this.btns.main[0],this.visuals.drone);
-        this.fancyButton(this.btns.main[1],this.visuals.laser);
+        this.fancyButton(this.btns.main[1],this.visuals.gun);
         this.fancyButton(this.btns.main[2],this.visuals.torpedo);
-        this.fancyButton(this.btns.main[3],this.visuals.gun);
+        this.fancyButton(this.btns.main[3],this.visuals.laser);
 
-        animation(
-            this.visuals.drone,
-            this.btns.main[0].x - 30,
-            this.btns.main[0].y + 25
-        );
-        animation(
-            this.visuals.laser,
-            this.btns.main[1].x - 30,
-            this.btns.main[1].y + 25
-        );
-        animation(
-            this.visuals.torpedo,
-            this.btns.main[2].x - 30,
-            this.btns.main[2].y + 25
-        );
-        animation(
-            this.visuals.gun,
-            this.btns.main[3].x - 30,
-            this.btns.main[3].y + 25
-        );
         image(this.visuals.topFrame, gui.minimap.width - 80, -8);
         pop();
     }
