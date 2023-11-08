@@ -107,7 +107,7 @@ class Data {
         );
 
         this.ships.push(this.factory.createLaser(1300, 600, 0));
-        this.ships.push(this.factory.createTorpedo(1400, 700, 1));
+        this.ships.push(this.factory.createLaser(1400, 700, 1));
 
         this.background.setup();
         this.universe.setup(this.factory);

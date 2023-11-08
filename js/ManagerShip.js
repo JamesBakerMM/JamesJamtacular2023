@@ -18,13 +18,10 @@ class ManagerShip {
             if (ship.type === "enemy refinery") {
                 this.doEnemyRefineryAI(timepassed, data, ship);
             }
-            if (ship.type === "drone") {
+            if (ship.type === "drone" || ship.type === "enemy drone") {
                 this.doDroneAI(timepassed, data, ship);
             }
-            if (ship.type === "enemy drone") {
-                this.doDroneAI(timepassed, data, ship);
-            }
-            if (ship.type === "laser") {
+            if (ship.type === "laser" || ship.type === "enemy laser") {
                 this.doLaserAI(timepassed, data, ship);
             }
             if (ship.type === "torpedo") {
@@ -179,7 +176,11 @@ class ManagerShip {
                 let aim = {x: ship.shooting.target.x + xOffset, y: ship.shooting.target.y + yOffset};
                 ship.rotateTo(aim, 100, 0);
                 push();
-                stroke(255, 0, 0, 255);
+                if (ship.faction == 0) {
+                    stroke("#dd7ceb");
+                } else {
+                    stroke("#7ceb88");
+                }
                 strokeWeight(Math.floor(ship.shooting.charge/200));
                 line(ex(ship.x),why(ship.y),ex(aim.x),why(aim.y));
                 pop();
@@ -187,7 +188,6 @@ class ManagerShip {
                 let angle = Math.atan2(ship.y - ship.shooting.target.y, ship.x - ship.shooting.target.x);
                 angle += 0.05;
                 let pos = {x: ship.shooting.target.x + (Math.cos(angle)*(MIN_RANGE/2)), y: ship.shooting.target.y + (Math.sin(angle)*(MIN_RANGE/2))};
-                console.log(pos, ship.shooting.target.x, ship.shooting.target.y);
                 ship.moveTo(pos, ship.speedFactor);
                 
             } else {

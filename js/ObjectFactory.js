@@ -146,7 +146,7 @@ class ObjectFactory {
     createShip(x, y, type) {
         let obj = this.createObject(x, y);
         obj.originalPosition = {x: x, y: y};
-        obj.targetPos = obj.originalPosition;
+        //obj.targetPos = obj.originalPosition;
         obj.type = type;
         obj.hp = new Health(1);
         obj.speedFactor = 1;
@@ -185,10 +185,14 @@ class ObjectFactory {
         return obj;
     }
 
-    createLaser(x,y){
+    createLaser(x,y,faction){
         let obj = this.createShip(x, y, "laser");
-        obj.image = this.getByID("laser",this.images);
-        obj.faction = 0;
+        let image = "laser";
+        if (faction > 0) {
+            image = "enemy laser";
+        }
+        obj.image = this.getByID(image,this.images);
+        obj.faction = faction;
         // obj.scale = 1.5;
         obj.selected = false;
         obj.hp.setHealth(20);
