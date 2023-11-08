@@ -22,6 +22,7 @@ class ObjectFactory {
         this.images.push({id: "enemy drone",    path: "assets/img/hostileDrone.png"});
         this.images.push({id: "enemy laser",    path: "assets/img/hostileLaser.png"});
         this.images.push({id: "enemy torpedo",  path: "assets/img/hostileTorpedo.png"});
+        this.images.push({id: "enemy gun",      path: "assets/img/bullet.png"});
 
         this.anims.push({id: "rock", path: [
             "assets/img/rock_asteroid1.png",
@@ -193,7 +194,7 @@ class ObjectFactory {
         }
         obj.image = this.getByID(image,this.images);
         obj.faction = faction;
-        // obj.scale = 1.5;
+        obj.scale = 1.5;
         obj.selected = false;
         obj.hp.setHealth(20);
         obj.shooting = new Shooting(100, MIN_RANGE);
@@ -217,14 +218,19 @@ class ObjectFactory {
         return obj
     }
 
-    createGun(x,y){
+    createGun(x,y, faction){
         let obj = this.createShip(x, y, "gun");
-        obj.image = this.getByID("gun",this.images);
-        obj.faction = 0;
-        // obj.scale = 2;
+        let image = "gun";
+        if (faction > 0) {
+            image = "enemy gun";
+        }
+        obj.image = this.getByID(image,this.images);
+        obj.faction = faction;
+        obj.scale = 1.5;
         obj.selected = false;
         obj.range=MED_RANGE;
         obj.hp.setHealth(20);
+        obj.shooting = new Shooting(1000, MED_RANGE);
         return obj
     }
 
@@ -245,31 +251,24 @@ class ObjectFactory {
 
     createBullet(origin, target) {
 
-        let ox = origin.x;
-        let oy = origin.y;
+        let ox = origin.x + random(-20, 20);
+        let oy = origin.y + random(-20, 20);;
 
         let vx = target.x-ox;
         let vy = target.y-oy;
 
-        length = Math.sqrt(Math.pow(vx, 2) + Math.pow(vy, 2));
+        let speed = 500;
+        let normalised = Utility.normaliseVector(vx, vy);
 
-        // normalize vector
-        vx = vx / length;
-        vy = vy / length;
-
-        //apply bullet speed
-        vx = vx * 10;
-        vy = vy * 10;
-
-        let obj = this.createObject(ox, oy, "bullet");
-        obj.image = this.getByID("bullet",this.images);
+        let obj = {};
+        obj.x = ox;
+        obj.y = oy;
+        obj.vx = normalised.x * speed;
+        obj.vy = normalised.y * speed;
+        obj.life = 3000;
+        obj.damage = 0.25;
         obj.faction = origin.faction;
-        obj.damage = 1;
-        obj.vel.x = vx;
-        obj.vel.y = vy;
-        // obj.lifetime = 2000;
-        obj.life=300;
-        obj.damage=1;
+
         return obj;
     }
 

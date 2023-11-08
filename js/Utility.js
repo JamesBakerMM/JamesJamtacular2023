@@ -27,6 +27,16 @@ class Utility {
             return v2 - v1;
         }
     }
+
+    static distManhatten(v1, v2) {
+        return getDifference(v1.x, v2.x) + getDifference(v1.y, v2.y);
+    }
+
+    static normaliseVector(x, y) {
+        let length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        return {x: x/length, y: y/length};
+    }
+
     static safePressing(button = "left") {
         //calculate if mouse within the menu
         const mouseIsRightOfLeftEdge = mouseX > menu.x;

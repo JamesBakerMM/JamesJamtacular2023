@@ -225,13 +225,40 @@ class ManagerShip {
         }
 
         if (ship.faction == 0) {
-            //Needs to move away from target if too close
             this.mouseControls(ship);
         }
     }
     
     doGunAI(timepassed, data, ship) {
-        this.mouseControls(ship);
+
+        ship.shooting.update(timepassed);
+
+        if (ship.targetPos == null) {
+            if (ship.shooting.canShoot()) {
+                let prevTarget = ship.shooting.target;
+                ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange());
+                ship.shooting.reset();
+    
+                if (ship.shooting.target != null) {
+                    ship.shooting.charge = 2;
+                }
+    
+            }
+            if (ship.shooting.target != null) {
+                ship.rotateTo(ship.shooting.target, 100);
+                if (ship.shooting.charge > 0) {
+                    let prevCharge = ship.shooting.charge;
+                    ship.shooting.charge -= (timepassed/50);
+                    if (Math.ceil(ship.shooting.charge) != Math.ceil(prevCharge)) {
+                        data.createBullet(ship, ship.shooting.target);
+                    }
+                }
+            }
+        }
+        
+        if (ship.faction == 0) {
+            this.mouseControls(ship);
+        }
     }
 
     getNearestShip(ship, data, maxDistance) {
@@ -251,8 +278,6 @@ class ManagerShip {
         }
         return closestTarget;
     }
-
-    
 
     mouseControls(ship) {
         if (Utility.safePressed("right") && ship.selected) {

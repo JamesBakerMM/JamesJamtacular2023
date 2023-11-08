@@ -9,6 +9,7 @@ class Data {
         this.torpedo;
         this.effects;
         this.bullets;
+        this.bullets2 = new Array();
         this.refinery = null;
         this.enemyRefinery1 = null;
         this.enemyRefinery2 = null;
@@ -106,7 +107,7 @@ class Data {
             )
         );
 
-        this.ships.push(this.factory.createTorpedo(1300, 600, 0));
+        this.ships.push(this.factory.createLaser(1300, 600, 0));
         this.ships.push(this.factory.createLaser(1400, 700, 1));
 
         this.background.setup();
@@ -122,6 +123,49 @@ class Data {
      */
     update(timepassed) {
         this.managerShip.update(timepassed, this);
+
+        let bullets2ToRemove = new Array();
+        push();
+        stroke('white');
+        strokeWeight(4);
+        for (let i = 0; i < this.bullets2.length; i++) {
+            let bullet = this.bullets2[i];
+            bullet.life -= timepassed;
+            if (bullet.life < 0) {
+                bullets2ToRemove.push(i);
+            } else {
+                bullet.x += bullet.vx * (timepassed/1000);
+                bullet.y += bullet.vy * (timepassed/1000);
+
+                let p = {x: ex(bullet.x), y: why(bullet.y)};
+                point(p.x, p.y);
+
+                //COLLISION
+                for(let j = 0; j < this.ships.length; j++) {
+                    let ship = this.ships[j];
+                    if (ship.faction != bullet.faction) {
+                        let d = dist(ship.x, ship.y, p.x, p.y);
+                        if (d < ship.radius) {
+                            bullets2ToRemove.push(i);
+                            ship.hp.doDamage(bullet.damage);
+                        }
+                    }
+                }
+                for(let j = 0; j < this.universe.resources.length; j++) {
+                    let res = this.universe.resources[j];
+                    let d = dist(res.x, res.y, p.x, p.y);
+                    if (d < res.radius) {
+                        bullets2ToRemove.push(i);
+                        this.universe.damage(res, bullet.damage);
+                    }
+                }
+            }
+            
+        }
+        pop();
+        for (let i = bullets2ToRemove.length-1; i >= 0; i--) {
+            this.bullets2.splice(bullets2ToRemove[i], 1);
+        }
 
         let bulletsToRemove = new Array();
         for (let i = 0; i < this.bullets.length; i++) {
@@ -294,7 +338,7 @@ class Data {
     }
 
     createBullet(origin, target) {
-        this.bullets.push(this.factory.createBullet(origin, target));
+        this.bullets2.push(this.factory.createBullet(origin, target));
     }
 
     createMissile(origin, target, offset) {
