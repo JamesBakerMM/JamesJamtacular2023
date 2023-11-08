@@ -196,7 +196,7 @@ class Menu {
         animation(this.visuals.drone,this.btns.main[0].x-30,this.btns.main[0].y+25);
         animation(this.visuals.laser,this.btns.main[1].x-30,this.btns.main[1].y+25);
         animation(this.visuals.torpedo,this.btns.main[2].x-30,this.btns.main[2].y+25);
-        image(this.visuals.topFrame,gui.minimap.width+73,-10);
+        image(this.visuals.topFrame,gui.minimap.width-80,-8);
         pop();
     }
 }

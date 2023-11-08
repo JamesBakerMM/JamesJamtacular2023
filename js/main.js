@@ -56,7 +56,7 @@ function draw(){
 
 
 function superDraw() {
+    menu.update(data);
     gui.superDraw(data);
 
-    menu.update(data);
 }
