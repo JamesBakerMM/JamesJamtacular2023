@@ -50,6 +50,7 @@ class Universe {
     update() {}
 
     damage(resource, damage=1) {
+        let preMetal = resource.metal;
         resource.metal -= damage;
         resource.text = resource.mass = Math.floor(resource.metal);
         if (resource.metal <= 0) {
@@ -64,7 +65,11 @@ class Universe {
                 resource.ani.frame = 1;
             }
         } else if (resource.type === "wreckage") {
-            resource.ani.nextFrame();
+            if (Math.floor(preMetal) != Math.floor(resource.metal)) {
+                if (resource.ani.frame < resource.ani.length-1) {
+                    resource.ani.nextFrame();
+                }
+            }
         }
     }
 }
