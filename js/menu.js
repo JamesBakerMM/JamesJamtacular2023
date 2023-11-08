@@ -42,14 +42,14 @@ class Menu {
             "./3d/drone/output/0007.png"
         );
         this.visuals.torpedo=loadAnimation(
+            "./3d/torpedo/output/0004.png",
+            "./3d/torpedo/output/0005.png",
+            "./3d/torpedo/output/0006.png",
+            "./3d/torpedo/output/0007.png",
             "./3d/torpedo/output/0000.png",
             "./3d/torpedo/output/0001.png",
             "./3d/torpedo/output/0002.png",
             "./3d/torpedo/output/0003.png",
-            "./3d/torpedo/output/0004.png",
-            "./3d/torpedo/output/0005.png",
-            "./3d/torpedo/output/0006.png",
-            "./3d/torpedo/output/0007.png"
         );
         this.visuals.laser=loadAnimation(
             "./3d/laser/output/0000.png",
@@ -78,16 +78,17 @@ class Menu {
     setup(data) {
         // this.makeControlButtons();
         this.makeMainButtons(data);
-        this.visuals.drone.scale=0.2;
-        this.visuals.drone.frameDelay=12;
-        this.visuals.laser.scale=0.2;
-        this.visuals.laser.frameDelay=12;
-        this.visuals.torpedo.scale=0.2;
-        this.visuals.torpedo.frameDelay=12;
-        this.visuals.gun.scale=0.2;
-        this.visuals.gun.frameDelay=12;
+        this.shipAnimSetup(this.visuals.drone)
+        this.shipAnimSetup(this.visuals.laser)
+        this.shipAnimSetup(this.visuals.torpedo)
+        this.shipAnimSetup(this.visuals.gun)
     }
 
+    shipAnimSetup(shipAnim){
+        shipAnim.scale=0.2;
+        shipAnim.frameDelay=12;
+        shipAnim.stop();
+    }
     costCheck(res, cost) {
         const debug = false;
         if (debug) {
@@ -128,7 +129,8 @@ class Menu {
                 data.laser.push(
                     data.factory.createLaser(
                         data.refinery.x + random(-180, 180),
-                        data.refinery.y + random(-180, 180)
+                        data.refinery.y + random(-180, 180),
+                        0
                     )
                 );
             })
@@ -159,7 +161,8 @@ class Menu {
                 data.gun.push(
                     data.factory.createGun(
                         data.refinery.x + random(-180, 180),
-                        data.refinery.y + random(-180, 180)
+                        data.refinery.y + random(-180, 180),
+                        0
                     )
                 );
             })
@@ -204,6 +207,11 @@ class Menu {
         fill("yellow");
         textSize(32);
         text(`| metal: ${Math.floor(data.metals[0])}`, this.x + 20, this.y + 30);
+        // .position().x
+        // .position().y
+        // .size().x
+        // .size().y
+
         //console.log(this.btns.main[0]);
         animation(this.visuals.drone,this.btns.main[0].x-30,this.btns.main[0].y+25);
         animation(this.visuals.laser,this.btns.main[1].x-30,this.btns.main[1].y+25);
