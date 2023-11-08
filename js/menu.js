@@ -1,8 +1,8 @@
 const COST = {
     DRONE: 1,
-    LASER: 3,
-    TORPEDO: 4,
     GUN: 3,
+    TORPEDO: 4,
+    LASER: 5,
 };
 
 class Menu {
@@ -10,6 +10,11 @@ class Menu {
     static BTN = {
         h: 50,
     };
+
+    static DRONE_ACTIVE=true;
+    static TORPEDO_ACTIVE=true;
+    static GUN_ACTIVE=true;
+    static LASER_ACTIVE=true;
 
     constructor(x = 0, y = 0, w = 200, h = 240) {
         this.x = x;
@@ -27,46 +32,62 @@ class Menu {
     }
 
     preload() {
-        this.visuals.drone = loadAnimation(
-            "./3d/drone/output/0000.png",
-            "./3d/drone/output/0001.png",
-            "./3d/drone/output/0002.png",
-            "./3d/drone/output/0003.png",
-            "./3d/drone/output/0004.png",
-            "./3d/drone/output/0005.png",
-            "./3d/drone/output/0006.png",
-            "./3d/drone/output/0007.png"
-        );
-        this.visuals.torpedo = loadAnimation(
-            "./3d/torpedo/output/0004.png",
-            "./3d/torpedo/output/0005.png",
-            "./3d/torpedo/output/0006.png",
-            "./3d/torpedo/output/0007.png",
-            "./3d/torpedo/output/0000.png",
-            "./3d/torpedo/output/0001.png",
-            "./3d/torpedo/output/0002.png",
-            "./3d/torpedo/output/0003.png"
-        );
-        this.visuals.laser = loadAnimation(
-            "./3d/laser/output/0000.png",
-            "./3d/laser/output/0001.png",
-            "./3d/laser/output/0002.png",
-            "./3d/laser/output/0003.png",
-            "./3d/laser/output/0004.png",
-            "./3d/laser/output/0005.png",
-            "./3d/laser/output/0006.png",
-            "./3d/laser/output/0007.png"
-        );
-        this.visuals.gun = loadAnimation(
-            "./3d/gun/output/0000.png",
-            "./3d/gun/output/0001.png",
-            "./3d/gun/output/0002.png",
-            "./3d/gun/output/0003.png",
-            "./3d/gun/output/0004.png",
-            "./3d/gun/output/0005.png",
-            "./3d/gun/output/0006.png",
-            "./3d/gun/output/0007.png"
-        );
+
+        this.visuals.drone = {
+            active: loadAnimation(
+                "./3d/drone/output/0000.png",
+                "./3d/drone/output/0001.png",
+                "./3d/drone/output/0002.png",
+                "./3d/drone/output/0003.png",
+                "./3d/drone/output/0004.png",
+                "./3d/drone/output/0005.png",
+                "./3d/drone/output/0006.png",
+                "./3d/drone/output/0007.png"
+            ),
+            inactive: loadAnimation("./assets/img/gray_drone.png"),
+        };
+
+        this.visuals.laser = {
+            active: loadAnimation(
+                "./3d/laser/output/0000.png",
+                "./3d/laser/output/0001.png",
+                "./3d/laser/output/0002.png",
+                "./3d/laser/output/0003.png",
+                "./3d/laser/output/0004.png",
+                "./3d/laser/output/0005.png",
+                "./3d/laser/output/0006.png",
+                "./3d/laser/output/0007.png"
+            ),
+            inactive: loadAnimation("./assets/img/gray_laser.png"),
+        };
+
+        this.visuals.gun = {
+            active: loadAnimation(
+                "./3d/gun/output/0000.png",
+                "./3d/gun/output/0001.png",
+                "./3d/gun/output/0002.png",
+                "./3d/gun/output/0003.png",
+                "./3d/gun/output/0004.png",
+                "./3d/gun/output/0005.png",
+                "./3d/gun/output/0006.png",
+                "./3d/gun/output/0007.png"
+            ),
+            inactive: loadAnimation("./assets/img/gray_gun.png"),
+        };
+
+        this.visuals.torpedo = {
+            active: loadAnimation(
+                "./3d/torpedo/output/0004.png",
+                "./3d/torpedo/output/0005.png",
+                "./3d/torpedo/output/0006.png",
+                "./3d/torpedo/output/0007.png",
+                "./3d/torpedo/output/0000.png",
+                "./3d/torpedo/output/0001.png",
+                "./3d/torpedo/output/0002.png",
+                "./3d/torpedo/output/0003.png"
+            ),
+            inactive: loadAnimation("./assets/img/gray_torpedo.png"),
+        };
         this.visuals.topFrame = loadImage("./assets/img/topFrame.png");
     }
 
@@ -81,9 +102,11 @@ class Menu {
     }
 
     shipAnimSetup(shipAnim) {
-        shipAnim.scale = 0.2;
-        shipAnim.frameDelay = 12;
-        shipAnim.stop();
+        shipAnim.active.scale = 0.2;
+        shipAnim.active.frameDelay = 12;
+        shipAnim.active.stop();
+        shipAnim.inactive.scale = 0.2;
+        shipAnim.inactive.frameDelay = 12;
     }
     costCheck(res, cost) {
         const debug = false;
@@ -103,7 +126,7 @@ class Menu {
             this.makeButton(
                 this.x + Menu.ICO_SIZE,
                 offset_y,
-                `>${COST.DRONE} drone `,
+                `> ${COST.DRONE} drone `,
                 () => {
                     if (this.costCheck(data.metals[0], COST.DRONE) === false) {
                         return false;
@@ -146,7 +169,7 @@ class Menu {
             this.makeButton(
                 this.x + Menu.ICO_SIZE,
                 offset_y,
-                `> torpedo ${COST.TORPEDO}`,
+                `> ${COST.TORPEDO} torpedo`,
                 () => {
                     if (
                         this.costCheck(data.metals[0], COST.TORPEDO) === false
@@ -165,12 +188,12 @@ class Menu {
             )
         );
         offset_y += Menu.BTN.h;
-        
+
         this.btns.main.push(
             this.makeButton(
                 this.x + Menu.ICO_SIZE,
                 offset_y,
-                `>${COST.LASER} laser `,
+                `> ${COST.LASER} laser `,
                 () => {
                     if (this.costCheck(data.metals[0], COST.LASER) === false) {
                         return false;
@@ -198,8 +221,8 @@ class Menu {
         }
     ) {
         let tempButton = createButton(label);
-        tempButton.startX=x;
-        tempButton.startY=y;
+        tempButton.startX = x;
+        tempButton.startY = y;
         tempButton.position(x, y);
         tempButton.mouseClicked(func);
         return tempButton;
@@ -223,27 +246,40 @@ class Menu {
         return false;
     }
 
-    fancyButton(button,anim,isActive){
-        const OFFSET=10000;
+    fancyButton(button, anim, isActive,progress=23) {
+        const OFFSET = 10000;
 
-        if(isActive){
-            button.position(button.startX,button.startY);
-            if(this.buttonIsHovered(button,mouseX,mouseY)){
-                anim.loop();
+        if (isActive) {
+            button.position(button.startX, button.startY);
+            if (this.buttonIsHovered(button, mouseX, mouseY)) {
+                anim.active.loop();
             } else {
-                anim.frame=0;
-                anim.stop();
+                anim.active.frame = 0;
+                anim.active.stop();
             }
-            animation(
-                anim,
-                button.x - 30,
-                button.y + 25
-            );
+            animation(anim.active, button.x - 30, button.y + 25);
         } else {
-            button.position(-OFFSET,-OFFSET);
-            fill("grey")
-            console.log(Menu.ICO_SIZE)
-            rect(button.startX-Menu.ICO_SIZE,button.startY,button.width+Menu.ICO_SIZE,button.height)
+            button.position(-OFFSET, -OFFSET);
+            fill(GUI.BLACK);
+            rect(
+                button.startX - Menu.ICO_SIZE,
+                button.startY,
+                button.width + Menu.ICO_SIZE,
+                button.height
+            );
+            fill(GUI.YELLOW)
+            let progressWidth=map(progress,0,100,0,button.width);
+            rect(
+                button.startX,
+                button.startY,
+                progressWidth,
+                button.height
+                )
+            fill(GUI.BLACK);
+            textSize(20);
+            textAlign(CENTER,CENTER);
+            text(`${progress}%`,button.startX,button.startY,button.width,button.height);
+            animation(anim.inactive, button.startX - 30, button.startY + 25);
         }
     }
 
@@ -260,10 +296,10 @@ class Menu {
             this.y + 30
         );
 
-        this.fancyButton(this.btns.main[0],this.visuals.drone,true);
-        this.fancyButton(this.btns.main[1],this.visuals.gun,true);
-        this.fancyButton(this.btns.main[2],this.visuals.torpedo,true);
-        this.fancyButton(this.btns.main[3],this.visuals.laser,true);
+        this.fancyButton(this.btns.main[0], this.visuals.drone, Menu.DRONE_ACTIVE);
+        this.fancyButton(this.btns.main[1], this.visuals.gun, Menu.GUN_ACTIVE,23);
+        this.fancyButton(this.btns.main[2], this.visuals.torpedo, Menu.TORPEDO_ACTIVE,54);
+        this.fancyButton(this.btns.main[3], this.visuals.laser, Menu.LASER_ACTIVE,33);
 
         image(this.visuals.topFrame, gui.minimap.width - 80, -8);
         pop();
