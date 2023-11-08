@@ -5,8 +5,8 @@ class Shooting {
         this.delay = delay;
         this.range = range;
         this.target = null;
-        this.constantFire = 0;
-        this.target = null;
+        this.charge = 0;
+        this.aimOffset = 0;
     }
 
     update(timepassed) {

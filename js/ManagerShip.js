@@ -148,20 +148,48 @@ class ManagerShip {
         ship.shooting.update(timepassed);
 
         if (ship.shooting.canShoot()) {
+            let prevTarget = ship.shooting.target;
             ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange());
+            if (prevTarget != ship.shooting.target) {
+                ship.shooting.charge = 0;
+            }
             ship.shooting.reset();
         }
         
-        if (ship.shooting.target != null) {
+        if (ship.shooting.target != null && ship.targetPos == null) {
             let distance = dist(ship.x, ship.y, ship.shooting.target.x, ship.shooting.target.y);
             if (distance < ship.shooting.getRange()) {
-                ship.rotateTo(ship.shooting.target, 100, 0);
                 //draw laser
+                if (ship.shooting.charge < 1000) {
+                    ship.shooting.charge += timepassed;
+                } else {
+                    ship.shooting.charge = 500;
+                }
+                let xOffset = 0;
+                let yOffset = 0;
+                if (ship.shooting.charge > 400) {
+                    ship.shooting.target.hp.doDamage(1 * (timepassed/1000));
+                    ship.shooting.aimOffset += timepassed;
+                    if (ship.shooting.aimOffset < 360) {
+                        ship.shooting.aimOffset -= 360;
+                    }
+                    xOffset = cos(ship.shooting.aimOffset) * 3;
+                    yOffset = sin(ship.shooting.aimOffset) * 2;
+                }
+                let aim = {x: ship.shooting.target.x + xOffset, y: ship.shooting.target.y + yOffset};
+                ship.rotateTo(aim, 100, 0);
                 push();
                 stroke(255, 0, 0, 255);
-                strokeWeight(10);
-                line(ex(ship.x),why(ship.y),ex(ship.shooting.target.x),why(ship.shooting.target.y));
+                strokeWeight(Math.floor(ship.shooting.charge/200));
+                line(ex(ship.x),why(ship.y),ex(aim.x),why(aim.y));
                 pop();
+
+                let angle = Math.atan2(ship.y - ship.shooting.target.y, ship.x - ship.shooting.target.x);
+                angle += 0.05;
+                let pos = {x: ship.shooting.target.x + (Math.cos(angle)*(MIN_RANGE/2)), y: ship.shooting.target.y + (Math.sin(angle)*(MIN_RANGE/2))};
+                console.log(pos, ship.shooting.target.x, ship.shooting.target.y);
+                ship.moveTo(pos, ship.speedFactor);
+                
             } else {
                 ship.shooting.target = null;
             }
@@ -217,19 +245,31 @@ class ManagerShip {
         if (Utility.safePressed("right") && ship.selected) {
             ship.targetPos = {x:exReverse(mouseX), y:whyReverse(mouseY)};
         }
-        if (ship.type == "laser") {
-            if (ship.shooting.target == null) {
+        if (ship.targetPos != null) {
+            if (ship.type == "laser") {
+                if (ship.shooting.target == null) {
+                    ship.rotation = ship.direction;
+                }
+            } else {
                 ship.rotation = ship.direction;
             }
+            
+            let distanceToTravel = dist(ship.x,ship.y,ship.targetPos.x,ship.targetPos.y);
+            if (distanceToTravel > (ship.img.width)) {
+                ship.rotateTo(ship.targetPos, 10);
+                ship.moveTo(ship.targetPos, ship.speedFactor);
+            } else {
+                ship.targetPos = null;
+                ship.vel = {x:0,y:0};
+            }
         } else {
-            ship.rotation = ship.direction;
-        }
-        
-        let distanceToTravel = dist(ship.x,ship.y,ship.targetPos.x,ship.targetPos.y);
-        if (distanceToTravel > (ship.img.width)) {
-            ship.moveTowards(ship.targetPos, ship.speedFactor/distanceToTravel);
-        } else {
-            ship.vel = {x:0,y:0};
+            if (ship.type != "laser") {
+                ship.vel = {x:0,y:0};
+            } else {
+                if (ship.shooting.target == null) {
+                    ship.vel = {x:0,y:0};
+                }
+            }
         }
     }
 

@@ -193,6 +193,7 @@ class ObjectFactory {
         obj.selected = false;
         obj.hp.setHealth(20);
         obj.shooting = new Shooting(100, MIN_RANGE);
+        obj.speedFactor = 3;
         return obj
     }
 
