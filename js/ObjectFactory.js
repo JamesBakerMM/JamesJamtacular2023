@@ -199,7 +199,7 @@ class ObjectFactory {
     createLaser(x,y,faction){
         let obj = this.createShip(x, y, "laser", faction);
         let image = "laser";
-        if (faction > 0) {
+        if (faction == 1) {
             image = "enemy laser";
         }
         obj.image = this.getByID(image,this.images);
