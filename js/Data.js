@@ -112,8 +112,8 @@ class Data {
             )
         );
 
-        this.ships.push(this.factory.createTorpedo(1300, 600, 0));
-        this.ships.push(this.factory.createLaser(1400, 700, 1));
+        this.ships.push(this.factory.createLaser(1300, 600, 0));
+        //this.ships.push(this.factory.createLaser(1400, 700, 1));
 
         this.background.setup();
         this.universe.setup(this.factory);
@@ -367,10 +367,12 @@ class Data {
             let height = Utility.getDifference(yLower, yHigher);
 
             if (mouse.released('left')) {
-                xLower = ex(xLower);
-                xHigher = ex(xHigher);
-                yLower = ex(yLower);
-                yHigher = ex(yHigher);
+                xLower = exReverse(xLower);
+                xHigher = exReverse(xHigher);
+                yLower = whyReverse(yLower);
+                yHigher = whyReverse(yHigher);
+
+                console.log(xLower, xHigher, yLower, yHigher);
 
                 let click = 75;
                 let wasClick = false;
@@ -386,7 +388,7 @@ class Data {
                 }
 
                 let count = 0;
-                for (let i = 0; i < this.ships.length; i++) {
+                for (let i = this.ships.length-1; i >= 0; i--) {
                     let ship = this.ships[i];
                     ship.selected = false;
                     if (!wasClick || (wasClick && count == 0)) {

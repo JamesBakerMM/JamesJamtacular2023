@@ -2,11 +2,18 @@
 
 class GUI {
     static YELLOW = "#f5bb00";
+    static RED = "#b14c54";
+    static BLUE = "#60bef1";
     static BLACK = "#030219";
     static GREY = "#221e20";
     static GRAY = GUI.GREY;
     static visuals = {};
     static FONT;
+    static FAC_COLOURS=[
+        GUI.YELLOW,
+        GUI.BLUE,
+        GUI.RED
+    ];
 
     static HP = {
         W: 100,
@@ -67,19 +74,23 @@ class GUI {
             const max = ship.hp.getMaxHealth();
             let rectSize = map(current, 0, max, 0, GUI.HP.W);
             stroke("black");
-            fill("red");
+            fill(GUI.BLACK);
+            let rectH=GUI.HP.H;
+            if(ship.type!=="refinery") {
+                rectH=GUI.HP.H/2;
+            }
             rect(
                 ex(ship.x - ship.img.w / 2),
                 why(ship.y + ship.img.h),
                 GUI.HP.W,
-                GUI.HP.H
+                rectH
             );
-            fill("yellow");
+            fill(GUI.FAC_COLOURS[ship.faction]);
             rect(
                 ex(ship.x - ship.img.w / 2),
                 why(ship.y + ship.img.h),
                 rectSize,
-                GUI.HP.H
+                rectH
             );
         } else {
             fill("red");
@@ -137,7 +148,8 @@ class GUI {
             text(`#${ship.targetResource.idNum}`, ex(ship.x + 20), why(ship.y));
             return;
         }
-        if (ship.targetPos) { 
+        if (ship.targetPos) {
+
             let pos = Utility.getCircleEdge(
                 ship.x,
                 ship.y,
