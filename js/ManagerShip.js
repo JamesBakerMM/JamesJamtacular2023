@@ -208,6 +208,7 @@ class ManagerShip {
         ship.shooting.update(timepassed);
 
         if (ship.shooting.canShoot()) {
+            ship.shooting.target = null;
             let target = this.getNearestShip(ship, data, ship.shooting.getRange(), false);
             if (target != null) {
                 ship.shooting.target = target;
