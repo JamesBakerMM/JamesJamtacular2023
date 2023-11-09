@@ -140,21 +140,26 @@ class ManagerShip {
                     ship.metal += (timepassed / 1000);
                     if (ship.metal >= 1) {
                         ship.waypoint = Utility.getMidPoint(ship, ship.refinery);
-                        let angle = Math.atan2(ship.refinery.y - ship.y, ship.refinery.x - ship.x);
-                        ship.waypoint.x += random(-100,100) * Math.sin(angle)
-                        ship.waypoint.y += random(-100,100) * Math.cos(angle);
+                        let angle = atan2(ship.refinery.y - ship.y, ship.refinery.x - ship.x)  + 90;
+                        ship.waypoint.x += 75 * cos(angle)
+                        ship.waypoint.y += 75 * sin(angle);
                     }
                 } else {
                     ship.moveTo(ship.targetResource, ship.speedFactor);
                 }
             } else {
-                ship.rotateTo(ship.refinery, timepassed);
-                if (dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y) > 100) {
-                    ship.moveTo(ship.refinery, ship.speedFactor);
+                let angle = atan2(ship.y - ship.refinery.y, ship.x - ship.refinery.x);
+                angle += 2;
+                let range = MIN_RANGE/2;
+                let distance = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
+                let pos = {x: ship.refinery.x + (cos(angle)*(range)), y: ship.refinery.y + (sin(angle)*(range))};
+                if (Utility.getDifference(range, distance) < 10) {
+                    ship.rotateTo(ship.refinery, 100);
+                    ship.rotation -= 90;
                 } else {
-                    ship.velocity.x = 0;
-                    ship.velocity.y = 0;
+                    ship.rotateTo(pos, 100);
                 }
+                ship.moveTo(pos, ship.speedFactor);
             }
         } else {
             ship.rotateTo(ship.refinery, timepassed);
@@ -168,9 +173,9 @@ class ManagerShip {
                 ship.targetResource = data.getClosestResource(ship);
                 if (ship.targetResource != null) {
                     ship.waypoint = Utility.getMidPoint(ship, ship.targetResource);
-                    let angle = Math.atan2(ship.targetResource.y - ship.y, ship.targetResource.x - ship.x);
-                    ship.waypoint.x += random(-100,100) * Math.sin(angle)
-                    ship.waypoint.y += random(-100,100) * Math.cos(angle);
+                    let angle = atan2(ship.targetResource.y - ship.y, ship.targetResource.x - ship.x) + 90;
+                    ship.waypoint.x += 75 * cos(angle)
+                    ship.waypoint.y += 75 * sin(angle);
                 }
             }
         }        
@@ -182,6 +187,7 @@ class ManagerShip {
 
         if (ship.shooting.canShoot()) {
             let prevTarget = ship.shooting.target;
+            ship.shooting.target = null;
             ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange(), false);
             if (prevTarget != ship.shooting.target) {
                 ship.shooting.charge = 0;
@@ -221,13 +227,15 @@ class ManagerShip {
                 line(ex(ship.x),why(ship.y),ex(aim.x),why(aim.y));
                 pop();
 
-                let angle = Math.atan2(ship.y - ship.shooting.target.y, ship.x - ship.shooting.target.x);
-                angle += 0.05;
-                let pos = {x: ship.shooting.target.x + (Math.cos(angle)*(MIN_RANGE/2)), y: ship.shooting.target.y + (Math.sin(angle)*(MIN_RANGE/2))};
+                let angle = atan2(ship.y - ship.shooting.target.y, ship.x - ship.shooting.target.x);
+                angle += 4;
+                let pos = {x: ship.shooting.target.x + (cos(angle)*(MIN_RANGE/2)), y: ship.shooting.target.y + (sin(angle)*(MIN_RANGE/2))};
                 ship.moveTo(pos, ship.speedFactor);
                 
+            } else if (ship.targetPos != null) {
+                
             } else {
-                ship.shooting.target = null;
+                ship.velocity = {x: 0, y: 0};
             }
         }
 
@@ -239,6 +247,7 @@ class ManagerShip {
         ship.shooting.update(timepassed);
 
         if (ship.shooting.canShoot()) {
+            ship.shooting.target = null;
             let target = this.getNearestShip(ship, data, ship.shooting.getRange(), false);
             if (target != null) {
                 ship.shooting.target = target;

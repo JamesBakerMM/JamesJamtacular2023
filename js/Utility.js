@@ -76,6 +76,14 @@ class Utility {
         return {x: x/length, y: y/length};
     }
 
+    static getCircleEdge(x1, y1, x2, y2, radius) {
+        let distance = dist(x1, y1, x2, y2);
+        let percentage = radius/distance;
+        let diffX = x1 - x2;
+        let diffY = y1 - y2;
+        return {x: x2 + (diffX * percentage), y: y2 + (diffY * percentage)};
+    }
+
     static safePressing(button = "left") {
         //calculate if mouse within the menu
         const mouseIsRightOfLeftEdge = mouseX > menu.x;

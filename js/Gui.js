@@ -94,53 +94,74 @@ class GUI {
     }
 
     shipMotion(ship) {
-        if(ship.faction !== 0){
-            return null
+        if (ship.faction !== 0) {
+            return null;
         }
         noFill();
         if (ship.targetResource) {
-            this.drawMotion(ship,ship.targetResource);
-            this.drawMotionTarget(`Job #${ship.targetResource.idNum}\nReturns: ${int(ship.targetResource.metal)}`,ex(
-                ship.targetResource.x +
-                    ship.targetResource.diameter / 2 +
-                    20
-            ),why(ship.targetResource.y))
+            let pos = Utility.getCircleEdge(
+                ship.x,
+                ship.y,
+                ship.targetResource.x,
+                ship.targetResource.y,
+                ship.targetResource.radius
+            );
+            stroke(GUI.YELLOW);
+            strokeWeight(3);
+            line(ex(ship.x), why(ship.y), ex(pos.x), why(pos.y));
+            stroke(GUI.YELLOW);
+            fill(0, 0, 0, 200);
+            ellipse(
+                ex(ship.targetResource.x),
+                why(ship.targetResource.y),
+                ship.targetResource.diameter
+            );
+            fill(GUI.YELLOW);
+            noStroke();
 
-            text(`#${ship.targetResource.idNum}`,ex(ship.x+20),why(ship.y));
+            const jobTagX=ex(ship.targetResource.x + ship.targetResource.diameter / 2 + 20)
+
+            text(
+                `Job #${ship.targetResource.idNum}\nReturns: ${int(ship.targetResource.metal)}`,
+                jobTagX,
+                why(ship.targetResource.y)
+            );
+            fill(GUI.BLACK);
+            rect(
+                ex(ship.x+20),
+                why(ship.y-9),
+                20,
+                10
+            );
+            fill(GUI.YELLOW);
+            text(`#${ship.targetResource.idNum}`, ex(ship.x + 20), why(ship.y));
             return;
-        } 
-        if(ship.targetPos){
-            console.log("targetPos")
-            this.drawMotion(ship,ship.targetPos);
-            this.drawMotionTarget(``,ex(
-                ship.targetPos.x +
-                    ship.targetPos.diameter / 2 +
-                    20
-            ),why(ship.targetPos.y))
+        }
+        if (ship.targetPos) {
+            console.log("targetPos");
+
+            let pos = Utility.getCircleEdge(
+                ship.x,
+                ship.y,
+                ship.targetPos.x,
+                ship.targetPos.y,
+                30
+            );
+            stroke(GUI.YELLOW);
+            strokeWeight(3);
+            line(ex(ship.x), why(ship.y), ex(pos.x), why(pos.y));
+            stroke(GUI.YELLOW);
+            ellipse(ex(ship.targetPos.x), why(ship.targetPos.y), 60);
         }
     }
 
-    drawMotion(ship,target) {
+    drawMotionTarget(msg, x, y, diameter) {
         stroke(GUI.YELLOW);
-        line(
-            ex(ship.x),
-            why(ship.y),
-            ex(target.x),
-            why(target.y)
-        );
-        strokeWeight(2);
-        fill(0,0,0,200)
-        ellipse(
-            ex(target.x),
-            why(target.y),
-            target.diameter || ship.diameter + 20
-        );
-    }
-
-    drawMotionTarget(msg,x,y){
-        noStroke();
+        fill(0, 0, 0, 200);
+        ellipse(ex(x), why(y), diameter + 20);
         fill(GUI.YELLOW);
-        text(msg,x,y)
+        noStroke();
+        text(msg, x, y);
     }
 
     shipSelection(ship) {

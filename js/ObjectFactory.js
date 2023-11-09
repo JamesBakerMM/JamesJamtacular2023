@@ -23,7 +23,7 @@ class ObjectFactory {
         this.images.push({id: "enemy drone",    path: "assets/img/hostileDrone.png"});
         this.images.push({id: "enemy laser",    path: "assets/img/hostileLaser.png"});
         this.images.push({id: "enemy torpedo",  path: "assets/img/hostileTorpedo.png"});
-        this.images.push({id: "enemy gun",      path: "assets/img/bullet.png"});
+        this.images.push({id: "enemy gun",      path: "assets/img/fac1_gunship.png"});
 
         this.anims.push({id: "rock", path: [
             "assets/img/rock_asteroid1.png",
