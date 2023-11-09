@@ -3,8 +3,6 @@ const LASER_BINDING = 2;
 const GUN_BINDING = 3;
 const TORPEDO_BINDING = 4;
 
-let ship_counter = 0;
-
 class ManagerShip {
     constructor() {}
 
@@ -71,7 +69,8 @@ class ManagerShip {
                 ) {
             ship.targetResource = data.getClosestResource(ship);
         } else {
-            if (dist(ship.x, ship.y, ship.targetResource.x, ship.targetResource.y) <= ship.range/3) {
+            if (dist(ship.x, ship.y, ship.targetResource.x, ship.targetResource.y) 
+                    <= ship.range/3) {
                 ship.speed = 0;
             } else {
                 ship.rotation = ship.direction;
@@ -79,6 +78,43 @@ class ManagerShip {
                 ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
             }
         }
+        if (this.detectEnemies(data, ship) ) {
+            if (data.factory.ship_counter[ship.faction] < data.POP_CAP[ship.faction]) {
+                switch (random([1,2,3])) {
+                    case 1:
+                        data.ships.push(data.factory.createTorpedo(
+                            ship.x + random(-10,10), 
+                            ship.y + random (-10,10),
+                            ship.faction
+                            ));
+                        break;
+                    case 2:
+                        data.ships.push(data.factory.createLaser(
+                            ship.x + random(-10,10), 
+                            ship.y + random (-10,10),
+                            ship.faction
+                            ));
+                        break;
+                    case 3:
+                        data.ships.push(data.factory.createGun(
+                            ship.x + random(-10,10), 
+                            ship.y + random (-10,10),
+                            ship.faction
+                            ));
+                        break;
+                }
+            }
+        }
+    }
+
+    detectEnemies(data, ship) {
+        for (let otherShip of data.ships) {
+            if (otherShip.faction != ship.faction && 
+                    dist(ship.x, ship.y, otherShip.x, otherShip.y) <= ship.range) {
+                return true;
+            }
+        }
+        return false;
     }
 
     doDroneAI(timepassed, data, ship) {

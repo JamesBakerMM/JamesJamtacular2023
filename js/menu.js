@@ -128,6 +128,10 @@ class Menu {
                 offset_y,
                 `> ${COST.DRONE} drone `,
                 () => {
+                    if (data.factory.ship_counter[0] >= data.POP_CAP[0]) {
+                        console.log("TOo many ships");
+                        return false;
+                    }
                     if (this.costCheck(data.metals[0], COST.DRONE) === false) {
                         return false;
                     }
@@ -150,6 +154,9 @@ class Menu {
                 offset_y,
                 `> ${COST.GUN} gun `,
                 () => {
+                    if (data.factory.ship_counter[0] >= data.POP_CAP[0]) {
+                        return false;
+                    }
                     if (this.costCheck(data.metals[0], COST.GUN) === false) {
                         return false;
                     }
@@ -171,6 +178,9 @@ class Menu {
                 offset_y,
                 `> ${COST.TORPEDO} torpedo`,
                 () => {
+                    if (data.factory.ship_counter[0] >= data.POP_CAP[0]) {
+                        return false;
+                    }
                     if (
                         this.costCheck(data.metals[0], COST.TORPEDO) === false
                     ) {
@@ -195,6 +205,9 @@ class Menu {
                 offset_y,
                 `> ${COST.LASER} laser `,
                 () => {
+                    if (data.factory.ship_counter[0] >= data.POP_CAP[0]) {
+                        return false;
+                    }
                     if (this.costCheck(data.metals[0], COST.LASER) === false) {
                         return false;
                     }
