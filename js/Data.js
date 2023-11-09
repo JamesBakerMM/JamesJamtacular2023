@@ -247,6 +247,8 @@ class Data {
                         this.factory.createWreckage(ship.x, ship.y)
                         );
                 }
+                this.factory.ship_counter[ship.faction] -= 1;
+                console.log(this.factory.ship_counter);
                 ship.remove();
                 cameraGood.addScreenShake();
             }
