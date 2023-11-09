@@ -24,6 +24,11 @@ class ObjectFactory {
         this.images.push({id: "enemy laser",    path: "assets/img/hostileLaser.png"});
         this.images.push({id: "enemy torpedo",  path: "assets/img/hostileTorpedo.png"});
         this.images.push({id: "enemy gun",      path: "assets/img/fac1_gunship.png"});
+        this.images.push({id: "fac2 refinery", path: "assets/img/fac2_refinery.png"});
+        this.images.push({id: "fac2 drone",     path: "assets/img/fac2_drone.png"});
+        this.images.push({id: "fac2 torpedo",   path: "assets/img/fac2_torpedo.png"});
+        this.images.push({id: "fac2 laser",   path: "assets/img/fac2_laser.png"});
+        this.images.push({id: "fac2 gun",   path: "assets/img/fac2_gunship.png"});
 
         this.anims.push({id: "rock", path: [
             "assets/img/rock_asteroid1.png",
@@ -141,6 +146,9 @@ class ObjectFactory {
     createEnemyRefinery(x, y, faction) {
         let obj = this.createShip(x, y, "enemy refinery", faction);
         obj.image = this.getByID("enemy refinery",this.images);
+        if (faction === 2) {
+            obj.image = this.getByID("fac2 refinery", this.images)
+        }
         obj.faction = faction;
         obj.hp.setHealth(20);
         obj.range=LONG_RANGE;
@@ -182,6 +190,9 @@ class ObjectFactory {
     createEnemyDrone(x, y, faction, refinery) {
         let obj = this.createShip(x, y, "enemy drone", faction);
         obj.image = this.getByID("enemy drone", this.images);
+        if (faction === 2) {
+            obj.image = this.getByID("fac2 drone", this.images)
+        }
         obj.faction = faction;
         obj.diameter = obj.width;
         obj.targetResource = null;
@@ -199,8 +210,10 @@ class ObjectFactory {
     createLaser(x,y,faction){
         let obj = this.createShip(x, y, "laser", faction);
         let image = "laser";
-        if (faction == 1) {
+        if (faction === 1) {
             image = "enemy laser";
+        } else if (faction === 2) {
+            image = "fac2 laser";
         }
         obj.image = this.getByID(image,this.images);
         obj.faction = faction;
@@ -215,8 +228,10 @@ class ObjectFactory {
     createTorpedo(x,y, faction){
         let obj = this.createShip(x, y, "torpedo", faction);
         let image = "torpedo";
-        if (faction > 0) {
+        if (faction === 1) {
             image = "enemy torpedo";
+        } else if (faction === 2) {
+            image = "fac2 torpedo"
         }
         obj.image = this.getByID(image,this.images);
         obj.diameter=obj.image.h-10;
@@ -232,8 +247,10 @@ class ObjectFactory {
     createGun(x,y, faction){
         let obj = this.createShip(x, y, "gun", faction);
         let image = "gun";
-        if (faction > 0) {
+        if (faction === 1) {
             image = "enemy gun";
+        } else if (faction === 2) {
+            image = "fac2 gun"
         }
         obj.image = this.getByID(image,this.images);
         obj.faction = faction;
