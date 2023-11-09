@@ -127,7 +127,7 @@ class Minimap {
         );
         image(
             GUI.visuals.mapFrame,
-            Minimap.positionX - 26,
+            Minimap.positionX - 22,
             Minimap.positionY - 3
         );
         pop();
