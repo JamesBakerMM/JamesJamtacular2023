@@ -114,7 +114,7 @@ class ManagerShip {
             } else {
                 let angle = atan2(ship.y - ship.refinery.y, ship.x - ship.refinery.x);
                 angle += 2;
-                let range = MIN_RANGE/3;
+                let range = MIN_RANGE/2;
                 let distance = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
                 let pos = {x: ship.refinery.x + (cos(angle)*(range)), y: ship.refinery.y + (sin(angle)*(range))};
                 if (Utility.getDifference(range, distance) < 10) {
@@ -151,6 +151,7 @@ class ManagerShip {
 
         if (ship.shooting.canShoot()) {
             let prevTarget = ship.shooting.target;
+            ship.shooting.target = null;
             ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange(), false);
             if (prevTarget != ship.shooting.target) {
                 ship.shooting.charge = 0;
@@ -191,12 +192,14 @@ class ManagerShip {
                 pop();
 
                 let angle = atan2(ship.y - ship.shooting.target.y, ship.x - ship.shooting.target.x);
-                angle += 0.05;
+                angle += 4;
                 let pos = {x: ship.shooting.target.x + (cos(angle)*(MIN_RANGE/2)), y: ship.shooting.target.y + (sin(angle)*(MIN_RANGE/2))};
                 ship.moveTo(pos, ship.speedFactor);
                 
+            } else if (ship.targetPos != null) {
+                
             } else {
-                ship.shooting.target = null;
+                ship.velocity = {x: 0, y: 0};
             }
         }
 
