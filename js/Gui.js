@@ -99,7 +99,10 @@ class GUI {
         }
         noFill();
         if (ship.targetResource) {
-            this.drawMotion(ship,ship.targetResource);
+            let pos = Utility.getCircleEdge(ship.x, ship.y, ship.targetResource.x, ship.targetResource.y, ship.targetResource.radius)
+            line(ex(ship.x), why(ship.y), ex(pos.x), why(pos.y));
+
+            //this.drawMotion(ship,ship.targetResource);
             this.drawMotionTarget(`Job #${ship.targetResource.idNum}\nReturns: ${int(ship.targetResource.metal)}`,ex(
                 ship.targetResource.x +
                     ship.targetResource.diameter / 2 +
