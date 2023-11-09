@@ -9,6 +9,7 @@ class ObjectFactory {
     constructor() {
         this.images = new Array();
         this.anims = new Array();
+        this.ship_counter = [0, 0, 0];
     }
 
     preload() {
@@ -122,21 +123,14 @@ class ObjectFactory {
         return obj;
     }
 
-    createRefinery(x, y) {
-        let obj = this.createShip(x, y, "refinery");
+    createRefinery(x, y, faction = 0) {
+        let obj = this.createShip(x, y, "refinery", faction);
         obj.image = this.getByID("refinery",this.images);
         let centreDiameter = obj.image.height/2;
         obj.w=obj.img.w/1.25;
-        // obj.
         obj.addCollider(18,0,obj.img.h)
-        // obj.diameter = centreDiameter;
-        // let miniHeight = obj.height/2;
-        // obj.addCollider(miniHeight, 0, obj.image.height);
-        // obj.addCollider(-2*miniHeight, 0, obj.image.height);
-        //obj.addCollider(-obj.height/2, 0, obj.image.height);
         obj.hp.setHealth(20);
-        obj.faction = 0;
-        //obj.vel.x = 0.2;
+        obj.faction = faction;
         obj.range=LONG_RANGE;
         obj.speedFactor = 2;
         obj.drag = 30;
@@ -144,7 +138,21 @@ class ObjectFactory {
         obj.debug = true;
     }
 
-    createShip(x, y, type) {
+    createEnemyRefinery(x, y, faction) {
+        let obj = this.createShip(x, y, "enemy refinery", faction);
+        obj.image = this.getByID("enemy refinery",this.images);
+        obj.faction = faction;
+        obj.hp.setHealth(20);
+        obj.range=LONG_RANGE;
+        obj.speedFactor = 2;
+        obj.drag = 30;
+        obj.debug = true;
+        obj.layer = ENEMY_LAYER;
+        obj.targetResource = null;
+        return obj;
+    }
+
+    createShip(x, y, type, faction) {
         let obj = this.createObject(x, y);
         obj.originalPosition = {x: x, y: y};
         //obj.targetPos = obj.originalPosition;
@@ -152,11 +160,13 @@ class ObjectFactory {
         obj.hp = new Health(1);
         obj.speedFactor = 1;
         obj.layer = PC_LAYER;
+        obj.faction = faction;
+        this.ship_counter[faction] += 1;
         return obj;
     }
 
     createDrone(x, y, refinery) {
-        let obj = this.createShip(x, y, "drone");
+        let obj = this.createShip(x, y, "drone", refinery.faction);
         obj.image = this.getByID("drone",this.images);
         obj.diameter = obj.width;
         obj.faction = 0;
@@ -170,7 +180,7 @@ class ObjectFactory {
     }
 
     createEnemyDrone(x, y, faction, refinery) {
-        let obj = this.createShip(x, y, "enemy drone");
+        let obj = this.createShip(x, y, "enemy drone", faction);
         obj.image = this.getByID("enemy drone", this.images);
         obj.faction = faction;
         obj.diameter = obj.width;
@@ -187,9 +197,9 @@ class ObjectFactory {
     }
 
     createLaser(x,y,faction){
-        let obj = this.createShip(x, y, "laser");
+        let obj = this.createShip(x, y, "laser", faction);
         let image = "laser";
-        if (faction > 0) {
+        if (faction == 1) {
             image = "enemy laser";
         }
         obj.image = this.getByID(image,this.images);
@@ -203,7 +213,7 @@ class ObjectFactory {
     }
 
     createTorpedo(x,y, faction){
-        let obj = this.createShip(x, y, "torpedo");
+        let obj = this.createShip(x, y, "torpedo", faction);
         let image = "torpedo";
         if (faction > 0) {
             image = "enemy torpedo";
@@ -215,11 +225,12 @@ class ObjectFactory {
         obj.selected = false;
         obj.hp.setHealth(20);
         obj.shooting = new Shooting(3000, LONG_RANGE);
+        obj.speedFactor = 1;
         return obj
     }
 
     createGun(x,y, faction){
-        let obj = this.createShip(x, y, "gun");
+        let obj = this.createShip(x, y, "gun", faction);
         let image = "gun";
         if (faction > 0) {
             image = "enemy gun";
@@ -231,21 +242,8 @@ class ObjectFactory {
         obj.range=MED_RANGE;
         obj.hp.setHealth(20);
         obj.shooting = new Shooting(700, MED_RANGE);
-        return obj
-    }
-
-    createEnemyRefinery(x, y, faction) {
-        let obj = this.createShip(x, y, "enemy refinery");
-        obj.image = this.getByID("enemy refinery",this.images);
-        obj.faction = faction;
-        obj.hp.setHealth(20);
-        obj.range=LONG_RANGE;
         obj.speedFactor = 2;
-        obj.drag = 30;
-        obj.debug = true;
-        obj.layer = ENEMY_LAYER;
-        obj.targetResource = null;
-        return obj;
+        return obj
     }
 
 

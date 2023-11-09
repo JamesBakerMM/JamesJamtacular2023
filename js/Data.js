@@ -1,7 +1,9 @@
 class Data {
+
+
     constructor() {
         this.factory = new ObjectFactory();
-        this.metals = [0, 0, 0]; // move to player later
+        this.metals = [0, 0, 0];
         this.ships; //will be group in setup
         this.drones;
         this.laser;
@@ -20,6 +22,9 @@ class Data {
         this.dragStart = null;
 
         this.managerShip = new ManagerShip();
+
+        this.POP_CAP = [24, 10, 10];
+
     }
 
     preload() {
@@ -40,7 +45,7 @@ class Data {
         this.effects = new Group();
         this.effects.collider = "none";
 
-        this.refinery = this.factory.createRefinery(800, 450);
+        this.refinery = this.factory.createRefinery(800, 450, 0);
         //this.refinery.mass = 300;
         this.refinery.overlaps(this.ships);
         this.ships.push(this.refinery);
