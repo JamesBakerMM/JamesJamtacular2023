@@ -137,9 +137,7 @@ class GUI {
             text(`#${ship.targetResource.idNum}`, ex(ship.x + 20), why(ship.y));
             return;
         }
-        if (ship.targetPos) {
-            console.log("targetPos");
-
+        if (ship.targetPos) { 
             let pos = Utility.getCircleEdge(
                 ship.x,
                 ship.y,

@@ -16,6 +16,9 @@ class Data {
         this.universe = new Universe();
         this.background = new Background();
 
+        //drag selection controls
+        this.dragStart = null;
+
         this.managerShip = new ManagerShip();
     }
 
@@ -243,6 +246,8 @@ class Data {
                 cameraGood.addScreenShake();
             }
         }
+
+        this.doDragSelection();
     }
 
     getClosestResource(ship) {
@@ -327,6 +332,74 @@ class Data {
             return "gun";
         } else if (value == TORPEDO_BINDING) {
             return "torpedo";
+        }
+    }
+
+    doDragSelection() {
+
+        if (this.dragStart == null) {
+            if (Utility.safePressing("left")) {
+                this.dragStart = {x: mouseX, y: mouseY};
+            }
+        } else {
+
+            let xLower = this.dragStart.x;
+            let xHigher = mouseX;
+            if (mouseX < this.dragStart.x) {
+                xLower = mouseX;
+                xHigher = this.dragStart.x;
+            }
+            let width = Utility.getDifference(xLower, xHigher);
+
+            let yLower = this.dragStart.y;
+            let yHigher = mouseY;
+            if (mouseY < this.dragStart.y) {
+                yLower = mouseY;
+                yHigher = this.dragStart.y;
+            }
+            let height = Utility.getDifference(yLower, yHigher);
+
+            if (mouse.released('left')) {
+                xLower = ex(xLower);
+                xHigher = ex(xHigher);
+                yLower = ex(yLower);
+                yHigher = ex(yHigher);
+
+                let click = 75;
+                let wasClick = false;
+                if (width < click) {
+                    xLower -= click/2;
+                    xHigher += click/2;
+                    wasClick = true;
+                }
+                if (height < click) {
+                    yLower -= click/2;
+                    yHigher += click/2;
+                    wasClick = true;
+                }
+
+                let count = 0;
+                for (let i = 0; i < this.ships.length; i++) {
+                    let ship = this.ships[i];
+                    ship.selected = false;
+                    if (!wasClick || (wasClick && count == 0)) {
+                        if (ship.faction == 0 && ship.type !== "drone") {
+                            if (ship.x > xLower && ship.x < xHigher && ship.y > yLower && ship.y < yHigher) {
+                                count += 1;
+                                ship.selected = true;
+                            }
+                        }
+                    }
+                }
+                this.dragStart = null;
+            } else {
+                push();
+                stroke(GUI.YELLOW);
+                strokeWeight(3);
+                noFill();
+                rect(xLower, yLower, width, height);
+                pop();
+            }
         }
     }
 }
