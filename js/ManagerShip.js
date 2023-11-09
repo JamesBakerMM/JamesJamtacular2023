@@ -194,7 +194,7 @@ class ManagerShip {
             }
             ship.shooting.reset();
         }
-        
+        ship.velocity = {x: 0, y: 0};
         if (ship.shooting.target != null && ship.targetPos == null) {
             let distance = dist(ship.x, ship.y, ship.shooting.target.x, ship.shooting.target.y);
             if (distance < ship.shooting.getRange()) {
@@ -232,11 +232,9 @@ class ManagerShip {
                 let pos = {x: ship.shooting.target.x + (cos(angle)*(MIN_RANGE/2)), y: ship.shooting.target.y + (sin(angle)*(MIN_RANGE/2))};
                 ship.moveTo(pos, ship.speedFactor);
                 
-            } else if (ship.targetPos != null) {
-                
-            } else {
-                ship.velocity = {x: 0, y: 0};
             }
+        } else if (ship.targetPos != null) {
+                
         }
 
         if (ship.faction == 0) {
@@ -267,6 +265,8 @@ class ManagerShip {
                 ship.vel = {x:0,y:0};
             }
             
+        } else {
+            ship.velocity = {x: 0, y: 0};
         }
 
         if (ship.faction == 0) {
@@ -279,6 +279,7 @@ class ManagerShip {
         ship.shooting.update(timepassed);
 
         if (ship.targetPos == null) {
+            ship.velocity = {x: 0, y: 0};
             if (ship.shooting.canShoot()) {
                 let prevTarget = ship.shooting.target;
                 ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange(), true);
@@ -299,6 +300,8 @@ class ManagerShip {
                     }
                 }
             }
+        } else {
+                
         }
         
         if (ship.faction == 0) {
