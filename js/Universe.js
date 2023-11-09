@@ -52,7 +52,7 @@ class Universe {
     damage(resource, damage=1) {
         let preMetal = resource.metal;
         resource.metal -= damage;
-        resource.text = resource.mass = Math.floor(resource.metal);
+        resource.mass = Math.floor(resource.metal);
         if (resource.metal <= 0) {
             resource.remove();
         }
