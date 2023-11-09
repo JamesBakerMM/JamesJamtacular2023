@@ -104,9 +104,9 @@ class ManagerShip {
                     ship.metal += (timepassed / 1000);
                     if (ship.metal >= 1) {
                         ship.waypoint = Utility.getMidPoint(ship, ship.refinery);
-                        let angle = Math.atan2(ship.refinery.y - ship.y, ship.refinery.x - ship.x);
-                        ship.waypoint.x += random(-100,100) * Math.sin(angle)
-                        ship.waypoint.y += random(-100,100) * Math.cos(angle);
+                        let angle = atan2(ship.refinery.y - ship.y, ship.refinery.x - ship.x)  + 90;
+                        ship.waypoint.x += 75 * cos(angle)
+                        ship.waypoint.y += 75 * sin(angle);
                     }
                 } else {
                     ship.moveTo(ship.targetResource, ship.speedFactor);
@@ -132,9 +132,9 @@ class ManagerShip {
                 ship.targetResource = data.getClosestResource(ship);
                 if (ship.targetResource != null) {
                     ship.waypoint = Utility.getMidPoint(ship, ship.targetResource);
-                    let angle = Math.atan2(ship.targetResource.y - ship.y, ship.targetResource.x - ship.x);
-                    ship.waypoint.x += random(-100,100) * Math.sin(angle)
-                    ship.waypoint.y += random(-100,100) * Math.cos(angle);
+                    let angle = atan2(ship.targetResource.y - ship.y, ship.targetResource.x - ship.x) + 90;
+                    ship.waypoint.x += 75 * cos(angle)
+                    ship.waypoint.y += 75 * sin(angle);
                 }
             }
         }        
