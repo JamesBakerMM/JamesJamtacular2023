@@ -350,6 +350,7 @@ class ObjectFactory {
         obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
 
         obj.startingMetal = obj.metal = amount; 
+        obj.startingTech = obj.tech = 3;
         obj.layer = RESOURCE_LAYER;
         obj.drag = 0.5;
         return obj
