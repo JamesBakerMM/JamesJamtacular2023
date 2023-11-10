@@ -266,17 +266,19 @@ class Menu {
     fancyButton(button, anim, isActive,progress=23) {
         const OFFSET = 10000;
 
-        if (isActive) {
+        if (isActive) {  
             button.position(button.startX, button.startY);
             if (this.buttonIsHovered(button, mouseX, mouseY)) {
-                anim.active.loop();
-            } else {
+                anim.active.loop(); //loop the 3d model
+            } else { //stop the 3d model
                 anim.active.frame = 0;
                 anim.active.stop();
             }
             animation(anim.active, button.x - 30, button.y + 25);
-        } else {
-            button.position(-OFFSET, -OFFSET);
+        } else { //not active
+            button.position(-OFFSET, -OFFSET); //hide the button
+
+            //progress bar bg
             fill(GUI.BLACK);
             rect(
                 button.startX - Menu.ICO_SIZE,
@@ -284,6 +286,8 @@ class Menu {
                 button.width + Menu.ICO_SIZE,
                 button.height
             );
+
+            //progress itself
             fill(GUI.YELLOW)
             let progressWidth=map(progress,0,100,0,button.width);
             rect(
@@ -293,6 +297,8 @@ class Menu {
                 button.height
                 )
             fill(GUI.BLACK);
+
+            //progress text
             textSize(20);
             textAlign(CENTER,CENTER);
             text(`${progress}%`,button.startX,button.startY,button.width,button.height);
@@ -336,13 +342,14 @@ class Menu {
             this.w+40
         );
 
+        //generate precentages
         const dronePercent = (data.tech[0] / Menu.DRONE_THRESHOLD) * 100;
         const gunPercent = (data.tech[0] / Menu.GUN_THRESHOLD) * 100;
         const torpedoPercent = (data.tech[0] / Menu.TORPEDO_THRESHOLD) * 100;
         const laserPercent = (data.tech[0] / Menu.LASER_THRESHOLD) * 100;
 
         //process buttons
-        this.fancyButton(this.btns.main[0], this.visuals.drone, Menu.DRONE_ACTIVE);
+        this.fancyButton(this.btns.main[0], this.visuals.drone, Menu.DRONE_ACTIVE,dronePercent);
         this.fancyButton(this.btns.main[1], this.visuals.gun, Menu.GUN_ACTIVE,gunPercent);
         this.fancyButton(this.btns.main[2], this.visuals.torpedo, Menu.TORPEDO_ACTIVE,torpedoPercent);
         this.fancyButton(this.btns.main[3], this.visuals.laser, Menu.LASER_ACTIVE,laserPercent);
