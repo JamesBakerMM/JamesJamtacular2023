@@ -43,6 +43,19 @@ class ManagerShip {
         if (distanceToRefinery > ship.refinery.width * 2) {
             ship.moveTowards(ship.refinery, ship.speedFactor/distanceToRefinery);
             ship.rotation = ship.direction;
+        } else {
+            let angle = atan2(ship.y - ship.refinery.y, ship.x - ship.refinery.x);
+            angle += 2;
+            let range = MIN_RANGE/2;
+            let distance = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
+            let pos = {x: ship.refinery.x + (cos(angle)*(range)), y: ship.refinery.y + (sin(angle)*(range))};
+            if (Utility.getDifference(range, distance) < 10) {
+                ship.rotateTo(ship.refinery, 100);
+                ship.rotation -= 90;
+            } else {
+                ship.rotateTo(pos, 100);
+            }
+            ship.moveTo(pos, ship.speedFactor);
         }
         // if (distanceToRefinery > Math.min(
         //         ship.refinery.width, 
