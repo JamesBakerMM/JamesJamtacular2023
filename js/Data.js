@@ -248,7 +248,6 @@ class Data {
                         );
                 }
                 this.factory.ship_counter[ship.faction] -= 1;
-                console.log(this.factory.ship_counter);
                 ship.remove();
                 cameraGood.addScreenShake();
             }
@@ -371,8 +370,6 @@ class Data {
                 xHigher = exReverse(xHigher);
                 yLower = whyReverse(yLower);
                 yHigher = whyReverse(yHigher);
-
-                console.log(xLower, xHigher, yLower, yHigher);
 
                 let click = 75;
                 let wasClick = false;

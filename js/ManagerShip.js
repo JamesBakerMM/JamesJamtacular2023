@@ -93,13 +93,13 @@ class ManagerShip {
                 if (directionVector.x < 0) {
                     newX = random(-1 * closeness, 0);
                 } else if (directionVector.x > 0) {
-                    newX = random(0,closeness);
+                    newX = random(0, closeness);
                 } else {
                     newX = random(-1 * closeness, closeness);
                 }
                 let newY;
                 if (directionVector.y < 0) {
-                    newY = random(-1* closeness,0);
+                    newY = random(-1* closeness, 0);
                 } else if (directionVector.y > 0) {
                     newY = random(0, closeness);
                 } else {
@@ -267,6 +267,7 @@ class ManagerShip {
             this.mouseControls(ship);
         }
     }
+    
     doTorpedoAI(timepassed, data, ship) {
         ship.shooting.update(timepassed);
 
