@@ -85,21 +85,25 @@ class ManagerShip {
                 let directionVector = {x: approachingShip.x - ship.x,
                         y: approachingShip.y - ship.y};
                 console.log(directionVector);
+                let closeness = min(MED_RANGE,
+                        dist(ship.x, ship.y,
+                            approachingShip.x, 
+                            approachingShip.y));
                 let newX;
                 if (directionVector.x < 0) {
-                    newX = random(-1 * MED_RANGE,-1 * MIN_RANGE);
+                    newX = random(-1 * closeness, 0);
                 } else if (directionVector.x > 0) {
-                    newX = random(MIN_RANGE,MED_RANGE);
+                    newX = random(0,closeness);
                 } else {
-                    newX = random(-1 * MED_RANGE,MED_RANGE);
+                    newX = random(-1 * closeness, closeness);
                 }
                 let newY;
                 if (directionVector.y < 0) {
-                    newY = random(-1* MED_RANGE,-1 * MIN_RANGE);
+                    newY = random(-1* closeness,0);
                 } else if (directionVector.y > 0) {
-                    newY = random(MIN_RANGE, MED_RANGE);
+                    newY = random(0, closeness);
                 } else {
-                    newY = random(-1 * MED_RANGE, MED_RANGE);
+                    newY = random(-1 * closeness, closeness);
                 }
                 switch (random([1,2,3])) {
                     case 1:
