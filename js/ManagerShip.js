@@ -39,25 +39,41 @@ class ManagerShip {
     }
 
     returnToRefinery(timepassed, data, ship) {
-        let distanceToRefinery = dist(ship.x,ship.y,ship.refinery.x,ship.refinery.y);
-        if (distanceToRefinery > Math.min(
-                ship.refinery.width, 
-                (ship.targetResource ? 
-                        dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y) 
-                        : ship.refinery.width)
-                )
-            ) {
-                ship.moveTowards(ship.refinery, ship.speedFactor/distanceToRefinery);
-                ship.rotation = ship.direction;
-            } else if (ship.metal > 0) {
-                data.metals[ship.faction] += ship.metal;
-                ship.metal = 0;
+        let distanceToRefinery = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
+        if (distanceToRefinery > ship.refinery.width * 2) {
+            ship.moveTowards(ship.refinery, ship.speedFactor/distanceToRefinery);
+            ship.rotation = ship.direction;
+        } else {
+            let angle = atan2(ship.y - ship.refinery.y, ship.x - ship.refinery.x);
+            angle += 2;
+            let range = MIN_RANGE/2;
+            let distance = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
+            let pos = {x: ship.refinery.x + (cos(angle)*(range)), y: ship.refinery.y + (sin(angle)*(range))};
+            if (Utility.getDifference(range, distance) < 10) {
+                ship.rotateTo(ship.refinery, 100);
+                ship.rotation -= 90;
             } else {
-                ship.vel = {x:0,y:0};
-                ship.rotation = ship.refinery.rotation;
+                ship.rotateTo(pos, 100);
             }
-            ship.targetResource = data.getClosestResource(ship);
-        // }
+            ship.moveTo(pos, ship.speedFactor);
+        }
+        // if (distanceToRefinery > Math.min(
+        //         ship.refinery.width, 
+        //         (ship.targetResource ? 
+        //                 dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y) 
+        //                 : ship.refinery.width)
+        //         )
+        //     ) {
+        //         ship.moveTowards(ship.refinery, ship.speedFactor/distanceToRefinery);
+        //         ship.rotation = ship.direction;
+        //     } else if (ship.metal > 0) {
+        //         data.metals[ship.faction] += ship.metal;
+        //         ship.metal = 0;
+        //     } else {
+        //         ship.vel = {x:0,y:0};
+        //         ship.rotation = ship.refinery.rotation;
+        //     }
+        // ship.targetResource = data.getClosestResource(ship);
     }
 
     doEnemyRefineryAI(timepassed, data, ship) {
@@ -110,21 +126,24 @@ class ManagerShip {
                         newShip = data.factory.createTorpedo(
                             ship.x + newX,
                             ship.y + newY,
-                            ship.faction
+                            ship.faction,
+                            ship
                             );
                         break;
                     case 2:
                         newShip = data.factory.createLaser(
                             ship.x + newX, 
                             ship.y + newY,
-                            ship.faction
+                            ship.faction,
+                            ship
                             );
                         break;
                     case 3:
                         newShip = data.factory.createGun(
                             ship.x + newX, 
                             ship.y + newY,
-                            ship.faction
+                            ship.faction,
+                            ship
                             );
                         break;
                 }
@@ -261,13 +280,15 @@ class ManagerShip {
             }
         } else if (ship.targetPos != null) {
                 
+        } else if (ship.shooting.target === null || ship.shooting.target.removed) {
+            this.returnToRefinery(timepassed, data, ship);
         }
 
         if (ship.faction == 0) {
             this.mouseControls(ship);
         }
     }
-    
+
     doTorpedoAI(timepassed, data, ship) {
         ship.shooting.update(timepassed);
 
@@ -294,6 +315,10 @@ class ManagerShip {
             
         } else {
             ship.velocity = {x: 0, y: 0};
+        }
+
+        if (ship.shooting.target === null || ship.shooting.target.removed) {
+            this.returnToRefinery(timepassed, data, ship);
         }
 
         if (ship.faction == 0) {
@@ -327,8 +352,9 @@ class ManagerShip {
                     }
                 }
             }
-        } else {
-                
+        }
+        if (ship.shooting.target === null || ship.shooting.target.removed) {
+            this.returnToRefinery(timepassed, data, ship);
         }
         
         if (ship.faction == 0) {
