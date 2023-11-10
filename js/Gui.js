@@ -72,19 +72,21 @@ class GUI {
         if (ship.hp !== undefined) {
             const current = ship.hp.getHealth();
             const max = ship.hp.getMaxHealth();
-            let rectSize = map(current, 0, max, 0, GUI.HP.W);
             stroke("black");
             fill(GUI.BLACK);
             let rectH=GUI.HP.H;
+            let rectW=GUI.HP.W;
             if(ship.type!=="refinery") {
                 rectH=GUI.HP.H/2;
+                rectW=GUI.HP.W/2;
             }
             rect(
                 ex(ship.x - ship.img.w / 2),
                 why(ship.y + ship.img.h),
-                GUI.HP.W,
+                rectW,
                 rectH
             );
+            let rectSize = map(current, 0, max, 0, rectW);
             fill(GUI.FAC_COLOURS[ship.faction]);
             rect(
                 ex(ship.x - ship.img.w / 2),
