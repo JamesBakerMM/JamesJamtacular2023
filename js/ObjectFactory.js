@@ -1,6 +1,6 @@
-const MIN_RANGE=300;
-const MED_RANGE=500;
-const LONG_RANGE=700;
+const MIN_RANGE=300; //LASER?
+const MED_RANGE=500; //GUN?
+const LONG_RANGE=700; //TORPEDO?
 const RESOURCE_LAYER = 1;
 const ENEMY_LAYER = 2;
 const PC_LAYER = 3;

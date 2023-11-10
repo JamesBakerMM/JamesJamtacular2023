@@ -39,14 +39,26 @@ class ManagerShip {
     }
 
     returnToRefinery(timepassed, data, ship) {
+        let targetRange = LONG_RANGE / 2;
+        switch (ship.type) {
+            case "torpedo": // Torpedo should stay closest to refinery
+                targetRange += ship.height;
+                break;
+            case "gun": // Guns should be next closest
+                targetRange += MIN_RANGE / 3;
+                break;
+            case "laser": // Lasers should be furthest out
+                targetRange += MIN_RANGE / 2;
+                break;
+        }
         let distanceToRefinery = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
-        if (distanceToRefinery > ship.refinery.width * 2) {
+        if (distanceToRefinery > targetRange) {
             ship.moveTowards(ship.refinery, ship.speedFactor/distanceToRefinery);
             ship.rotation = ship.direction;
         } else {
             let angle = atan2(ship.y - ship.refinery.y, ship.x - ship.refinery.x);
             angle += 2;
-            let range = MIN_RANGE/2;
+            let range = targetRange;
             let distance = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
             let pos = {x: ship.refinery.x + (cos(angle)*(range)), y: ship.refinery.y + (sin(angle)*(range))};
             if (Utility.getDifference(range, distance) < 10) {
