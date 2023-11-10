@@ -78,31 +78,34 @@ class ManagerShip {
                 ship.speedFactor/dist(ship.x,ship.y,ship.targetResource.x,ship.targetResource.y));
             }
         }
-        if (this.detectEnemies(data, ship) ) {
+        let approachingShip = this.detectEnemies(data, ship);
+        if (approachingShip) {
             if (data.factory.ship_counter[ship.faction] < data.POP_CAP[ship.faction]) {
+                let newShip;
                 switch (random([1,2,3])) {
                     case 1:
-                        data.ships.push(data.factory.createTorpedo(
+                        newShip = data.factory.createTorpedo(
                             ship.x + random(-10,10), 
                             ship.y + random (-10,10),
                             ship.faction
-                            ));
+                            );
                         break;
                     case 2:
-                        data.ships.push(data.factory.createLaser(
+                        newShip = data.factory.createLaser(
                             ship.x + random(-10,10), 
                             ship.y + random (-10,10),
                             ship.faction
-                            ));
+                            );
                         break;
                     case 3:
-                        data.ships.push(data.factory.createGun(
+                        newShip = data.factory.createGun(
                             ship.x + random(-10,10), 
                             ship.y + random (-10,10),
                             ship.faction
-                            ));
+                            );
                         break;
                 }
+                data.ships.push(newShip);
             }
         }
     }
@@ -111,10 +114,10 @@ class ManagerShip {
         for (let otherShip of data.ships) {
             if (otherShip.faction != ship.faction && 
                     dist(ship.x, ship.y, otherShip.x, otherShip.y) <= ship.range) {
-                return true;
+                return otherShip;
             }
         }
-        return false;
+        return null;
     }
 
     doDroneAI(timepassed, data, ship) {
