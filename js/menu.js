@@ -307,6 +307,14 @@ class Menu {
             this.x + 20,
             this.y + 30
         );
+        textAlign(RIGHT,CENTER);
+        textSize(24);
+        text(
+            `${data.factory.ship_counter[0]}/${data.POP_CAP[0]}`,
+            this.x + 20,
+            this.y+18,
+            this.w+40
+        );
 
         this.fancyButton(this.btns.main[0], this.visuals.drone, Menu.DRONE_ACTIVE);
         this.fancyButton(this.btns.main[1], this.visuals.gun, Menu.GUN_ACTIVE,23);
