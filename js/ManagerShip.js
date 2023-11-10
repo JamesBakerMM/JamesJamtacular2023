@@ -79,7 +79,7 @@ class ManagerShip {
             }
         }
         let approachingShip = this.detectEnemies(data, ship);
-        if (approachingShip) {
+        if (approachingShip && frameCount % 30 == 0) {
             if (data.factory.ship_counter[ship.faction] < data.POP_CAP[ship.faction]) {
                 let newShip;
                 let directionVector = {x: approachingShip.x - ship.x,
