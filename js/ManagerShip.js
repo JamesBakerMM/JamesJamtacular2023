@@ -82,25 +82,44 @@ class ManagerShip {
         if (approachingShip) {
             if (data.factory.ship_counter[ship.faction] < data.POP_CAP[ship.faction]) {
                 let newShip;
+                let directionVector = {x: approachingShip.x - ship.x,
+                        y: approachingShip.y - ship.y};
+                console.log(directionVector);
+                let newX;
+                if (directionVector.x < 0) {
+                    newX = random(-1 * MED_RANGE,-1 * MIN_RANGE);
+                } else if (directionVector.x > 0) {
+                    newX = random(MIN_RANGE,MED_RANGE);
+                } else {
+                    newX = random(-1 * MED_RANGE,MED_RANGE);
+                }
+                let newY;
+                if (directionVector.y < 0) {
+                    newY = random(-1* MED_RANGE,-1 * MIN_RANGE);
+                } else if (directionVector.y > 0) {
+                    newY = random(MIN_RANGE, MED_RANGE);
+                } else {
+                    newY = random(-1 * MED_RANGE, MED_RANGE);
+                }
                 switch (random([1,2,3])) {
                     case 1:
                         newShip = data.factory.createTorpedo(
-                            ship.x + random(-10,10), 
-                            ship.y + random (-10,10),
+                            ship.x + newX,
+                            ship.y + newY,
                             ship.faction
                             );
                         break;
                     case 2:
                         newShip = data.factory.createLaser(
-                            ship.x + random(-10,10), 
-                            ship.y + random (-10,10),
+                            ship.x + newX, 
+                            ship.y + newY,
                             ship.faction
                             );
                         break;
                     case 3:
                         newShip = data.factory.createGun(
-                            ship.x + random(-10,10), 
-                            ship.y + random (-10,10),
+                            ship.x + newX, 
+                            ship.y + newY,
                             ship.faction
                             );
                         break;
