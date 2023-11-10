@@ -128,7 +128,6 @@ class Menu {
                 `> ${COST.DRONE} drone `,
                 () => {
                     if (data.factory.ship_counter[0] >= data.POP_CAP[0]) {
-                        console.log("TOo many ships");
                         return false;
                     }
                     if (this.costCheck(data.metals[0], COST.DRONE) === false) {
