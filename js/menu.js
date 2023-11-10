@@ -164,7 +164,8 @@ class Menu {
                         data.factory.createGun(
                             data.refinery.x + random(-180, 180),
                             data.refinery.y + random(-180, 180),
-                            0
+                            0,
+                            data.refinery
                         )
                     );
                 }
@@ -190,7 +191,8 @@ class Menu {
                         data.factory.createTorpedo(
                             data.refinery.x + random(-180, 180),
                             data.refinery.y + random(-180, 180),
-                            0
+                            0,
+                            data.refinery
                         )
                     );
                 }
@@ -215,7 +217,8 @@ class Menu {
                         data.factory.createLaser(
                             data.refinery.x + random(-180, 180),
                             data.refinery.y + random(-180, 180),
-                            0
+                            0,
+                            data.refinery
                         )
                     );
                 }

@@ -207,7 +207,7 @@ class ObjectFactory {
         return obj;
     }
 
-    createLaser(x,y,faction){
+    createLaser(x, y, faction, refinery){
         let obj = this.createShip(x, y, "laser", faction);
         let image = "laser";
         if (faction === 1) {
@@ -222,10 +222,11 @@ class ObjectFactory {
         obj.hp.setHealth(20);
         obj.shooting = new Shooting(100, MIN_RANGE);
         obj.speedFactor = 3;
+        obj.refinery = refinery;
         return obj
     }
 
-    createTorpedo(x,y, faction){
+    createTorpedo(x, y, faction, refinery){
         let obj = this.createShip(x, y, "torpedo", faction);
         let image = "torpedo";
         if (faction === 1) {
@@ -233,6 +234,7 @@ class ObjectFactory {
         } else if (faction === 2) {
             image = "fac2 torpedo"
         }
+        obj.refinery = refinery;
         obj.image = this.getByID(image,this.images);
         obj.diameter=obj.image.h-10;
         obj.faction = faction;
@@ -244,7 +246,7 @@ class ObjectFactory {
         return obj
     }
 
-    createGun(x,y, faction){
+    createGun(x,y, faction, refinery){
         let obj = this.createShip(x, y, "gun", faction);
         let image = "gun";
         if (faction === 1) {
@@ -252,6 +254,7 @@ class ObjectFactory {
         } else if (faction === 2) {
             image = "fac2 gun"
         }
+        obj.refinery = refinery;
         obj.image = this.getByID(image,this.images);
         obj.faction = faction;
         obj.scale = 1.5;
