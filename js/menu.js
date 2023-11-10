@@ -10,22 +10,25 @@ class Menu {
     static BTN = {
         h: 50,
     };
-
+    //drone
     static DRONE_ACTIVE=true;
-    static TORPEDO_ACTIVE=false;
+    static DRONE_THRESHOLD=0;
+    //gun
     static GUN_ACTIVE=false;
+    static GUN_THRESHOLD=3;
+    //torpedo
+    static TORPEDO_ACTIVE=false;
+    static TORPEDO_THRESHOLD=6;
+    //laser
     static LASER_ACTIVE=false;
+    static LASER_THRESHOLD=9;
 
     constructor(x = 0, y = 0, w = 200, h = 240) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        //prep the properties
         this.btns = {
-            // control: {
-            //     main: null,
-            // },
             main: [],
         };
         this.visuals = {};
@@ -301,13 +304,13 @@ class Menu {
         push();
 
         //process tech
-        if(data.tech[0]>3){
+        if(data.tech[0]>=Menu.GUN_THRESHOLD){
             Menu.GUN_ACTIVE=true;
         }
-        if(data.tech[0]>6){
+        if(data.tech[0]>=Menu.TORPEDO_THRESHOLD){
             Menu.TORPEDO_ACTIVE=true;
         }
-        if(data.tech[0]>9){
+        if(data.tech[0]>=Menu.LASER_THRESHOLD){
             Menu.LASER_ACTIVE=true;
         }
 
@@ -333,11 +336,16 @@ class Menu {
             this.w+40
         );
 
+        const dronePercent = (data.tech[0] / Menu.DRONE_THRESHOLD) * 100;
+        const gunPercent = (data.tech[0] / Menu.GUN_THRESHOLD) * 100;
+        const torpedoPercent = (data.tech[0] / Menu.TORPEDO_THRESHOLD) * 100;
+        const laserPercent = (data.tech[0] / Menu.LASER_THRESHOLD) * 100;
+
         //process buttons
         this.fancyButton(this.btns.main[0], this.visuals.drone, Menu.DRONE_ACTIVE);
-        this.fancyButton(this.btns.main[1], this.visuals.gun, Menu.GUN_ACTIVE,23);
-        this.fancyButton(this.btns.main[2], this.visuals.torpedo, Menu.TORPEDO_ACTIVE,54);
-        this.fancyButton(this.btns.main[3], this.visuals.laser, Menu.LASER_ACTIVE,33);
+        this.fancyButton(this.btns.main[1], this.visuals.gun, Menu.GUN_ACTIVE,gunPercent);
+        this.fancyButton(this.btns.main[2], this.visuals.torpedo, Menu.TORPEDO_ACTIVE,torpedoPercent);
+        this.fancyButton(this.btns.main[3], this.visuals.laser, Menu.LASER_ACTIVE,laserPercent);
 
         
         image(this.visuals.topFrame, gui.minimap.width - 80, -8);
