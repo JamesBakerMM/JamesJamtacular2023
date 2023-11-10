@@ -72,7 +72,7 @@ class GUI {
         if (ship.hp !== undefined) {
             const current = ship.hp.getHealth();
             const max = ship.hp.getMaxHealth();
-            stroke("black");
+            noStroke();
             fill(GUI.BLACK);
             let rectH=GUI.HP.H;
             let rectW=GUI.HP.W;

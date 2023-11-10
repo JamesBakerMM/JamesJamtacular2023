@@ -12,9 +12,9 @@ class Menu {
     };
 
     static DRONE_ACTIVE=true;
-    static TORPEDO_ACTIVE=true;
-    static GUN_ACTIVE=true;
-    static LASER_ACTIVE=true;
+    static TORPEDO_ACTIVE=false;
+    static GUN_ACTIVE=false;
+    static LASER_ACTIVE=false;
 
     constructor(x = 0, y = 0, w = 200, h = 240) {
         this.x = x;
@@ -32,7 +32,6 @@ class Menu {
     }
 
     preload() {
-
         this.visuals.drone = {
             active: loadAnimation(
                 "./3d/drone/output/0000.png",
@@ -298,30 +297,47 @@ class Menu {
 
     update(data) {
         push();
+
+        //process tech
+        if(data.tech[0]>3){
+            Menu.GUN_ACTIVE=true;
+        }
+        if(data.tech[0]>6){
+            Menu.TORPEDO_ACTIVE=true;
+        }
+        if(data.tech[0]>9){
+            Menu.LASER_ACTIVE=true;
+        }
+
+        //process metal
         noStroke();
         fill(GUI.BLACK);
         rect(this.x, this.y, this.w + 100, this.h);
         fill("yellow");
         textSize(32);
         text(
-            `| metal: ${Math.floor(data.metals[0])}`,
+            `metal ${Math.floor(data.metals[0])}`,
             this.x + 20,
             this.y + 30
         );
+
+        //process popcap
         textAlign(RIGHT,CENTER);
         textSize(24);
         text(
-            `${data.factory.ship_counter[0]}/${data.POP_CAP[0]}`,
+            `ships ${data.factory.ship_counter[0]}/${data.POP_CAP[0]}`,
             this.x + 20,
             this.y+18,
             this.w+40
         );
 
+        //process buttons
         this.fancyButton(this.btns.main[0], this.visuals.drone, Menu.DRONE_ACTIVE);
         this.fancyButton(this.btns.main[1], this.visuals.gun, Menu.GUN_ACTIVE,23);
         this.fancyButton(this.btns.main[2], this.visuals.torpedo, Menu.TORPEDO_ACTIVE,54);
         this.fancyButton(this.btns.main[3], this.visuals.laser, Menu.LASER_ACTIVE,33);
 
+        
         image(this.visuals.topFrame, gui.minimap.width - 80, -8);
         pop();
     }
