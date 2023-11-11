@@ -189,6 +189,9 @@ class Data {
                         if (d < ship.radius) {
                             hit = true;
                             ship.hp.doDamage(bullet.damage);
+                            if (ship.type == "laser") {
+                                ship.targetPos = null;
+                            }
                         }
                     }
                 }
