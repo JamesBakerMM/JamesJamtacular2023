@@ -240,6 +240,9 @@ class ManagerShip {
 
     doLaserAI(timepassed, data, ship) {
 
+        if (ship.faction == 0) {
+            this.mouseControls(ship);
+        }
         ship.shooting.update(timepassed);
 
         if (ship.shooting.canShoot()) {
@@ -290,18 +293,19 @@ class ManagerShip {
                 ship.moveTo(pos, ship.speedFactor);
                 
             }
-        } else if (ship.targetPos != null) {
-                
-        } else if (ship.shooting.target === null || ship.shooting.target.removed) {
-            this.returnToRefinery(timepassed, data, ship);
         }
-
-        if (ship.faction == 0) {
-            this.mouseControls(ship);
+        if (ship.faction > 0) {
+            if (ship.shooting.target === null || ship.shooting.target.removed) {
+                this.returnToRefinery(timepassed, data, ship);
+            }
         }
     }
 
     doTorpedoAI(timepassed, data, ship) {
+
+        if (ship.faction == 0) {
+            this.mouseControls(ship);
+        }
         ship.shooting.update(timepassed);
 
         if (ship.shooting.canShoot()) {
@@ -329,49 +333,61 @@ class ManagerShip {
             ship.velocity = {x: 0, y: 0};
         }
 
-        if (ship.shooting.target === null || ship.shooting.target.removed) {
-            this.returnToRefinery(timepassed, data, ship);
-        }
-
-        if (ship.faction == 0) {
-            this.mouseControls(ship);
+        if (ship.faction > 0) {
+            if (ship.shooting.target === null || ship.shooting.target.removed) {
+                this.returnToRefinery(timepassed, data, ship);
+            }
         }
     }
     
     doGunAI(timepassed, data, ship) {
 
-        ship.shooting.update(timepassed);
-
-        if (ship.targetPos == null) {
-            ship.velocity = {x: 0, y: 0};
-            if (ship.shooting.canShoot()) {
-                let prevTarget = ship.shooting.target;
-                ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange(), true);
-                ship.shooting.reset();
-    
-                if (ship.shooting.target != null) {
-                    ship.shooting.charge = 2;
-                }
-    
-            }
-            if (ship.shooting.target != null) {
-                ship.rotateTo(ship.shooting.target, 100);
-                if (ship.shooting.charge > 0) {
-                    let prevCharge = ship.shooting.charge;
-                    ship.shooting.charge -= (timepassed/50);
-                    if (Math.ceil(ship.shooting.charge) != Math.ceil(prevCharge)) {
-                        data.createBullet(ship, ship.shooting.target);
-                    }
-                }
-            }
-        }
-        if (ship.shooting.target === null || ship.shooting.target.removed) {
-            this.returnToRefinery(timepassed, data, ship);
-        }
-        
         if (ship.faction == 0) {
             this.mouseControls(ship);
         }
+
+        ship.shooting.update(timepassed);
+        
+        if (ship.targetPos == null) {
+            ship.rotationSpeed = 0;
+            ship.velocity = {x: 0, y: 0};
+        }
+
+        let gunPosX = ship.x - (cos(ship.rotation)) * 8;
+        let gunPosY = ship.y - (sin(ship.rotation)) * 8;
+
+        ship.gun.x = gunPosX;
+        ship.gun.y = gunPosY;
+        
+        if (ship.shooting.canShoot()) {
+            let prevTarget = ship.shooting.target;
+            ship.shooting.target = this.getNearestShip(ship, data, ship.shooting.getRange(), true);
+            ship.shooting.reset();
+
+            if (ship.shooting.target != null) {
+                ship.shooting.charge = 2;
+            }
+
+        }
+        if (ship.shooting.target != null) {
+            ship.gun.rotateTo(ship.shooting.target, 100);
+            if (ship.shooting.charge > 0) {
+                let prevCharge = ship.shooting.charge;
+                ship.shooting.charge -= (timepassed/50);
+                if (Math.ceil(ship.shooting.charge) != Math.ceil(prevCharge)) {
+                    data.createBullet({x: gunPosX, y:gunPosY, faction:ship.faction}, ship.shooting.target);
+                }
+            }
+        } else {
+            ship.gun.rotation = ship.rotation;
+        }
+
+        if (ship.faction > 0) {
+            if (ship.shooting.target === null || ship.shooting.target.removed) {
+                this.returnToRefinery(timepassed, data, ship);
+            }
+        }
+        
     }
 
     getNearestShip(ship, data, maxDistance, targetTorpedos) {

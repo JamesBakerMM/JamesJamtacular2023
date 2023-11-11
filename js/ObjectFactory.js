@@ -17,7 +17,8 @@ class ObjectFactory {
         this.images.push({id: "drone",          path: "assets/img/drone_smallest.png"});
         this.images.push({id: "laser",          path: "assets/img/laser.png"});
         this.images.push({id: "torpedo",        path: "assets/img/torpedo.png"});
-        this.images.push({id: "gun",            path: "assets/img/gunship.png"});
+        this.images.push({id: "gun",            path: "assets/img/gunship_chassis.png"});
+        this.images.push({id: "gun gun",            path: "assets/img/gunship_turret.png"});
         this.images.push({id: "bullet",         path: "assets/img/bullet.png"});
         this.images.push({id: "enemy refinery", path: "assets/img/hostileRefinery.png"});
         this.images.push({id: "enemy drone",    path: "assets/img/hostileDrone.png"});
@@ -268,6 +269,12 @@ class ObjectFactory {
         obj.hp.setHealth(20);
         obj.shooting = new Shooting(700, MED_RANGE);
         obj.speedFactor = 2;
+
+        let imageGun = "gun gun"
+        obj.gun = new Sprite(x, y);
+        obj.gun.image = this.getByID(imageGun,this.images);
+        obj.gun.collider="none";
+
         return obj
     }
 
