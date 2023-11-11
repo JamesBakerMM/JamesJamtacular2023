@@ -10,18 +10,21 @@ class Menu {
     static BTN = {
         h: 50,
     };
+
+    static RESEARCH_MOD=9;
+
     //drone
     static DRONE_ACTIVE=true;
     static DRONE_THRESHOLD=0;
     //gun
     static GUN_ACTIVE=false;
-    static GUN_THRESHOLD=3;
+    static GUN_THRESHOLD=1*Menu.RESEARCH_MOD;
     //torpedo
     static TORPEDO_ACTIVE=false;
-    static TORPEDO_THRESHOLD=6;
+    static TORPEDO_THRESHOLD=3*Menu.RESEARCH_MOD;
     //laser
     static LASER_ACTIVE=false;
-    static LASER_THRESHOLD=9;
+    static LASER_THRESHOLD=6*Menu.RESEARCH_MOD;
 
     constructor(x = 0, y = 0, w = 200, h = 240) {
         this.x = x;

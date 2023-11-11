@@ -112,7 +112,6 @@ class ManagerShip {
                 let newShip;
                 let directionVector = {x: approachingShip.x - ship.x,
                         y: approachingShip.y - ship.y};
-
                 let closeness = min(MED_RANGE,
                         dist(ship.x, ship.y,
                             approachingShip.x, 
@@ -195,6 +194,11 @@ class ManagerShip {
                     data.universe.damage(ship.targetResource, (timepassed / 1000));
 
                     ship.metal += (timepassed / 1000);
+
+                    if(ship.targetResource.type==="wreckage" && ship.faction===0){
+                        ship.tech += (timepassed / 1000);
+                    }
+
                     if (ship.metal >= 1) {
                         ship.waypoint = Utility.getMidPoint(ship, ship.refinery);
                         let angle = atan2(ship.refinery.y - ship.y, ship.refinery.x - ship.x)  + 90;
@@ -226,7 +230,11 @@ class ManagerShip {
                 ship.velocity.x = 0;
                 ship.velocity.y = 0;
                 data.metals[ship.faction] += ship.metal;
+                if(ship.tech && ship.faction===0){
+                    data.tech[ship.faction] += ship.tech;
+                }
                 ship.metal = 0;
+                ship.tech = 0;
                 ship.targetResource = data.getClosestResource(ship);
                 if (ship.targetResource != null) {
                     ship.waypoint = Utility.getMidPoint(ship, ship.targetResource);
