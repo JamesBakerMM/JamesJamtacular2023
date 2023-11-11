@@ -6,6 +6,8 @@ class Minimap {
     static positionY = 23 - Minimap.halfBorder;
     static positionYEnd = 280 - Minimap.halfBorder + Minimap.positionY;
 
+    static BLUE_PING=[100, 100, 255, 255];
+
     constructor() {
         this.worldX = 0 + Minimap.halfBorder;
         this.worldXEnd = 5000 + Minimap.halfBorder;
@@ -67,7 +69,7 @@ class Minimap {
             
             if (x != null && y != null) {
                 if (res.type == "wreckage") {
-                    fill(100, 100, 255, 255);
+                    fill(Minimap.BLUE_PING);
                     rect(x, y, 2 * scale, 2 * scale);
                 } else {
                     fill(255, 0, 255, 255);
@@ -82,7 +84,10 @@ class Minimap {
             let x = this.worldToMinimapPixelX(ship.x);
             let y = this.worldToMinimapPixelY(ship.y);
             if (x != null && y != null) {
-                if (ship.faction == 0) {
+                if(ship.visible===false){
+                    fill(Minimap.BLUE_PING);
+                }
+                else if (ship.faction == 0) {
                     fill(GUI.YELLOW);
                 } else {
                     fill(255, 0, 0, 255);

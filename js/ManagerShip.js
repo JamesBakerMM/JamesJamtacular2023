@@ -299,7 +299,9 @@ class ManagerShip {
                     stroke("#7ceb88");
                 }
                 strokeWeight(Math.floor(ship.shooting.charge/200));
-                line(ex(ship.x),why(ship.y),ex(aim.x),why(aim.y));
+                if(ship.visible){
+                    line(ex(ship.x),why(ship.y),ex(aim.x),why(aim.y));
+                }
                 pop();
 
                 let angle = atan2(ship.y - ship.shooting.target.y, ship.x - ship.shooting.target.x);
