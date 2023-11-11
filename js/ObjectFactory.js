@@ -225,6 +225,8 @@ class ObjectFactory {
             image = "enemy laser";
         } else if (faction === 2) {
             image = "fac2 laser";
+        } else if (faction === 3) {
+            image = "fac3 laser";
         }
         obj.image = this.getByID(image,this.images);
         obj.faction = faction;
@@ -243,7 +245,9 @@ class ObjectFactory {
         if (faction === 1) {
             image = "enemy torpedo";
         } else if (faction === 2) {
-            image = "fac2 torpedo"
+            image = "fac2 torpedo";
+        } else if (faction === 3) {
+            image = "fac3 torpedo";
         }
         obj.refinery = refinery;
         obj.image = this.getByID(image,this.images);
@@ -264,6 +268,8 @@ class ObjectFactory {
             image = "enemy gun";
         } else if (faction === 2) {
             image = "fac2 gun"
+        } else if (faction === 3) {
+            image = "fac3 gun"
         }
         obj.refinery = refinery;
         obj.image = this.getByID(image,this.images);
