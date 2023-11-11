@@ -194,7 +194,11 @@ class ManagerShip {
                     data.universe.damage(ship.targetResource, (timepassed / 1000));
 
                     ship.metal += (timepassed / 1000);
-                    ship.tech += (timepassed / 1000);
+
+                    if(ship.targetResource.type==="wreckage" && ship.faction===0){
+                        ship.tech += (timepassed / 1000);
+                    }
+
                     if (ship.metal >= 1) {
                         ship.waypoint = Utility.getMidPoint(ship, ship.refinery);
                         let angle = atan2(ship.refinery.y - ship.y, ship.refinery.x - ship.x)  + 90;
@@ -227,7 +231,6 @@ class ManagerShip {
                 ship.velocity.y = 0;
                 data.metals[ship.faction] += ship.metal;
                 if(ship.tech && ship.faction===0){
-                    console.log(ship.tech)
                     data.tech[ship.faction] += ship.tech;
                 }
                 ship.metal = 0;
