@@ -9,7 +9,7 @@ class ObjectFactory {
     constructor() {
         this.images = new Array();
         this.anims = new Array();
-        this.ship_counter = [0, 0, 0];
+        this.ship_counter = [0, 0, 0, 0];
     }
 
     preload() {
@@ -165,6 +165,7 @@ class ObjectFactory {
         obj.debug = true;
         obj.layer = ENEMY_LAYER;
         obj.targetResource = null;
+        console.log(faction, obj);
         return obj;
     }
 
@@ -200,10 +201,8 @@ class ObjectFactory {
         obj.image = this.getByID("enemy drone", this.images);
         if (faction === 2) {
             obj.image = this.getByID("fac2 drone", this.images);
-            console.log("fac2", obj.image);
         } else if (faction === 3) {
             obj.image = this.getByID("fac3 drone", this.images);
-            console.log("fac3", obj.image);
         }
         obj.faction = faction;
         obj.diameter = obj.width;

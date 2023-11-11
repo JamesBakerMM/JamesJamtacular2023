@@ -3,8 +3,8 @@ class Data {
 
     constructor() {
         this.factory = new ObjectFactory();
-        this.metals = [0, 0, 0];
-        this.tech = [10, 0, 0];
+        this.metals = [0, 0, 0, 0];
+        this.tech = [10, 0, 0, 0];
         this.ships; //will be group in setup
         this.drones;
         this.laser;
@@ -24,7 +24,7 @@ class Data {
 
         this.managerShip = new ManagerShip();
 
-        this.POP_CAP = [24, 10, 10];
+        this.POP_CAP = [24, 10, 10, 10];
     }
 
     preload() {
@@ -111,6 +111,8 @@ class Data {
             enemyRefineryY,
             3
         );
+        this.enemyRefinery3.overlaps(this.ships);
+        this.ships.push(this.enemyRefinery3);
         this.drones.push(
             this.factory.createEnemyDrone(
                 enemyRefineryX + random(-50, 50),

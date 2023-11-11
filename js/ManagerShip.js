@@ -112,7 +112,6 @@ class ManagerShip {
                 let newShip;
                 let directionVector = {x: approachingShip.x - ship.x,
                         y: approachingShip.y - ship.y};
-                console.log(directionVector);
                 let closeness = min(MED_RANGE,
                         dist(ship.x, ship.y,
                             approachingShip.x, 
