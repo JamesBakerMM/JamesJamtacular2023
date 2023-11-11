@@ -201,7 +201,6 @@ class ObjectFactory {
         obj.debug = true;
         obj.layer = ENEMY_LAYER;
         obj.targetResource = null;
-        console.log(faction, obj);
         return obj;
     }
 
@@ -400,7 +399,6 @@ class ObjectFactory {
     createWreckage(x, y, faction=1, amount=9) {
         let obj=this.createObject(x,y);
         obj.type = "wreckage";
-        console.log("At creation:", faction)
         obj.img = this.getByID("fac" + faction + " wreckage",this.anims);
         obj.ani.stop();
         

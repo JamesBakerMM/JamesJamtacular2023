@@ -261,6 +261,7 @@ class Data {
                                 ship.x + random(-5,5), ship.y + random(-5,5), ship.faction)
                         );
                     this.POP_CAP[ship.faction] = 0;
+                    this.createPatrol();
                     if (ship.type === "refinery") {
                         //Game over here
                     }
@@ -292,6 +293,10 @@ class Data {
         }
 
         this.doDragSelection();
+    }
+
+    createPatrol() {
+        this.ships.push(this.factory.createGun(0, 0, random([1, 2, 3]), this.refinery)); // X, Y, FACTION, REFINERY
     }
 
     getClosestResource(ship) {

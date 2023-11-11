@@ -21,7 +21,6 @@ class Universe {
         let x = 1000;
         let y = 170;
         let faction = random([0, 1, 2, 3]);
-        console.log("Randomised:", faction);
         this.resources.push(this.factory.createWreckage(x, y, faction));
         if (random([true,false])) {
             x += random(-50,50);
