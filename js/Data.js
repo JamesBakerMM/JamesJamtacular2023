@@ -15,7 +15,6 @@ class Data {
         this.refinery = null;
         this.enemyRefinery1 = null;
         this.enemyRefinery2 = null;
-        this.resources;
         this.universe = new Universe();
         this.background = new Background();
 
@@ -255,11 +254,11 @@ class Data {
                 if (ship.type.includes("refinery")) {
                     this.universe.resources.push(
                         this.factory.createWreckage(
-                                ship.x + random(-5,5), ship.y + random(-5,5))
+                                ship.x + random(-5,5), ship.y + random(-5,5), ship.faction)
                         );
                     this.universe.resources.push(
                         this.factory.createWreckage(
-                                ship.x + random(-5,5), ship.y + random(-5,5))
+                                ship.x + random(-5,5), ship.y + random(-5,5), ship.faction)
                         );
                     this.POP_CAP[ship.faction] = 0;
                     if (ship.type === "refinery") {
@@ -267,7 +266,7 @@ class Data {
                     }
                 } else if (ship.type.includes("enemy drone")) {
                     this.universe.resources.push(
-                        this.factory.createWreckage(ship.x, ship.y)
+                        this.factory.createWreckage(ship.x, ship.y, ship.faction)
                         );
                     //CREATE NEW DRONE TO REPLACE IT
                     if (this.POP_CAP[ship.faction] > 0) {
@@ -283,7 +282,7 @@ class Data {
                     }
                 } else {
                     this.universe.resources.push(
-                        this.factory.createWreckage(ship.x, ship.y)
+                        this.factory.createWreckage(ship.x, ship.y, ship.faction)
                         );
                 }
                 this.factory.ship_counter[ship.faction] -= 1;

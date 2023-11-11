@@ -13,48 +13,52 @@ class Universe {
     setup(factory) {
         this.factory=factory;
         this.resources = new Group();
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 99; i++) {
             let x = random(5000);
             let y = random(5000);
             this.resources.push(this.factory.createResource(x, y, Math.round(random(4,12))));
         }
-        let x = random(Universe.SIZE/4);
-        let y = random(Universe.SIZE/4);
-        this.resources.push(this.factory.createWreckage(x,y));
+        let x = 1000;
+        let y = 170;
+        let faction = random([0, 1, 2, 3]);
+        console.log("Randomised:", faction);
+        this.resources.push(this.factory.createWreckage(x, y, faction));
         if (random([true,false])) {
             x += random(-50,50);
             y += random(-50,50);
-            this.resources.push(this.factory.createWreckage(x,y));
+            this.resources.push(this.factory.createWreckage(x, y, faction));
         }
         if (random([true,false])) {
             x += random(-40,40);
             y += random(-40,40);
-            this.resources.push(this.factory.createWreckage(x,y));
+            this.resources.push(this.factory.createWreckage(x, y, faction));
         }
-        if (random([true,false])) {
-            x += random(-40,40);
-            y += random(-40,40);
-            this.resources.push(this.factory.createWreckage(x,y));
-        }
+        
 
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < 10; i++) {
             let x = random(Universe.SIZE);
             let y = random(Universe.SIZE);
-            this.resources.push(this.factory.createWreckage(x,y));
+            faction = random([0, 1, 2, 3]);
+
+            this.resources.push(this.factory.createWreckage(x, y, faction));
             if (random([true,false])) {
                 x += random(-50,50);
                 y += random(-50,50);
-                this.resources.push(this.factory.createWreckage(x,y));
+                this.resources.push(this.factory.createWreckage(x, y, faction));
             }
             if (random([true,false])) {
                 x += random(-40,40);
                 y += random(-40,40);
-                this.resources.push(this.factory.createWreckage(x,y));
+                this.resources.push(this.factory.createWreckage(x, y, faction));
             }
         }
     }
 
-    update() {}
+    update() {
+        if (this.resources.length === 0) {
+            // Game over: You win! code goes here
+        }
+    }
 
     damage(resource, damage=1) {
         let preMetal = resource.metal;

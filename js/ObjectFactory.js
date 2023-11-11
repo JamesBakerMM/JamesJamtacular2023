@@ -65,7 +65,7 @@ class ObjectFactory {
             "assets/img/explosion-e9.png",
             "assets/img/explosion-e10.png",
         ]})        
-        this.anims.push({id: "smallWreckage", path: [
+        this.anims.push({id: "fac1 wreckage", path: [
             "assets/img/wreckage1.png",
             "assets/img/wreckage2.png",
             "assets/img/wreckage3.png",
@@ -75,6 +75,39 @@ class ObjectFactory {
             "assets/img/wreckage7.png",
             "assets/img/wreckage8.png",
             "assets/img/wreckage9.png"
+        ]});
+        this.anims.push({id: "fac2 wreckage", path: [
+            "assets/img/fac2_wreckage1.png",
+            "assets/img/fac2_wreckage2.png",
+            "assets/img/fac2_wreckage3.png",
+            "assets/img/fac2_wreckage4.png",
+            "assets/img/fac2_wreckage5.png",
+            "assets/img/fac2_wreckage6.png",
+            "assets/img/fac2_wreckage7.png",
+            "assets/img/fac2_wreckage8.png",
+            "assets/img/fac2_wreckage9.png"
+        ]});
+        this.anims.push({id: "fac3 wreckage", path: [
+            "assets/img/fac3_wreckage1.png",
+            "assets/img/fac3_wreckage2.png",
+            "assets/img/fac3_wreckage3.png",
+            "assets/img/fac3_wreckage4.png",
+            "assets/img/fac3_wreckage5.png",
+            "assets/img/fac3_wreckage6.png",
+            "assets/img/fac3_wreckage7.png",
+            "assets/img/fac3_wreckage8.png",
+            "assets/img/fac3_wreckage9.png"
+        ]});
+        this.anims.push({id: "fac0 wreckage", path: [
+            "assets/img/fac0_wreckage1.png",
+            "assets/img/fac0_wreckage2.png",
+            "assets/img/fac0_wreckage3.png",
+            "assets/img/fac0_wreckage4.png",
+            "assets/img/fac0_wreckage5.png",
+            "assets/img/fac0_wreckage6.png",
+            "assets/img/fac0_wreckage7.png",
+            "assets/img/fac0_wreckage8.png",
+            "assets/img/fac0_wreckage9.png"
         ]});
         this.images.push({id: "missile", path: 
             "assets/img/missile1.png",
@@ -378,10 +411,11 @@ class ObjectFactory {
         return obj
     }
 
-    createWreckage(x,y,amount=9,scale=1) {
+    createWreckage(x, y, faction=1, amount=9) {
         let obj=this.createObject(x,y);
         obj.type = "wreckage";
-        obj.img = this.getByID("smallWreckage",this.anims);
+        console.log("At creation:", faction)
+        obj.img = this.getByID("fac" + faction + " wreckage",this.anims);
         obj.ani.stop();
         
         obj.diameter = obj.width;
