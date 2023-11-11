@@ -126,7 +126,7 @@ class Menu {
         let offset_y = this.y + 40;
         this.btns.main.push(
             this.makeButton(
-                this.x + Menu.ICO_SIZE,
+                this.x + Menu.ICO_SIZE + 30,
                 offset_y,
                 `> ${COST.DRONE} drone `,
                 () => {
@@ -151,7 +151,7 @@ class Menu {
 
         this.btns.main.push(
             this.makeButton(
-                this.x + Menu.ICO_SIZE,
+                this.x + Menu.ICO_SIZE + 30,
                 offset_y,
                 `> ${COST.GUN} gun `,
                 () => {
@@ -176,7 +176,7 @@ class Menu {
         offset_y += Menu.BTN.h;
         this.btns.main.push(
             this.makeButton(
-                this.x + Menu.ICO_SIZE,
+                this.x + Menu.ICO_SIZE + 30,
                 offset_y,
                 `> ${COST.TORPEDO} torpedo`,
                 () => {
@@ -204,7 +204,7 @@ class Menu {
 
         this.btns.main.push(
             this.makeButton(
-                this.x + Menu.ICO_SIZE,
+                this.x + Menu.ICO_SIZE + 30,
                 offset_y,
                 `> ${COST.LASER} laser `,
                 () => {
@@ -264,10 +264,9 @@ class Menu {
     }
 
     fancyButton(button, anim, isActive,progress=23) {
-        const OFFSET = 10000;
-
         if (isActive) {  
-            button.position(button.startX, button.startY);
+            button.show(); //show button
+
             if (this.buttonIsHovered(button, mouseX, mouseY)) {
                 anim.active.loop(); //loop the 3d model
             } else { //stop the 3d model
@@ -275,8 +274,9 @@ class Menu {
                 anim.active.stop();
             }
             animation(anim.active, button.x - 30, button.y + 25);
+
         } else { //not active
-            button.position(-OFFSET, -OFFSET); //hide the button
+            button.hide();
 
             //progress bar bg
             fill(GUI.BLACK);
@@ -328,7 +328,7 @@ class Menu {
         textSize(32);
         text(
             `metal ${Math.floor(data.metals[0])}`,
-            this.x + 20,
+            this.x + 60,
             this.y + 30
         );
 
@@ -337,7 +337,7 @@ class Menu {
         textSize(24);
         text(
             `ships ${data.factory.ship_counter[0]}/${data.POP_CAP[0]}`,
-            this.x + 20,
+            this.x + 40,
             this.y+18,
             this.w+40
         );
@@ -354,8 +354,7 @@ class Menu {
         this.fancyButton(this.btns.main[2], this.visuals.torpedo, Menu.TORPEDO_ACTIVE,torpedoPercent);
         this.fancyButton(this.btns.main[3], this.visuals.laser, Menu.LASER_ACTIVE,laserPercent);
 
-        
-        image(this.visuals.topFrame, gui.minimap.width - 80, -8);
+        image(this.visuals.topFrame, gui.minimap.width - 60, -8);
         pop();
     }
 }
