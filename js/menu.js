@@ -11,7 +11,7 @@ class Menu {
         h: 50,
     };
 
-    static RESEARCH_MOD=9;
+    static RESEARCH_MOD=8;
 
     //drone
     static DRONE_ACTIVE=true;
