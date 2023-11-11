@@ -1,7 +1,8 @@
 "use strict";
 
 class GUI {
-    static YELLOW = "#f5bb00";
+    static YELLOW = [245,187,0,255];
+    static HALF_YELLOW = [245,187,0,100];
     static RED = "#b14c54";
     static BLUE = "#60bef1";
     static BLACK = "#030219";
@@ -50,7 +51,9 @@ class GUI {
     updatePre(data) {
         push();
         for (let ship of data.ships) {
-            this.shipRange(ship);
+            if(ship.type.includes("refinery")){
+                this.shipRange(ship);
+            }
             this.shipMotion(ship);
             this.shipSelection(ship);
         }
@@ -76,11 +79,11 @@ class GUI {
             const max = ship.hp.getMaxHealth();
             noStroke();
             fill(GUI.BLACK);
-            let rectH=GUI.HP.H;
-            let rectW=GUI.HP.W;
-            if(ship.type!=="refinery") {
-                rectH=GUI.HP.H/2;
-                rectW=GUI.HP.W/2;
+            let rectH=GUI.HP.H/2;
+            let rectW=GUI.HP.W/2;
+            if(ship.type.includes("refinery")) {
+                rectH=GUI.HP.H;
+                rectW=GUI.HP.W;
             }
             rect(
                 ex(ship.x - ship.img.w / 2),
@@ -121,8 +124,8 @@ class GUI {
                 ship.targetResource.y,
                 ship.targetResource.radius
             );
-            stroke(GUI.YELLOW);
-            strokeWeight(3);
+            stroke(GUI.HALF_YELLOW);
+            strokeWeight(2);
             line(ex(ship.x), why(ship.y), ex(pos.x), why(pos.y));
             stroke(GUI.YELLOW);
             fill(0, 0, 0, 200);
@@ -161,11 +164,17 @@ class GUI {
                 ship.targetPos.y,
                 30
             );
-            stroke(GUI.YELLOW);
+            stroke(GUI.HALF_YELLOW);
             strokeWeight(3);
             line(ex(ship.x), why(ship.y), ex(pos.x), why(pos.y));
             stroke(GUI.YELLOW);
+            fill(0,0,0,210);
             ellipse(ex(ship.targetPos.x), why(ship.targetPos.y), 60);
+            textAlign(CENTER,CENTER);
+            noStroke();
+            fill(GUI.HALF_YELLOW);
+            let distFeedback=int(dist(ship.x,ship.y,ex(ship.targetPos.x),why(ship.targetPos.y)));
+            text(distFeedback,ex(ship.targetPos.x), why(ship.targetPos.y));
         }
     }
 
@@ -185,5 +194,27 @@ class GUI {
             fill("white");
             ellipse(ex(ship.x), why(ship.y), ship.img.width * 1.5);
         }
+    }
+
+    drawRockPing(x,y,size){
+        push();
+        rectMode(CENTER);
+        
+
+        pop();
+    }
+
+    drawMetalPing(x,y,size){
+        push();
+
+        pop();
+    }
+
+    drawBattlePing(x,y,size){
+        push();
+            stroke(255,0,0)
+            fill(255,0,0)
+
+        pop();
     }
 }

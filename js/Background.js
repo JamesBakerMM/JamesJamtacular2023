@@ -27,6 +27,9 @@ class Background {
         this.addProp( new Prop(-this.visuals.stars.w,0,this.visuals.stars,FAR_BACKGROUND) );
         this.addProp( new Prop(this.visuals.stars.w,this.visuals.stars.h,this.visuals.stars,FAR_BACKGROUND) );
         this.addProp( new Prop(-this.visuals.stars.w,this.visuals.stars.h,this.visuals.stars,FAR_BACKGROUND) );
+        this.addProp( new Prop(-this.visuals.stars.w,this.visuals.stars.h*2,this.visuals.stars,FAR_BACKGROUND) ); 
+        this.addProp( new Prop(0,this.visuals.stars.h*2,this.visuals.stars,FAR_BACKGROUND) ); 
+        this.addProp( new Prop(this.visuals.stars.w,this.visuals.stars.h*2,this.visuals.stars,FAR_BACKGROUND) ); 
     }
     update() {
         for (let prop of this.props) {
