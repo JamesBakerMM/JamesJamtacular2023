@@ -304,7 +304,7 @@ class Menu {
             //progress text
             textSize(20);
             textAlign(CENTER,CENTER);
-            text(`${progress}%`,button.startX,button.startY,button.width,button.height);
+            text(`${int(progress)}%`,button.startX,button.startY,button.width,button.height);
             animation(anim.inactive, button.startX - 30, button.startY + 25);
         }
     }
