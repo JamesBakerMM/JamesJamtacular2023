@@ -264,10 +264,9 @@ class Menu {
     }
 
     fancyButton(button, anim, isActive,progress=23) {
-        const OFFSET = 10000;
-
         if (isActive) {  
-            button.position(button.startX, button.startY);
+            button.show(); //show button
+
             if (this.buttonIsHovered(button, mouseX, mouseY)) {
                 anim.active.loop(); //loop the 3d model
             } else { //stop the 3d model
@@ -275,8 +274,9 @@ class Menu {
                 anim.active.stop();
             }
             animation(anim.active, button.x - 30, button.y + 25);
+
         } else { //not active
-            button.position(-OFFSET, -OFFSET); //hide the button
+            button.hide();
 
             //progress bar bg
             fill(GUI.BLACK);
