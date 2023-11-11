@@ -261,6 +261,23 @@ class Data {
                         this.factory.createWreckage(
                                 ship.x + random(-5,5), ship.y + random(-5,5))
                         );
+                    this.POP_CAP[ship.faction] = 0;
+                } else if (ship.type.includes("enemy drone")) {
+                    this.universe.resources.push(
+                        this.factory.createWreckage(ship.x, ship.y)
+                        );
+                    //CREATE NEW DRONE TO REPLACE IT
+                    if (this.POP_CAP[ship.faction] > 0) {
+
+                        this.drones.push(
+                            this.factory.createEnemyDrone(
+                                ship.refinery.x + random(-50, 50),
+                                ship.refinery.y + random(-50, 50),
+                                ship.faction,
+                                ship.refinery
+                                )
+                            );
+                    }
                 } else {
                     this.universe.resources.push(
                         this.factory.createWreckage(ship.x, ship.y)

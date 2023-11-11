@@ -18,9 +18,28 @@ class Universe {
             let y = random(5000);
             this.resources.push(this.factory.createResource(x, y, Math.round(random(4,12))));
         }
-        for (let i = 0; i < 10; i++) {
-            let x = random(5000);
-            let y = random(5000);
+        let x = random(Universe.SIZE/4);
+        let y = random(Universe.SIZE/4);
+        this.resources.push(this.factory.createWreckage(x,y));
+        if (random([true,false])) {
+            x += random(-50,50);
+            y += random(-50,50);
+            this.resources.push(this.factory.createWreckage(x,y));
+        }
+        if (random([true,false])) {
+            x += random(-40,40);
+            y += random(-40,40);
+            this.resources.push(this.factory.createWreckage(x,y));
+        }
+        if (random([true,false])) {
+            x += random(-40,40);
+            y += random(-40,40);
+            this.resources.push(this.factory.createWreckage(x,y));
+        }
+
+        for (let i = 0; i < 9; i++) {
+            let x = random(Universe.SIZE);
+            let y = random(Universe.SIZE);
             this.resources.push(this.factory.createWreckage(x,y));
             if (random([true,false])) {
                 x += random(-50,50);
@@ -32,13 +51,7 @@ class Universe {
                 y += random(-40,40);
                 this.resources.push(this.factory.createWreckage(x,y));
             }
-            if (random([true,false])) {
-                x += random(-40,40);
-                y += random(-40,40);
-                this.resources.push(this.factory.createWreckage(x,y));
-            }
         }
-        this.resources.comets = new Group();
     }
 
     update() {}
