@@ -4,7 +4,7 @@ class Data {
     constructor() {
         this.factory = new ObjectFactory();
         this.metals = [0, 0, 0];
-        this.tech = [10, 0, 0];
+        this.tech = [0, 0, 0];
         this.ships; //will be group in setup
         this.drones;
         this.laser;
