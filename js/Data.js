@@ -15,7 +15,6 @@ class Data {
         this.refinery = null;
         this.enemyRefinery1 = null;
         this.enemyRefinery2 = null;
-        this.resources;
         this.universe = new Universe();
         this.background = new Background();
 

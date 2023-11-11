@@ -13,7 +13,7 @@ class Universe {
     setup(factory) {
         this.factory=factory;
         this.resources = new Group();
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 99; i++) {
             let x = random(5000);
             let y = random(5000);
             this.resources.push(this.factory.createResource(x, y, Math.round(random(4,12))));
@@ -35,7 +35,7 @@ class Universe {
         }
         
 
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < 10; i++) {
             let x = random(Universe.SIZE);
             let y = random(Universe.SIZE);
             faction = random([0, 1, 2, 3]);
