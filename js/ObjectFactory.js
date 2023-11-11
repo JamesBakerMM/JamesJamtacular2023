@@ -35,6 +35,7 @@ class ObjectFactory {
         this.images.push({id: "fac3 torpedo",   path: "assets/img/fac3_torpedo.png"});
         this.images.push({id: "fac3 laser",   path: "assets/img/fac3_laser.png"});
         this.images.push({id: "fac3 gun",   path: "assets/img/fac3_gunship.png"});
+        this.images.push({id: "game over",  path: "assets/img/gameover.png"});
 
         this.anims.push({id: "rock", path: [
             "assets/img/rock_asteroid1.png",
