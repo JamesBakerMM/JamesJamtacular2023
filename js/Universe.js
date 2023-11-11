@@ -54,7 +54,11 @@ class Universe {
         }
     }
 
-    update() {}
+    update() {
+        if (this.resources.length === 0) {
+            // Game over: You win! code goes here
+        }
+    }
 
     damage(resource, damage=1) {
         let preMetal = resource.metal;
