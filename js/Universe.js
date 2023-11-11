@@ -18,8 +18,8 @@ class Universe {
             let y = random(5000);
             this.resources.push(this.factory.createResource(x, y, Math.round(random(4,12))));
         }
-        let x = random(Universe.SIZE/4);
-        let y = random(Universe.SIZE/4);
+        let x = random(width);
+        let y = random(height);
         this.resources.push(this.factory.createWreckage(x,y));
         if (random([true,false])) {
             x += random(-50,50);
