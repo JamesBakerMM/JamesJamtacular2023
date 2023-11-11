@@ -196,12 +196,12 @@ class ManagerShip {
                 if (ship.overlapping(ship.targetResource)) {
                     ship.velocity.x = 0;
                     ship.velocity.y = 0;
-                    data.universe.damage(ship.targetResource, (timepassed / 1000));
+                    data.universe.damage(ship.targetResource /*, (timepassed / 1000)*/);
 
-                    ship.metal += (timepassed / 1000);
+                    ship.metal += 1 //(timepassed / 1000);
 
                     if(ship.targetResource.type==="wreckage" && ship.faction===0){
-                        ship.tech += (timepassed / 1000);
+                        ship.tech += 1 //(timepassed / 1000);
                     }
 
                     if (ship.metal >= 1) {
