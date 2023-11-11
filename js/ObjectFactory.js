@@ -98,6 +98,17 @@ class ObjectFactory {
             "assets/img/fac3_wreckage8.png",
             "assets/img/fac3_wreckage9.png"
         ]});
+        this.anims.push({id: "fac0 wreckage", path: [
+            "assets/img/fac0_wreckage1.png",
+            "assets/img/fac0_wreckage2.png",
+            "assets/img/fac0_wreckage3.png",
+            "assets/img/fac0_wreckage4.png",
+            "assets/img/fac0_wreckage5.png",
+            "assets/img/fac0_wreckage6.png",
+            "assets/img/fac0_wreckage7.png",
+            "assets/img/fac0_wreckage8.png",
+            "assets/img/fac0_wreckage9.png"
+        ]});
         this.images.push({id: "missile", path: 
             "assets/img/missile1.png",
         });
