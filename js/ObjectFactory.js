@@ -75,13 +75,15 @@ class ObjectFactory {
             "assets/img/wreckage7.png",
             "assets/img/wreckage8.png",
             "assets/img/wreckage9.png"
-        ]})
+        ]});
         this.images.push({id: "missile", path: 
             "assets/img/missile1.png",
-        })
-        this.images.push({id: "enemyMissile", path: 
-            "assets/img/enemy_missile1.png",
-        })
+        });
+        this.images.push({id: "fac1 missile", path: 
+            "assets/img/fac1_missile.png",
+        });
+        this.images.push({id: "fac2 missile", path: "assets/img/fac2_missile1.png"});
+        this.images.push({id: "fac3 missile", path: "assets/img/fac3_missile1.png"});
 
 
         for(let img of this.images) {
@@ -329,10 +331,10 @@ class ObjectFactory {
 
         obj.rotation = atan2(obj.y - origin.y, obj.x - origin.x) + 180;
         obj.faction = origin.faction;
-        if(obj.faction!==0){
-            obj.image = this.getByID("enemyMissile",this.images);
-        } else {
+        if(obj.faction==0){
             obj.image = this.getByID("missile",this.images);
+        } else {
+            obj.image = this.getByID("fac" + obj.faction + " missile",this.images);
         }
         obj.type = "torpedo";
         obj.damage = 2;
