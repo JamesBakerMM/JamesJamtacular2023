@@ -1,10 +1,10 @@
 class Minimap {
     static borderPadding = 0;
     static halfBorder = Minimap.borderPadding / 2;
-    static positionX = 0 + Minimap.halfBorder;
-    static positionXEnd = 328 + Minimap.halfBorder;
-    static positionY = 0 - Minimap.halfBorder;
-    static positionYEnd = 300 - Minimap.halfBorder;
+    static positionX = 22 + Minimap.halfBorder;
+    static positionXEnd = 280 + Minimap.halfBorder + Minimap.positionX;
+    static positionY = 23 - Minimap.halfBorder;
+    static positionYEnd = 280 - Minimap.halfBorder + Minimap.positionY;
 
     constructor() {
         this.worldX = 0 + Minimap.halfBorder;
@@ -59,14 +59,21 @@ class Minimap {
         fill(GUI.BLACK);
         rect(Minimap.positionX, Minimap.positionY, this.width, this.height);
         //resources
-        fill(255, 0, 255, 255);
         for (let i = 0; i < data.universe.resources.length; i++) {
             let res = data.universe.resources[i];
             let x = this.worldToMinimapPixelX(res.x);
             let y = this.worldToMinimapPixelY(res.y);
+            let scale = res.scale;
+            
             if (x != null && y != null) {
-                let scale = res.scale;
-                circle(x, y, 1.5 * scale);
+                if (res.type == "wreckage") {
+                    fill(100, 100, 255, 255);
+                    rect(x, y, 2 * scale, 2 * scale);
+                } else {
+                    fill(255, 0, 255, 255);
+                    circle(x, y, 1.7 * scale);
+                }
+                
             }
         }
         //ships
@@ -128,7 +135,7 @@ class Minimap {
         image(
             GUI.visuals.mapFrame,
             Minimap.positionX - 22,
-            Minimap.positionY - 3
+            Minimap.positionY - 23
         );
         pop();
     }
