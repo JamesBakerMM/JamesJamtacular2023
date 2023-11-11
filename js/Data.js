@@ -103,14 +103,23 @@ class Data {
                 this.enemyRefinery2
             )
         );
+
+        enemyRefineryX = random(5000);
+        enemyRefineryY = random(5000);
+        this.enemyRefinery3 = this.factory.createEnemyRefinery(
+            enemyRefineryX,
+            enemyRefineryY,
+            3
+        );
         this.drones.push(
             this.factory.createEnemyDrone(
                 enemyRefineryX + random(-50, 50),
                 enemyRefineryY + random(-50, 50),
-                this.enemyRefinery2.faction,
-                this.enemyRefinery2
+                this.enemyRefinery3.faction,
+                this.enemyRefinery3
             )
         );
+        
 
         this.background.setup();
         this.universe.setup(this.factory);

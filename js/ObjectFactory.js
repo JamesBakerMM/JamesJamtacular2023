@@ -154,6 +154,8 @@ class ObjectFactory {
         obj.image = this.getByID("enemy refinery",this.images);
         if (faction === 2) {
             obj.image = this.getByID("fac2 refinery", this.images)
+        } else if (faction === 3) {
+            obj.image = this.getByID("fac3 refinery", this.images)
         }
         obj.faction = faction;
         obj.hp.setHealth(20);
@@ -197,7 +199,11 @@ class ObjectFactory {
         let obj = this.createShip(x, y, "enemy drone", faction);
         obj.image = this.getByID("enemy drone", this.images);
         if (faction === 2) {
-            obj.image = this.getByID("fac2 drone", this.images)
+            obj.image = this.getByID("fac2 drone", this.images);
+            console.log("fac2", obj.image);
+        } else if (faction === 3) {
+            obj.image = this.getByID("fac3 drone", this.images);
+            console.log("fac3", obj.image);
         }
         obj.faction = faction;
         obj.diameter = obj.width;
