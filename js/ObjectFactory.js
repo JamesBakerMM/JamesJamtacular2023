@@ -397,10 +397,11 @@ class ObjectFactory {
         return obj
     }
 
-    createWreckage(x, y, amount=9, scale=1, faction=1) {
+    createWreckage(x, y, faction=1, amount=9) {
         let obj=this.createObject(x,y);
         obj.type = "wreckage";
-        obj.img = this.getByID("fac1 wreckage",this.anims);
+        console.log("At creation:", faction)
+        obj.img = this.getByID("fac" + faction + " wreckage",this.anims);
         obj.ani.stop();
         
         obj.diameter = obj.width;

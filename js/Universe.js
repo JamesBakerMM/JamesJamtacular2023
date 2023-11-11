@@ -20,32 +20,36 @@ class Universe {
         }
         let x = 1000;
         let y = 170;
-        this.resources.push(this.factory.createWreckage(x,y));
+        let faction = random([0, 1, 2, 3]);
+        console.log("Randomised:", faction);
+        this.resources.push(this.factory.createWreckage(x, y, faction));
         if (random([true,false])) {
             x += random(-50,50);
             y += random(-50,50);
-            this.resources.push(this.factory.createWreckage(x,y));
+            this.resources.push(this.factory.createWreckage(x, y, faction));
         }
         if (random([true,false])) {
             x += random(-40,40);
             y += random(-40,40);
-            this.resources.push(this.factory.createWreckage(x,y));
+            this.resources.push(this.factory.createWreckage(x, y, faction));
         }
         
 
         for (let i = 0; i < 9; i++) {
             let x = random(Universe.SIZE);
             let y = random(Universe.SIZE);
-            this.resources.push(this.factory.createWreckage(x,y));
+            faction = random([0, 1, 2, 3]);
+
+            this.resources.push(this.factory.createWreckage(x, y, faction));
             if (random([true,false])) {
                 x += random(-50,50);
                 y += random(-50,50);
-                this.resources.push(this.factory.createWreckage(x,y));
+                this.resources.push(this.factory.createWreckage(x, y, faction));
             }
             if (random([true,false])) {
                 x += random(-40,40);
                 y += random(-40,40);
-                this.resources.push(this.factory.createWreckage(x,y));
+                this.resources.push(this.factory.createWreckage(x, y, faction));
             }
         }
     }
