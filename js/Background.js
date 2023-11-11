@@ -13,11 +13,65 @@ class Background {
     preload() {
         this.visuals.stars = loadImage("./assets/img/bg_stars.png");
         this.visuals.dust = loadImage("./assets/img/bg_dust.png");
+        this.visuals.dust2 = loadImage("./assets/img/bg_dust2.png");
+        this.visuals.field = loadImage("./assets/img/field.png");
+
     }
     setup() {
         this.addProp( new Prop(0,0,this.visuals.dust,BACKGROUND) ); 
+
         this.addProp( new Prop(0,-this.visuals.dust.h,this.visuals.dust,BACKGROUND) ); 
-        this.addProp( new Prop(0,this.visuals.dust.h,this.visuals.dust,BACKGROUND) ); 
+        this.addProp( new Prop(this.visuals.dust.w,-this.visuals.dust.h,this.visuals.dust,BACKGROUND) ); 
+        this.addProp( new Prop(-this.visuals.dust.w,-this.visuals.dust.h,this.visuals.dust,BACKGROUND) ); 
+        this.addProp( new Prop(0,0,this.visuals.dust,BACKGROUND) ); 
+        this.addProp( new Prop(0,this.visuals.dust.h,this.visuals.dust,BACKGROUND) );
+        this.addProp( new Prop(this.visuals.dust.w,0,this.visuals.dust,BACKGROUND) );
+        this.addProp( new Prop(-this.visuals.dust.w,0,this.visuals.dust,BACKGROUND) );
+        this.addProp( new Prop(this.visuals.dust.w,this.visuals.dust.h,this.visuals.dust,BACKGROUND) );
+        this.addProp( new Prop(-this.visuals.dust.w,this.visuals.dust.h,this.visuals.dust,BACKGROUND) );
+        this.addProp( new Prop(-this.visuals.dust.w,this.visuals.dust.h*2,this.visuals.dust,BACKGROUND) ); 
+        this.addProp( new Prop(0,this.visuals.dust.h*2,this.visuals.dust,BACKGROUND) ); 
+        this.addProp( new Prop(this.visuals.dust.w,this.visuals.dust.h*2,this.visuals.dust,BACKGROUND) ); 
+
+        this.addProp( new Prop(0,0,this.visuals.field,FAR_FOREGROUND) ); 
+        this.addProp( new Prop(0,-this.visuals.field.h,this.visuals.field,FAR_FOREGROUND) ); 
+        this.addProp( new Prop(this.visuals.field.w,-this.visuals.field.h,this.visuals.field,FAR_FOREGROUND) ); 
+        this.addProp( new Prop(-this.visuals.field.w,-this.visuals.field.h,this.visuals.field,FAR_FOREGROUND) ); 
+        this.addProp( new Prop(0,0,this.visuals.field,FAR_FOREGROUND) ); 
+        this.addProp( new Prop(0,this.visuals.field.h,this.visuals.field,FAR_FOREGROUND) );
+        this.addProp( new Prop(this.visuals.field.w*2,0,this.visuals.field,FAR_FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.field.w*2,0,this.visuals.field,FAR_FOREGROUND) );
+        this.addProp( new Prop(this.visuals.field.w*2,this.visuals.field.h,this.visuals.field,FAR_FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.field.w*2,this.visuals.field.h,this.visuals.field,FAR_FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.field.w*2,this.visuals.field.h*2,this.visuals.field,FAR_FOREGROUND) ); 
+        this.addProp( new Prop(this.visuals.field.w*2,0,this.visuals.field,FAR_FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.field.w*2,0,this.visuals.field,FAR_FOREGROUND) );
+        this.addProp( new Prop(this.visuals.field.w*2,this.visuals.field.h,this.visuals.field,FAR_FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.field.w*2,this.visuals.field.h,this.visuals.field,FAR_FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.field.w*2,this.visuals.field.h*2,this.visuals.field,FAR_FOREGROUND) ); 
+        this.addProp( new Prop(0,this.visuals.field.h*2,this.visuals.field,FAR_FOREGROUND) ); 
+        this.addProp( new Prop(this.visuals.field.w*2,this.visuals.field.h*2,this.visuals.field,FAR_FOREGROUND) ); 
+        
+        this.addProp( new Prop(0,0,this.visuals.dust2,FOREGROUND) ); 
+        this.addProp( new Prop(0,-this.visuals.dust2.h,this.visuals.dust2,FOREGROUND) ); 
+        this.addProp( new Prop(this.visuals.dust2.w,-this.visuals.dust2.h,this.visuals.dust2,FOREGROUND) ); 
+        this.addProp( new Prop(-this.visuals.dust2.w,-this.visuals.dust2.h,this.visuals.dust2,FOREGROUND) ); 
+        this.addProp( new Prop(0,0,this.visuals.dust2,FOREGROUND) ); 
+        this.addProp( new Prop(0,this.visuals.dust2.h,this.visuals.dust2,FOREGROUND) );
+        this.addProp( new Prop(this.visuals.dust2.w*2,0,this.visuals.dust2,FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.dust2.w*2,0,this.visuals.dust2,FOREGROUND) );
+        this.addProp( new Prop(this.visuals.dust2.w*2,this.visuals.dust2.h,this.visuals.dust2,FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.dust2.w*2,this.visuals.dust2.h,this.visuals.dust2,FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.dust2.w*2,this.visuals.dust2.h*2,this.visuals.dust2,FOREGROUND) ); 
+        this.addProp( new Prop(this.visuals.dust2.w*2,0,this.visuals.dust2,FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.dust2.w*2,0,this.visuals.dust2,FOREGROUND) );
+        this.addProp( new Prop(this.visuals.dust2.w*2,this.visuals.dust2.h,this.visuals.dust2,FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.dust2.w*2,this.visuals.dust2.h,this.visuals.dust2,FOREGROUND) );
+        this.addProp( new Prop(-this.visuals.dust2.w*2,this.visuals.dust2.h*2,this.visuals.dust2,FOREGROUND) ); 
+        this.addProp( new Prop(0,this.visuals.dust2.h*2,this.visuals.dust2,FOREGROUND) ); 
+        this.addProp( new Prop(this.visuals.dust2.w*2,this.visuals.dust2.h*2,this.visuals.dust2,FOREGROUND) ); 
+
+        //stars
         this.addProp( new Prop(0,-this.visuals.stars.h,this.visuals.stars,FAR_BACKGROUND) ); 
         this.addProp( new Prop(this.visuals.stars.w,-this.visuals.stars.h,this.visuals.stars,FAR_BACKGROUND) ); 
         this.addProp( new Prop(-this.visuals.stars.w,-this.visuals.stars.h,this.visuals.stars,FAR_BACKGROUND) ); 
