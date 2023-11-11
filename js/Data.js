@@ -262,6 +262,9 @@ class Data {
                                 ship.x + random(-5,5), ship.y + random(-5,5))
                         );
                     this.POP_CAP[ship.faction] = 0;
+                    if (ship.type === "refinery") {
+                        //Game over here
+                    }
                 } else if (ship.type.includes("enemy drone")) {
                     this.universe.resources.push(
                         this.factory.createWreckage(ship.x, ship.y)

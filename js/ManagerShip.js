@@ -51,23 +51,28 @@ class ManagerShip {
                 targetRange += MIN_RANGE / 2;
                 break;
         }
-        let distanceToRefinery = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
-        if (distanceToRefinery > (targetRange + ship.width)) {
-            ship.moveTowards(ship.refinery, ship.speedFactor/distanceToRefinery);
-            ship.rotation = ship.direction;
+        if (ship.refinery.removed) {
+            ship.refinery = this.getNearestShip(ship, data, Universe.SIZE, false);
+            //line(ex(ship.x), why(ship.y), ex(ship.shooting.target.x), why(ship.shooting.target.y));
         } else {
-            let angle = atan2(ship.y - ship.refinery.y, ship.x - ship.refinery.x);
-            angle += 2;
-            let range = targetRange;
-            let distance = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
-            let pos = {x: ship.refinery.x + (cos(angle)*(range)), y: ship.refinery.y + (sin(angle)*(range))};
-            if (Utility.getDifference(range, distance) < 10) {
-                ship.rotateTo(ship.refinery, 100);
-                ship.rotation -= 90;
+            let distanceToRefinery = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
+            if (distanceToRefinery > (targetRange + ship.width)) {
+                ship.moveTowards(ship.refinery, ship.speedFactor/distanceToRefinery);
+                ship.rotation = ship.direction;
             } else {
-                ship.rotateTo(pos, 100);
+                let angle = atan2(ship.y - ship.refinery.y, ship.x - ship.refinery.x);
+                angle += 2;
+                let range = targetRange;
+                let distance = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
+                let pos = {x: ship.refinery.x + (cos(angle)*(range)), y: ship.refinery.y + (sin(angle)*(range))};
+                if (Utility.getDifference(range, distance) < 10) {
+                    ship.rotateTo(ship.refinery, 100);
+                    ship.rotation -= 90;
+                } else {
+                    ship.rotateTo(pos, 100);
+                }
+                ship.moveTo(pos, ship.speedFactor);
             }
-            ship.moveTo(pos, ship.speedFactor);
         }
         // if (distanceToRefinery > Math.min(
         //         ship.refinery.width, 
