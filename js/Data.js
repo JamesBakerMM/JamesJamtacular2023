@@ -289,6 +289,29 @@ class Data {
                 this.factory.ship_counter[ship.faction] -= 1;
                 ship.remove();
                 cameraGood.addScreenShake();
+            } else {
+                if(ship.faction===0){
+                    for(let otherShip of this.ships) {
+                        if(otherShip.faction !== 0 && otherShip.visible===false){
+                            const distance = dist(ex(ship.x),why(ship.y),ex(otherShip.x),why(otherShip.y));
+                            if(distance<=ship.sensor){
+                                otherShip.visible=true;
+                            }
+                        }
+                    }
+                    for(let resource of this.universe.resources) {
+                        const distance = dist(ex(ship.x),why(ship.y),ex(resource.x),why(resource.y));
+                        if(resource.visible===false && distance<=ship.sensor){
+                            resource.visible=true;
+                        }
+                    }
+                    for(let bullet of this.bullets){
+                        const distance = dist(ex(ship.x),why(ship.y),ex(bullet.x),why(bullet.y));
+                        if(bullet.faction!==0 && bullet.visible===false && distance<=ship.sensor) {
+                            bullet.visible=true;
+                        }
+                    } 
+                }
             }
         }
 

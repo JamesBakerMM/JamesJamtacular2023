@@ -56,6 +56,18 @@ class GUI {
             }
             this.shipMotion(ship);
             this.shipSelection(ship);
+            if(ship.visible===false){
+                this.drawMetalPing(ship.x,ship.y);
+            }
+        }
+        for(let resource of data.universe.resources){
+            
+            if(resource.visible===false && resource.type==="wreckage"){
+                this.drawMetalPing(resource.x,resource.y);
+            }
+            if(resource.visible===false && resource.type==="metal"){
+                this.drawRockPing(resource.x,resource.y,resource.diameter);
+            }
         }
         pop();
     }
@@ -74,7 +86,7 @@ class GUI {
     }
 
     hpBar(ship) {
-        if (ship.hp !== undefined) {
+        if (ship.hp !== undefined && ship.visible) {
             const current = ship.hp.getHealth();
             const max = ship.hp.getMaxHealth();
             noStroke();
@@ -99,16 +111,15 @@ class GUI {
                 rectSize,
                 rectH
             );
-        } else {
-            fill("red");
-            rect(ex(ship.x), why(ship.y + ship.img.h), GUI.HP.W, GUI.HP.H);
         }
     }
 
     shipRange(ship) {
-        noFill();
-        stroke(255, 255, 255, 100);
-        ellipse(ex(ship.x), why(ship.y), ship.range);
+        if(ship.visible){
+            noFill();
+            stroke(255, 255, 255, 100);
+            ellipse(ex(ship.x), why(ship.y), ship.range);
+        }
     }
 
     shipMotion(ship) {
@@ -117,6 +128,7 @@ class GUI {
         }
         noFill();
         if (ship.targetResource) {
+            push();
             let pos = Utility.getCircleEdge(
                 ship.x,
                 ship.y,
@@ -145,6 +157,7 @@ class GUI {
                 why(ship.targetResource.y)
             );
             fill(GUI.BLACK);
+            rectMode(CORNER)
             rect(
                 ex(ship.x+20),
                 why(ship.y-9),
@@ -153,9 +166,11 @@ class GUI {
             );
             fill(GUI.YELLOW);
             text(`#${ship.targetResource.idNum}`, ex(ship.x + 20), why(ship.y));
+            pop();
             return;
         }
         if (ship.targetPos) {
+            push();
 
             let pos = Utility.getCircleEdge(
                 ship.x,
@@ -175,6 +190,7 @@ class GUI {
             fill(GUI.HALF_YELLOW);
             let distFeedback=int(dist(ship.x,ship.y,ex(ship.targetPos.x),why(ship.targetPos.y)));
             text(distFeedback,ex(ship.targetPos.x), why(ship.targetPos.y));
+            pop();
         }
     }
 
@@ -198,23 +214,26 @@ class GUI {
 
     drawRockPing(x,y,size){
         push();
-        rectMode(CENTER);
-        
-
+        fill(GUI.HALF_YELLOW);
+        const pulse = abs(frameCount%100);
+        const pulse_inner = abs(frameCount%112.5);
+        noFill();
+        stroke(GUI.YELLOW);
+        fill(GUI.HALF_YELLOW);
+        ellipse(ex(x),why(y),size);
         pop();
     }
 
-    drawMetalPing(x,y,size){
+    drawMetalPing(x,y){
         push();
-
-        pop();
-    }
-
-    drawBattlePing(x,y,size){
-        push();
-            stroke(255,0,0)
-            fill(255,0,0)
-
+            const pulse = abs(frameCount%100);
+            const pulse_inner = abs(frameCount%112.5);
+            noFill();
+            stroke(Minimap.BLUE_PING);
+            ellipse(ex(x),why(y),-50+pulse);
+            ellipse(ex(x),why(y),-56.25+pulse_inner);
+            fill(Minimap.BLUE_PING);
+            ellipse(ex(x),why(y),40);
         pop();
     }
 }

@@ -166,6 +166,7 @@ class ObjectFactory {
         obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
         obj.diameter = obj.width;
         obj.drag = 0.5;
+        obj.visible=false;
         obj.layer = RESOURCE_LAYER;
         return obj;
     }
@@ -201,6 +202,7 @@ class ObjectFactory {
         obj.debug = true;
         obj.layer = ENEMY_LAYER;
         obj.targetResource = null;
+        obj.visible=false;
         return obj;
     }
 
@@ -209,6 +211,7 @@ class ObjectFactory {
         obj.originalPosition = {x: x, y: y};
         //obj.targetPos = obj.originalPosition;
         obj.type = type;
+        obj.sensor=LONG_RANGE;
         obj.hp = new Health(1);
         obj.speedFactor = 1;
         obj.layer = PC_LAYER;
@@ -250,6 +253,7 @@ class ObjectFactory {
         obj.speedFactor = 2.1;
         obj.refinery = refinery;
         obj.layer = ENEMY_LAYER;
+        obj.visible=false;
         return obj;
     }
 
@@ -258,10 +262,13 @@ class ObjectFactory {
         let image = "laser";
         if (faction === 1) {
             image = "enemy laser";
+            obj.visible=false;
         } else if (faction === 2) {
             image = "fac2 laser";
+            obj.visible=false;
         } else if (faction === 3) {
             image = "fac3 laser";
+            obj.visible=false;
         }
         obj.image = this.getByID(image,this.images);
         obj.faction = faction;
@@ -279,10 +286,13 @@ class ObjectFactory {
         let image = "torpedo";
         if (faction === 1) {
             image = "enemy torpedo";
+            obj.visible=false;
         } else if (faction === 2) {
             image = "fac2 torpedo";
+            obj.visible=false;
         } else if (faction === 3) {
             image = "fac3 torpedo";
+            obj.visible=false;
         }
         obj.refinery = refinery;
         obj.image = this.getByID(image,this.images);
@@ -301,10 +311,13 @@ class ObjectFactory {
         let image = "gun";
         if (faction === 1) {
             image = "enemy gun";
+            obj.visible=false;
         } else if (faction === 2) {
             image = "fac2 gun"
+            obj.visible=false;
         } else if (faction === 3) {
             image = "fac3 gun"
+            obj.visible=false;
         }
         obj.refinery = refinery;
         obj.image = this.getByID(image,this.images);
@@ -337,6 +350,7 @@ class ObjectFactory {
         let normalised = Utility.normaliseVector(vx, vy);
 
         let obj = {};
+        obj.visible=false;
         obj.x = ox;
         obj.y = oy;
         obj.vx = normalised.x * speed;
@@ -367,6 +381,7 @@ class ObjectFactory {
             obj.image = this.getByID("missile",this.images);
         } else {
             obj.image = this.getByID("fac" + obj.faction + " missile",this.images);
+            obj.visible=false;
         }
         obj.type = "torpedo";
         obj.damage = 2;
@@ -411,6 +426,8 @@ class ObjectFactory {
         obj.startingTech = obj.tech = 3;
         obj.layer = RESOURCE_LAYER;
         obj.drag = 0.5;
+
+        obj.visible=false;
         return obj
     }
 }
