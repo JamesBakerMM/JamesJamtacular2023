@@ -126,7 +126,7 @@ class Menu {
         let offset_y = this.y + 40;
         this.btns.main.push(
             this.makeButton(
-                this.x + Menu.ICO_SIZE + 20,
+                this.x + Menu.ICO_SIZE + 30,
                 offset_y,
                 `> ${COST.DRONE} drone `,
                 () => {
@@ -151,7 +151,7 @@ class Menu {
 
         this.btns.main.push(
             this.makeButton(
-                this.x + Menu.ICO_SIZE + 20,
+                this.x + Menu.ICO_SIZE + 30,
                 offset_y,
                 `> ${COST.GUN} gun `,
                 () => {
@@ -176,7 +176,7 @@ class Menu {
         offset_y += Menu.BTN.h;
         this.btns.main.push(
             this.makeButton(
-                this.x + Menu.ICO_SIZE + 20,
+                this.x + Menu.ICO_SIZE + 30,
                 offset_y,
                 `> ${COST.TORPEDO} torpedo`,
                 () => {
@@ -204,7 +204,7 @@ class Menu {
 
         this.btns.main.push(
             this.makeButton(
-                this.x + Menu.ICO_SIZE + 20,
+                this.x + Menu.ICO_SIZE + 30,
                 offset_y,
                 `> ${COST.LASER} laser `,
                 () => {
@@ -328,7 +328,7 @@ class Menu {
         textSize(32);
         text(
             `metal ${Math.floor(data.metals[0])}`,
-            this.x + 40,
+            this.x + 60,
             this.y + 30
         );
 
