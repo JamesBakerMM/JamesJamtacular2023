@@ -6,13 +6,15 @@ class GUI {
     static BLUE = "#60bef1";
     static BLACK = "#030219";
     static GREY = "#221e20";
+    static GREEN = "#00FF00";
     static GRAY = GUI.GREY;
     static visuals = {};
     static FONT;
     static FAC_COLOURS=[
         GUI.YELLOW,
         GUI.BLUE,
-        GUI.RED
+        GUI.RED,
+        GUI.GREEN
     ];
 
     static HP = {
