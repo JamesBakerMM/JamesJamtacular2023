@@ -65,7 +65,7 @@ class ObjectFactory {
             "assets/img/explosion-e9.png",
             "assets/img/explosion-e10.png",
         ]})        
-        this.anims.push({id: "smallWreckage", path: [
+        this.anims.push({id: "fac1 wreckage", path: [
             "assets/img/wreckage1.png",
             "assets/img/wreckage2.png",
             "assets/img/wreckage3.png",
@@ -364,10 +364,10 @@ class ObjectFactory {
         return obj
     }
 
-    createWreckage(x,y,amount=9,scale=1) {
+    createWreckage(x, y, amount=9, scale=1, faction=1) {
         let obj=this.createObject(x,y);
         obj.type = "wreckage";
-        obj.img = this.getByID("smallWreckage",this.anims);
+        obj.img = this.getByID("fac1 wreckage",this.anims);
         obj.ani.stop();
         
         obj.diameter = obj.width;
