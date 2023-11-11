@@ -35,7 +35,7 @@ class ManagerShip {
         }
     }
     doRefineryAI(timepassed, data, ship) {
-        this.mouseControls(ship);
+        this.mouseControls(ship, data);
     }
 
     returnToRefinery(timepassed, data, ship) {
@@ -249,7 +249,7 @@ class ManagerShip {
     doLaserAI(timepassed, data, ship) {
 
         if (ship.faction == 0) {
-            this.mouseControls(ship);
+            this.mouseControls(ship, data);
         }
         ship.shooting.update(timepassed);
 
@@ -314,7 +314,7 @@ class ManagerShip {
     doTorpedoAI(timepassed, data, ship) {
 
         if (ship.faction == 0) {
-            this.mouseControls(ship);
+            this.mouseControls(ship, data);
         }
         ship.shooting.update(timepassed);
         if (ship.shooting.canShoot()) {
@@ -347,7 +347,7 @@ class ManagerShip {
     doGunAI(timepassed, data, ship) {
 
         if (ship.faction == 0) {
-            this.mouseControls(ship);
+            this.mouseControls(ship, data);
         }
 
         ship.shooting.update(timepassed);
@@ -430,7 +430,27 @@ class ManagerShip {
 
     mouseControls(ship) {
         if (Utility.safePressed("right") && ship.selected) {
-            ship.targetPos = {x:exReverse(mouseX), y:whyReverse(mouseY)};
+            let shipCount = 0;
+            let shipCountTotal = 0;
+            let found = false;
+            for (let i = 0; i < data.ships.length; i++) {
+                let s = data.ships[i];
+                if (s.faction == 0) {
+                    if (s.selected) {
+                        shipCountTotal += 1;
+                        if (!found) {
+                            shipCount += 1;
+                        }
+                        if (s == ship) {
+                            found = true;
+                        }
+                    }
+                }
+            }
+
+            let offset = this.getFleetOffset(shipCount, shipCountTotal);
+
+            ship.targetPos = {x:exReverse(mouseX) + offset.x, y:whyReverse(mouseY) + offset.y};
         }
         if (ship.targetPos != null) {
             if (ship.type == "laser") {
@@ -466,5 +486,77 @@ class ManagerShip {
 
     drawRange(ship){
 
+    }
+
+    getFleetOffset(num, count) {
+        let x = 0;
+        let y = 0;
+        let spacing = 40;
+        if (count < 1) {
+            
+        } else if (count == 2) {
+            if (num == 1) {
+                x = -spacing;
+                y = 0;
+            } else {
+                x = spacing;
+                y = 0;
+            }
+        } else if (count == 3) {
+            if (num == 1) {
+                x = spacing;
+                y = 0;
+            } else if (num == 2) {
+                x = -spacing;
+                y = 0;
+            } else {
+                x = 0;
+                y = spacing;
+            }
+        } else if (count == 4) {
+            if (num == 1) {
+                x = spacing;
+                y = spacing;
+            } else if (num == 2) {
+                x = -spacing;
+                y = spacing;
+            } else if (num == 3) {
+                x = spacing;
+                y = -spacing;
+            } else if (num == 4) {
+                x = -spacing;
+                y = -spacing;
+            }
+        } else if (count < 9) {
+
+            let angle = 360/(count-1);
+            spacing = 80;
+            if (num == 1) {
+                x = 0;
+                y = 0;
+            } else {
+                x = spacing * cos(angle*num);
+                y = spacing * sin(angle*num);
+            }
+
+        } else {
+            
+            if (num == 1) {
+                x = 0;
+                y = 0;
+            } else if (num < 9) {
+                let angle = 360/8;
+                spacing = 80;
+                x = spacing * cos(angle*(num-1));
+                y = spacing * sin(angle*(num-1));
+            } else if (num >= 9) {
+                let angle = 360/(count-9);
+                spacing = 160;
+                x = spacing * cos(angle*num-9);
+                y = spacing * sin(angle*num-9);
+            }
+
+        }
+        return {x: x, y: y};
     }
 }
