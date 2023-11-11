@@ -52,7 +52,7 @@ class ManagerShip {
                 break;
         }
         let distanceToRefinery = dist(ship.x, ship.y, ship.refinery.x, ship.refinery.y);
-        if (distanceToRefinery > targetRange) {
+        if (distanceToRefinery > (targetRange + ship.width)) {
             ship.moveTowards(ship.refinery, ship.speedFactor/distanceToRefinery);
             ship.rotation = ship.direction;
         } else {
