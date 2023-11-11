@@ -52,8 +52,8 @@ class Data {
         this.drones.push(this.factory.createDrone(900, 450, this.refinery));
         //this.drones.push(this.factory.createDrone(700, 450, this.refinery));
 
-        let enemyRefineryX = random(5000);
-        let enemyRefineryY = random(5000);
+        let enemyRefineryX = random(Universe.SIZE/2, Universe.SIZE);
+        let enemyRefineryY = random(Universe.SIZE/2);
         this.enemyRefinery1 = this.factory.createEnemyRefinery(
             enemyRefineryX,
             enemyRefineryY,
@@ -78,8 +78,8 @@ class Data {
             )
         );
 
-        enemyRefineryX = random(5000);
-        enemyRefineryY = random(5000);
+        enemyRefineryX = random(Universe.SIZE/2, Universe.SIZE);
+        enemyRefineryY = random(Universe.SIZE/2, Universe.SIZE);
         this.enemyRefinery2 = this.factory.createEnemyRefinery(
             enemyRefineryX,
             enemyRefineryY,
@@ -104,8 +104,8 @@ class Data {
             )
         );
 
-        enemyRefineryX = random(5000);
-        enemyRefineryY = random(5000);
+        enemyRefineryX = random(Universe.SIZE/2);
+        enemyRefineryY = random(Universe.SIZE/2, Universe.SIZE);
         this.enemyRefinery3 = this.factory.createEnemyRefinery(
             enemyRefineryX,
             enemyRefineryY,
@@ -113,6 +113,14 @@ class Data {
         );
         this.enemyRefinery3.overlaps(this.ships);
         this.ships.push(this.enemyRefinery3);
+        this.drones.push(
+            this.factory.createEnemyDrone(
+                enemyRefineryX + random(-50, 50),
+                enemyRefineryY + random(-50, 50),
+                this.enemyRefinery3.faction,
+                this.enemyRefinery3
+            )
+        );
         this.drones.push(
             this.factory.createEnemyDrone(
                 enemyRefineryX + random(-50, 50),
