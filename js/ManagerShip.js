@@ -112,7 +112,7 @@ class ManagerShip {
                 let newShip;
                 let directionVector = {x: approachingShip.x - ship.x,
                         y: approachingShip.y - ship.y};
-                console.log(directionVector);
+
                 let closeness = min(MED_RANGE,
                         dist(ship.x, ship.y,
                             approachingShip.x, 
@@ -254,7 +254,6 @@ class ManagerShip {
             }
             ship.shooting.reset();
         }
-        ship.velocity = {x: 0, y: 0};
         if (ship.shooting.target != null && ship.targetPos == null) {
             let distance = dist(ship.x, ship.y, ship.shooting.target.x, ship.shooting.target.y);
             if (distance < ship.shooting.getRange()) {
@@ -268,6 +267,9 @@ class ManagerShip {
                 let yOffset = 0;
                 if (ship.shooting.charge > 400) {
                     ship.shooting.target.hp.doDamage(1 * (timepassed/1000));
+                    if (ship.shooting.target.type == "laser") {
+                        ship.shooting.target.targetPos = null;
+                    }
                     ship.shooting.aimOffset += timepassed;
                     if (ship.shooting.aimOffset < 360) {
                         ship.shooting.aimOffset -= 360;
@@ -307,7 +309,6 @@ class ManagerShip {
             this.mouseControls(ship);
         }
         ship.shooting.update(timepassed);
-
         if (ship.shooting.canShoot()) {
             ship.shooting.target = null;
             let target = this.getNearestShip(ship, data, ship.shooting.getRange(), false);
@@ -318,7 +319,6 @@ class ManagerShip {
                 data.createMissile(ship, target, -20);
             }
         }
-
         if (ship.targetPos == null && ship.shooting.target != null) {
             let angle = Math.atan2(ship.y - ship.shooting.target.y, ship.x - ship.shooting.target.x);
             let pos = {x: ship.shooting.target.x + (Math.cos(angle)*(LONG_RANGE*0.75)), y: ship.shooting.target.y + (Math.sin(angle)*(LONG_RANGE*0.75))};
@@ -328,11 +328,7 @@ class ManagerShip {
             } else {
                 ship.vel = {x:0,y:0};
             }
-            
-        } else {
-            ship.velocity = {x: 0, y: 0};
         }
-
         if (ship.faction > 0) {
             if (ship.shooting.target === null || ship.shooting.target.removed) {
                 this.returnToRefinery(timepassed, data, ship);
