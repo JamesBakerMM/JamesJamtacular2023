@@ -1,7 +1,7 @@
 const REFINERY_BINDING = 1;
-const LASER_BINDING = 2;
-const GUN_BINDING = 3;
-const TORPEDO_BINDING = 4;
+const LASER_BINDING = 4;
+const GUN_BINDING = 2;
+const TORPEDO_BINDING = 3;
 
 class ManagerShip {
     constructor() {}
