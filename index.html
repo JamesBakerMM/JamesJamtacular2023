@@ -4,27 +4,35 @@
 			<title>MantleWorks Management</title>
 			<meta charset="utf-8"/>
 			<link rel="icon" type="image/x-icon" href="/assets/img/ico.png">
-			<script src="https://cdn.jsdelivr.net/npm/p5@1/lib/p5.min.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/p5@1/lib/addons/p5.sound.min.js"></script>		
-			<script src="https://p5play.org/v3/planck.min.js"></script>
-			<script src="./lib/p5play.js"></script>
-			
-			<script src ="./js/Universe.js" defer></script>
-			<script src="./js/Minimap.js" defer></script>
-			<script src="./js/Gui.js" defer></script>
-			<script src="./js/Camera.js" defer></script>
-			<script src="./js/Shooting.js" defer></script>
-			<script src="./js/Health.js" defer></script>
-			<script src="./js/Utility.js" defer></script>
-			<script src="./js/Background.js" defer></script>
-			<script src="./js/ManagerShip.js" defer></script>
-			<script src="./js/ObjectFactory.js" defer></script>
-			<script src="./js/Data.js" defer></script>
-			<script src="./js/Menu.js" defer></script>
-			<script src="./js/main.js" defer></script>
-			<link href="./css/base.css" rel="stylesheet" type="text/css">
-		</head>
-		<body>
-			<main id="container"></main>
-		</body>
-		</html>
+        </head>
+        <body>
+            <h1>Welcome to <br> MantleWorks Management</h1>
+            <p>I know it's only your first day, but we're short staffed, 
+                so we're putting you in charge of our mining fleet.</p>
+            <p>You'll start by controlling the refinery, which has autonomous drones:</p>
+            <table>
+                <tr><th>Refinery</th><TH>Drone</TH></tr>
+                <tr><td><img src="assets/img/fac0_refinery.png" alt="The refinery"></td>
+                    <td><img src="assets/img/fac0_drone.png" alt="A drone"></td></tr>
+                <tr><td>1</td><td>Not selectable</td></tr>
+            </table>
+            <p>You'll need to move the refinery so the drones can collect metal from asteroids and wreckages.</p>
+            <p>You can select all controllable ships by clicking and dragging, 
+                or using a selection key.</p>
+            <table>
+                <tr><th>Asteroid</th><TH>Wreckage</TH></tr>
+                <tr><td><img src="assets/img/rock_asteroid1.png" alt="Asteroid"></td>
+                    <td><img src="assets/img/wreckage1.png" alt="Wreckage"></td></tr>
+            </table>
+            <p>The refinery crew will be able to analyse the technology in the wreckage,
+                which will let you unlock new types of ships for your fleet:
+            </p>
+            <table><TR><TH>Gunship</TH><TH>Torpedo ship</TH><TH>Laser fighter</TH></TR>
+                <TR><TD><img src="assets/img/fac0_gunship.png" alt="Gunship"></TD>
+                    <TD><img src="assets/img/fac0_torpedo.png" alt="Torpedo ship"></TD>
+                    <td><img src="assets/img/fac0_laser.png" alt="Laser fighter"></td>
+                </TR>
+            </table>
+            <p>But I'm sure you won't need those for anything.</p>
+            <p><a href="game.html">Make sure you collect all the resources!</a></p>
+        </body>
