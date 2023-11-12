@@ -35,8 +35,8 @@ class Universe {
         
 
         for (let i = 0; i < 10; i++) {
-            let x = random(Universe.SIZE);
-            let y = random(Universe.SIZE);
+            let x = random(Universe.SIZE/6, Universe.SIZE);
+            let y = random(Universe.SIZE/6, Universe.SIZE);
             faction = random([0, 1, 2, 3]);
 
             this.resources.push(this.factory.createWreckage(x, y, faction));
