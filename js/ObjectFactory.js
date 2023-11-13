@@ -368,7 +368,6 @@ class ObjectFactory {
         obj.life = 3000;
         obj.damage = 0.25;
         obj.faction = origin.faction;
-        console.log(origin.faction)
         if(obj.faction!==0){
             obj.visible=false;
         } else {
