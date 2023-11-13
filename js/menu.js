@@ -1,8 +1,8 @@
 const COST = {
     DRONE: 4,
-    GUN: 6,
-    TORPEDO: 10,
-    LASER: 15,
+    GUN: 5,
+    TORPEDO: 9,
+    LASER: 12,
 };
 
 class Menu {

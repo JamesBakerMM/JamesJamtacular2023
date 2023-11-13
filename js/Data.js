@@ -197,7 +197,7 @@ class Data {
                     p = {x: ex(bullet.x)-12, y: why(bullet.y)-12};
                     translate(p.x , p.y);
                     rotate(bullet.rotation);
-                    if(bullet.visible){
+                    if(bullet.visible ||bullet.visible===undefined){
                         image(bullet.image, 0, 0);
                     }
                     rotate(-bullet.rotation);

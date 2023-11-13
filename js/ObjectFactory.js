@@ -302,8 +302,6 @@ class ObjectFactory {
         } else if (faction === 3) {
             image = "fac3 torpedo";
             obj.visible=false;
-        } else {
-            obj.visible=true;
         }
         obj.refinery = refinery;
         obj.image = this.getByID(image,this.images);
@@ -398,6 +396,7 @@ class ObjectFactory {
         obj.faction = origin.faction;
         if(obj.faction==0){
             obj.image = this.getByID("missile",this.images);
+            obj.visible=true;
         } else {
             obj.image = this.getByID("fac" + obj.faction + " missile",this.images);
             obj.visible=false;
