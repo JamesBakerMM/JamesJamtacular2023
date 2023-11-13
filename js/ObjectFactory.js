@@ -192,7 +192,6 @@ class ObjectFactory {
         obj.speedFactor = 2;
         obj.drag = 30;
         return obj;
-        obj.debug = true;
     }
 
     createEnemyRefinery(x, y, faction) {
@@ -208,7 +207,7 @@ class ObjectFactory {
         obj.range=LONG_RANGE;
         obj.speedFactor = 2;
         obj.drag = 30;
-        obj.debug = true;
+        // obj.debug = true;
         obj.layer = ENEMY_LAYER;
         obj.targetResource = null;
         obj.visible=false;
