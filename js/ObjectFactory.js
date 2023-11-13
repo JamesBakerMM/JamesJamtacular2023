@@ -43,6 +43,12 @@ class ObjectFactory {
             "assets/img/rock_asteroid3.png",
             "assets/img/rock_asteroid4.png"
         ]})
+        this.anims.push({id: "big_rock", path: [
+            "assets/img/big_rock_asteroid1.png",
+            "assets/img/big_rock_asteroid2.png",
+            "assets/img/big_rock_asteroid3.png",
+            "assets/img/big_rock_asteroid4.png"
+        ]})
         this.anims.push({id: "dirtyExplosion", path: [
             "assets/img/explosion-at1.png",
             "assets/img/explosion-at2.png",
@@ -157,9 +163,10 @@ class ObjectFactory {
     createResource(x, y, amount=4) {
         let obj = this.createObject(x, y);
         obj.type = "metal"
-        obj.addAni("rock",this.getByID("rock",this.anims));
+        obj.addAni("big_rock",this.getByID("big_rock",this.anims));
+        obj.scale = amount/4;
         obj.ani.stop();
-        obj.scale = amount/2;
+        
         obj.startingMetal = obj.metal = amount; // Do I need to declare startingMetal first?
         obj.textSize=34;
         // obj.mass = amount;
