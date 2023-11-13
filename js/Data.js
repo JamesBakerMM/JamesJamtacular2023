@@ -291,8 +291,13 @@ class Data {
                         );
                 }
                 this.factory.ship_counter[ship.faction] -= 1;
+                if(ship.gun){
+                    ship.gun.remove();
+                }
                 ship.remove();
-                cameraGood.addScreenShake();
+                if(ship.faction===0){
+                    cameraGood.addScreenShake();
+                }
             } else {
                 if(ship.faction===0){ //SENSOR CODE
                     for(let otherShip of this.ships) {
@@ -314,7 +319,7 @@ class Data {
                     }
                     for(let bullet of this.bullets){
                         const distance = dist(ex(ship.x),why(ship.y),ex(bullet.x),why(bullet.y));
-                        if(bullet.faction!==0 && bullet.visible===false && distance<=ship.sensor) {
+                        if(bullet.visible===false && distance<=ship.sensor) {
                             bullet.visible=true;
                         }
                     } 

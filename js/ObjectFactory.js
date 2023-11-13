@@ -364,6 +364,8 @@ class ObjectFactory {
         console.log(origin.faction)
         if(obj.faction!==0){
             obj.visible=false;
+        } else {
+            obj.visible=true;
         }
         obj.type = "bullet";
         obj.dead = false;
