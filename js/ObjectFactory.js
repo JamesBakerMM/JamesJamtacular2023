@@ -166,12 +166,14 @@ class ObjectFactory {
         obj.addAni("big_rock",this.getByID("big_rock",this.anims));
         obj.scale = amount/4;
         obj.ani.stop();
-        
+        obj.startX=x;
+        obj.startY=y;
         obj.startingMetal = obj.metal = amount; // Do I need to declare startingMetal first?
         obj.textSize=34;
         // obj.mass = amount;
         obj.rotationSpeed = (Math.random() * 0.5) - 0.25;
         obj.diameter = obj.width;
+        // obj.collider="static";
         obj.drag = 0.5;
         obj.visible=false;
         obj.layer = RESOURCE_LAYER;
@@ -300,6 +302,8 @@ class ObjectFactory {
         } else if (faction === 3) {
             image = "fac3 torpedo";
             obj.visible=false;
+        } else {
+            obj.visible=true;
         }
         obj.refinery = refinery;
         obj.image = this.getByID(image,this.images);

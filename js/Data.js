@@ -128,7 +128,6 @@ class Data {
                 this.enemyRefinery3
             )
         );
-        
 
         this.background.setup();
         this.universe.setup(this.factory);
