@@ -138,14 +138,25 @@ class Data {
         this.background.update();
     }
 
+
+    refineryIsDead(refinery){
+        return refinery.removed ||refinery===undefined ||refinery.null
+    }
     /*
      * This is called each frame to update all our objects
      */
     update(timepassed) {
         this.managerShip.update(timepassed, this);
-        if(this.refinery.removed ||this.refinery===undefined ||this.refinery.null){
+        if(this.refineryIsDead(this.refinery)){
             alert('GAME OVER MAN, GAME OVER');
-            window.location.replace("./index.htmlg");
+            window.location.replace("./index.html");
+        }
+        if(
+            this.refineryIsDead(this.enemyRefinery1) && this.refineryIsDead(this.enemyRefinery2) && this.refineryIsDead(this.enemyRefinery3) || 
+            this.universe.resources.length<10
+        ){
+            alert('All Rivals Liquidated! You win!');
+            window.location.replace("./index.html");
         }
         push();
         stroke('white');
