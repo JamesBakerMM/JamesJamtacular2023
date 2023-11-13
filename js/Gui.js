@@ -188,7 +188,7 @@ class GUI {
             textAlign(CENTER,CENTER);
             noStroke();
             fill(GUI.HALF_YELLOW);
-            let distFeedback=int(dist(ship.x,ship.y,ex(ship.targetPos.x),why(ship.targetPos.y)));
+            let distFeedback=int(dist(ex(ship.x),why(ship.y),ex(ship.targetPos.x),why(ship.targetPos.y)));
             text(distFeedback,ex(ship.targetPos.x), why(ship.targetPos.y));
             pop();
         }

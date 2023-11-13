@@ -14,14 +14,33 @@ body {
     background-color: #333333;
     font-family: monospace;
     color: #eeeeee;
+    display:flex;
     font-size: 16px;
+    gap:2rem;
 }
 
 article {
-    width: 80%;
-    padding-left: 20%;
-    padding-right: 20%;
-    margin-bottom: 5%;
+    margin-inline:auto;
+    flex:1;
+}
+
+.pamphlet {
+    flex:2;
+    background-color:beige;
+    color:black;
+    margin-inline:auto;
+}
+
+p,table {
+    padding-inline:2rem;
+}
+
+
+.pamphlet h1,.pamphlet h2,.pamphlet a {
+    background-color:black;
+    width:100%;
+    display:block;
+    margin:0;
 }
 
 td {

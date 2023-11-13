@@ -18,20 +18,20 @@ class Background {
 
     }
     setup() {
-        this.addProp( new Prop(0,0,this.visuals.dust,BACKGROUND) ); 
+        this.addProp( new Prop(0,0,this.visuals.field,BACKGROUND) ); 
 
-        this.addProp( new Prop(0,-this.visuals.dust.h,this.visuals.dust,BACKGROUND) ); 
-        this.addProp( new Prop(this.visuals.dust.w,-this.visuals.dust.h,this.visuals.dust,BACKGROUND) ); 
-        this.addProp( new Prop(-this.visuals.dust.w,-this.visuals.dust.h,this.visuals.dust,BACKGROUND) ); 
-        this.addProp( new Prop(0,0,this.visuals.dust,BACKGROUND) ); 
-        this.addProp( new Prop(0,this.visuals.dust.h,this.visuals.dust,BACKGROUND) );
-        this.addProp( new Prop(this.visuals.dust.w,0,this.visuals.dust,BACKGROUND) );
-        this.addProp( new Prop(-this.visuals.dust.w,0,this.visuals.dust,BACKGROUND) );
-        this.addProp( new Prop(this.visuals.dust.w,this.visuals.dust.h,this.visuals.dust,BACKGROUND) );
-        this.addProp( new Prop(-this.visuals.dust.w,this.visuals.dust.h,this.visuals.dust,BACKGROUND) );
-        this.addProp( new Prop(-this.visuals.dust.w,this.visuals.dust.h*2,this.visuals.dust,BACKGROUND) ); 
-        this.addProp( new Prop(0,this.visuals.dust.h*2,this.visuals.dust,BACKGROUND) ); 
-        this.addProp( new Prop(this.visuals.dust.w,this.visuals.dust.h*2,this.visuals.dust,BACKGROUND) ); 
+        this.addProp( new Prop(0,-this.visuals.field.h,this.visuals.field,BACKGROUND) ); 
+        this.addProp( new Prop(this.visuals.field.w,-this.visuals.field.h,this.visuals.field,BACKGROUND) ); 
+        this.addProp( new Prop(-this.visuals.field.w,-this.visuals.field.h,this.visuals.field,BACKGROUND) ); 
+        this.addProp( new Prop(0,0,this.visuals.field,BACKGROUND) ); 
+        this.addProp( new Prop(0,this.visuals.field.h,this.visuals.field,BACKGROUND) );
+        this.addProp( new Prop(this.visuals.field.w,0,this.visuals.field,BACKGROUND) );
+        this.addProp( new Prop(-this.visuals.field.w,0,this.visuals.field,BACKGROUND) );
+        this.addProp( new Prop(this.visuals.field.w,this.visuals.field.h,this.visuals.field,BACKGROUND) );
+        this.addProp( new Prop(-this.visuals.field.w,this.visuals.field.h,this.visuals.field,BACKGROUND) );
+        this.addProp( new Prop(-this.visuals.field.w,this.visuals.field.h*2,this.visuals.field,BACKGROUND) ); 
+        this.addProp( new Prop(0,this.visuals.field.h*2,this.visuals.field,BACKGROUND) ); 
+        this.addProp( new Prop(this.visuals.field.w,this.visuals.field.h*2,this.visuals.field,BACKGROUND) ); 
 
         this.addProp( new Prop(0,0,this.visuals.field,FAR_FOREGROUND) ); 
         this.addProp( new Prop(0,-this.visuals.field.h,this.visuals.field,FAR_FOREGROUND) ); 

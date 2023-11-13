@@ -164,7 +164,9 @@ class Data {
 
                     p = {x: ex(bullet.x), y: why(bullet.y)};
                     
-                    point(p.x, p.y);
+                    if(bullet.visible){
+                        point(p.x, p.y);
+                    }
                 } else if (bullet.type === "torpedo") {
                     if (bullet.target.hp.isDead()) {
                         bullet.life -= timepassed * 2;
@@ -182,7 +184,9 @@ class Data {
                     p = {x: ex(bullet.x)-12, y: why(bullet.y)-12};
                     translate(p.x , p.y);
                     rotate(bullet.rotation);
-                    image(bullet.image, 0, 0);
+                    if(bullet.visible){
+                        image(bullet.image, 0, 0);
+                    }
                     rotate(-bullet.rotation);
                     translate(-p.x, -p.y);
                 }
@@ -290,12 +294,15 @@ class Data {
                 ship.remove();
                 cameraGood.addScreenShake();
             } else {
-                if(ship.faction===0){
+                if(ship.faction===0){ //SENSOR CODE
                     for(let otherShip of this.ships) {
                         if(otherShip.faction !== 0 && otherShip.visible===false){
                             const distance = dist(ex(ship.x),why(ship.y),ex(otherShip.x),why(otherShip.y));
                             if(distance<=ship.sensor){
                                 otherShip.visible=true;
+                                if(otherShip.gun){
+                                    otherShip.gun.visible=true;
+                                }
                             }
                         }
                     }

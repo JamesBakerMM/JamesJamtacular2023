@@ -333,6 +333,10 @@ class ObjectFactory {
         obj.gun = new Sprite(x, y);
         obj.gun.image = this.getByID(imageGun,this.images);
         obj.gun.collider="none";
+        obj.gun.scale=2;
+        if(obj.faction!==0){
+            obj.gun.visible=false;
+        }
 
         return obj
     }
@@ -350,7 +354,6 @@ class ObjectFactory {
         let normalised = Utility.normaliseVector(vx, vy);
 
         let obj = {};
-        obj.visible=false;
         obj.x = ox;
         obj.y = oy;
         obj.vx = normalised.x * speed;
@@ -358,6 +361,10 @@ class ObjectFactory {
         obj.life = 3000;
         obj.damage = 0.25;
         obj.faction = origin.faction;
+        console.log(origin.faction)
+        if(obj.faction!==0){
+            obj.visible=false;
+        }
         obj.type = "bullet";
         obj.dead = false;
 
