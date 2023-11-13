@@ -143,7 +143,10 @@ class Data {
      */
     update(timepassed) {
         this.managerShip.update(timepassed, this);
-        
+        if(this.refinery.removed ||this.refinery===undefined ||this.refinery.null){
+            alert('GAME OVER MAN, GAME OVER');
+            window.location.replace("./index.htmlg");
+        }
         push();
         stroke('white');
         strokeWeight(4);
