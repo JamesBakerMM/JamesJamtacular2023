@@ -34,7 +34,7 @@ class Camera {
             cameraGood.x += timepassed * Camera.SCROLL_SPEED;
         }
 
-        /*
+
         if (mouseY < edgeH) {
             cameraGood.y -= timepassed * Camera.SCROLL_SPEED;
         }
@@ -47,7 +47,6 @@ class Camera {
         if (mouseX > (width - edgeW)) {
             cameraGood.x += timepassed * Camera.SCROLL_SPEED;
         }
-        */
         //Do shake code each frame. tapers off linearly
         if (this.shakeTime > 0) {
             this.shakeTime -= timepassed;
