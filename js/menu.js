@@ -303,7 +303,7 @@ class Menu {
 
             //progress text
             textSize(20);
-            textAlign(CENTER,CENTER);
+            textAlign(CENTER);
             text(`${int(progress)}%`,button.startX,button.startY,button.width,button.height);
             animation(anim.inactive, button.startX - 30, button.startY + 25);
         }
@@ -336,7 +336,7 @@ class Menu {
         );
 
         //process popcap
-        textAlign(RIGHT,CENTER);
+        textAlign(RIGHT);
         textSize(24);
         text(
             `ships ${data.factory.ship_counter[0]}/${data.POP_CAP[0]}`,

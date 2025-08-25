@@ -5,43 +5,41 @@ const SCREEN_HEIGHT = 900;
 
 const data = new Data();
 const gui = new GUI();
-const menu = new Menu(gui.minimap.width-3);
-gui.menu=menu;
+const menu = new Menu(gui.minimap.width - 3);
+gui.menu = menu;
 
 var prevTime = 0;
 
 var xOffset = 0;
 var yOffset = 0;
 
-function preload(){
+function preload() {
     data.preload();
     menu.preload();
     gui.preload();
 }
 
-function setup(){
+function setup() {
     prevTime = new Date().getTime();
     data.setup();
     new Canvas(SCREEN_WIDTH, SCREEN_HEIGHT);
     menu.setup(data); //pass data so menu can do its bindings
-    gui.setup()
+    gui.setup();
 }
 
-function draw(){    
-
+function draw() {
     data.setOffset(cameraGood.getX(), cameraGood.getY());
 
-    background(25)
+    background(25);
 
     let newTime = new Date().getTime();
-	let msPassed = newTime - prevTime;
-	prevTime = newTime;
+    let msPassed = newTime - prevTime;
+    prevTime = newTime;
 
-	if (msPassed < 1) {
-		msPassed = 1;
-	}
+    if (msPassed < 1) {
+        msPassed = 1;
+    }
 
-    
     data.updateBackground(msPassed);
     gui.updatePre(data);
 
@@ -54,9 +52,7 @@ function draw(){
     //menu.draw();
 }
 
-
 function superDraw() {
     menu.update(data);
     gui.superDraw(data);
-
 }

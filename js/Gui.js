@@ -185,7 +185,7 @@ class GUI {
             stroke(GUI.YELLOW);
             fill(0,0,0,210);
             ellipse(ex(ship.targetPos.x), why(ship.targetPos.y), 60);
-            textAlign(CENTER,CENTER);
+            textAlign(CENTER);
             noStroke();
             fill(GUI.HALF_YELLOW);
             let distFeedback=int(dist(ex(ship.x),why(ship.y),ex(ship.targetPos.x),why(ship.targetPos.y)));
